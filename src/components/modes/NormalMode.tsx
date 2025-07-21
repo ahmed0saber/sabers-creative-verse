@@ -4,9 +4,9 @@ import SkillsSection from './normal/SkillsSection';
 import ProjectsSection from './normal/ProjectsSection';
 import YouTubeSection from './normal/YouTubeSection';
 import ArticlesSection from './normal/ArticlesSection';
-import OpenSourceSection from './normal/OpenSourceSection';
 import ConnectSection from './normal/ConnectSection';
 import FloatingNavigation from '../FloatingNavigation';
+import Footer from '../Footer';
 
 const NormalMode = () => {
   return (
@@ -17,8 +17,8 @@ const NormalMode = () => {
         <ProjectsSection />
         <YouTubeSection />
         <ArticlesSection />
-        <OpenSourceSection />
         <ConnectSection />
+        <Footer />
       </div>
       <FloatingNavigation />
     </>

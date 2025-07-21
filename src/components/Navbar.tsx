@@ -1,38 +1,25 @@
 import React, { useState } from 'react';
-import { Moon, Sun, Monitor, Terminal, User, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useTheme } from '@/contexts/ThemeContext';
-import { useMode, PortfolioMode } from '@/contexts/ModeContext';
-import {
+import { useMode } from '@/contexts/ModeContext';
+import { 
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
+import { Menu, Terminal, Code, User } from 'lucide-react';
 
 const Navbar = () => {
-  const { theme, toggleTheme } = useTheme();
   const { mode, setMode } = useMode();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const modes: { key: PortfolioMode; label: string; icon: React.ReactNode }[] = [
-    { key: 'normal', label: 'Normal', icon: <User className="h-4 w-4" /> },
-    { key: 'dev', label: 'Dev', icon: <Monitor className="h-4 w-4" /> },
-    { key: 'hacker', label: 'Hacker', icon: <Terminal className="h-4 w-4" /> },
-  ];
-
-  const handleModeChange = (newMode: PortfolioMode) => {
-    setMode(newMode);
-    setIsMobileMenuOpen(false);
-  };
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Name/Logo */}
-          <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold text-primary text-glow">
+          {/* Logo */}
+          <div className="flex items-center">
+            <h1 className="text-xl font-bold text-foreground">
               Ahmed Saber
             </h1>
           </div>
@@ -40,76 +27,58 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Mode Buttons */}
-            <div className="flex items-center space-x-2 bg-secondary/50 rounded-lg p-1">
-              {modes.map((modeOption) => (
-                <Button
-                  key={modeOption.key}
-                  variant={mode === modeOption.key ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => handleModeChange(modeOption.key)}
-                  className={`transition-smooth ${
-                    mode === modeOption.key 
-                      ? 'neon-glow bg-primary text-primary-foreground' 
-                      : 'hover:bg-muted'
-                  }`}
-                >
-                  {modeOption.icon}
-                  <span className="ml-2">{modeOption.label}</span>
-                </Button>
-              ))}
+            <div className="flex items-center space-x-2">
+              <Button
+                variant={mode === 'normal' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setMode('normal')}
+                className="transition-fast"
+              >
+                <User className="h-4 w-4 mr-2" />
+                Normal
+              </Button>
+              <Button
+                variant={mode === 'dev' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setMode('dev')}
+                className="transition-fast"
+              >
+                <Code className="h-4 w-4 mr-2" />
+                Dev
+              </Button>
+              <Button
+                variant={mode === 'hacker' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setMode('hacker')}
+                className="transition-fast"
+              >
+                <Terminal className="h-4 w-4 mr-2" />
+                Hacker
+              </Button>
             </div>
-
-            {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="transition-smooth hover:bg-muted"
-            >
-              {theme === 'dark' ? 
-                <Sun className="h-5 w-5" /> : 
-                <Moon className="h-5 w-5" />
-              }
-            </Button>
           </div>
 
-          {/* Mobile Menu */}
-          <div className="md:hidden flex items-center space-x-2">
-            {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="transition-smooth"
-            >
-              {theme === 'dark' ? 
-                <Sun className="h-5 w-5" /> : 
-                <Moon className="h-5 w-5" />
-              }
-            </Button>
-
-            {/* Mode Dropdown */}
-            <DropdownMenu open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+          {/* Mobile Navigation */}
+          <div className="md:hidden">
+            <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="transition-smooth">
-                  {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                <Button variant="ghost" size="sm">
+                  <Menu className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 bg-card border-border">
-                {modes.map((modeOption) => (
-                  <DropdownMenuItem
-                    key={modeOption.key}
-                    onClick={() => handleModeChange(modeOption.key)}
-                    className={`cursor-pointer transition-smooth ${
-                      mode === modeOption.key 
-                        ? 'bg-primary text-primary-foreground' 
-                        : 'hover:bg-muted'
-                    }`}
-                  >
-                    {modeOption.icon}
-                    <span className="ml-2">{modeOption.label}</span>
-                  </DropdownMenuItem>
-                ))}
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem onClick={() => setMode('normal')}>
+                  <User className="h-4 w-4 mr-2" />
+                  Normal Mode
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setMode('dev')}>
+                  <Code className="h-4 w-4 mr-2" />
+                  Dev Mode
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setMode('hacker')}>
+                  <Terminal className="h-4 w-4 mr-2" />
+                  Hacker Mode
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

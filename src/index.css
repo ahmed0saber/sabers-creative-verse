@@ -2,113 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Ahmed Saber Portfolio - Creative Design System */
+/* Ahmed Saber Portfolio - Vercel-inspired Design System */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    /* Dark theme - Primary */
-    --background: 220 13% 9%;
-    --foreground: 210 40% 98%;
+    /* Dark theme - Vercel inspired */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
 
-    --card: 220 13% 11%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 220 13% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Neon cyan primary */
-    --primary: 189 100% 60%;
-    --primary-foreground: 220 13% 9%;
+    /* Subdued primary - less bright */
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
 
-    --secondary: 220 13% 15%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 13% 13%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
 
-    /* Matrix green accent */
-    --accent: 120 100% 50%;
-    --accent-foreground: 220 13% 9%;
+    /* Subtle accent */
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 220 13% 18%;
-    --input: 220 13% 15%;
-    --ring: 189 100% 60%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Custom portfolio colors */
-    --neon-cyan: 189 100% 60%;
-    --neon-green: 120 100% 50%;
-    --neon-purple: 280 100% 70%;
-    --neon-orange: 25 100% 60%;
+    /* Vercel-inspired accent colors */
+    --blue: 212 100% 47%;
+    --purple: 271 70% 55%;
+    --cyan: 176 70% 41%;
+    --orange: 20 90% 56%;
     
-    /* Gradients */
-    --gradient-cyber: linear-gradient(135deg, hsl(189 100% 60% / 0.2), hsl(280 100% 70% / 0.2));
-    --gradient-dark: linear-gradient(135deg, hsl(220 13% 9%), hsl(220 13% 11%));
-    --gradient-glow: radial-gradient(ellipse at center, hsl(189 100% 60% / 0.3), transparent 70%);
+    /* Subtle gradients */
+    --gradient-subtle: linear-gradient(135deg, hsl(0 0% 0%), hsl(0 0% 3.9%));
+    --gradient-border: linear-gradient(90deg, transparent, hsl(0 0% 14.9%), transparent);
     
-    /* Shadows */
-    --shadow-neon: 0 0 20px hsl(189 100% 60% / 0.3);
-    --shadow-glow: 0 4px 20px hsl(220 13% 5% / 0.5);
-    --shadow-card: 0 8px 30px hsl(220 13% 5% / 0.3);
+    /* Minimal shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1);
 
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .light {
-    /* Light theme overrides */
-    --background: 0 0% 100%;
-    --foreground: 220 13% 9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 220 13% 9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 9%;
-
-    --primary: 189 100% 50%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 220 13% 9%;
-
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-
-    --accent: 120 100% 40%;
-    --accent-foreground: 0 0% 100%;
-
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 189 100% 50%;
-
-    /* Light theme shadows */
-    --shadow-neon: 0 0 20px hsl(189 100% 50% / 0.2);
-    --shadow-glow: 0 4px 20px hsl(220 13% 15% / 0.1);
-    --shadow-card: 0 8px 30px hsl(220 13% 15% / 0.1);
+    /* Smooth transitions */
+    --transition-fast: all 0.15s ease;
+    --transition-normal: all 0.25s ease;
   }
 }
 
@@ -145,31 +95,31 @@
 }
 
 @layer components {
-  .neon-glow {
-    box-shadow: var(--shadow-neon);
+  .shadow-sm {
+    box-shadow: var(--shadow-sm);
   }
 
-  .card-elevated {
-    box-shadow: var(--shadow-card);
+  .shadow-md {
+    box-shadow: var(--shadow-md);
   }
 
-  .transition-smooth {
-    transition: var(--transition-smooth);
+  .shadow-lg {
+    box-shadow: var(--shadow-lg);
   }
 
-  .transition-bounce {
-    transition: var(--transition-bounce);
+  .transition-fast {
+    transition: var(--transition-fast);
   }
 
-  .bg-gradient-cyber {
-    background: var(--gradient-cyber);
+  .transition-normal {
+    transition: var(--transition-normal);
   }
 
-  .bg-gradient-dark {
-    background: var(--gradient-dark);
+  .bg-gradient-subtle {
+    background: var(--gradient-subtle);
   }
 
-  .text-glow {
-    text-shadow: 0 0 10px currentColor;
+  .border-gradient {
+    background: var(--gradient-border);
   }
 }

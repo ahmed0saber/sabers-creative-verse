@@ -33,17 +33,16 @@ const HeroSection = () => {
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-cyber opacity-30"></div>
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute inset-0 bg-gradient-subtle opacity-50"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-muted/5 rounded-full blur-3xl animate-float"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-muted/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           {/* Main Content */}
           <div className="animate-fade-up">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-glow">
-              <span className="text-primary">Ahmed</span>{' '}
-              <span className="text-foreground">Saber</span>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              <span className="text-foreground">Ahmed Saber</span>
             </h1>
             
             <h2 className="text-2xl md:text-3xl font-semibold mb-8 text-muted-foreground">
@@ -66,7 +65,7 @@ const HeroSection = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 bg-secondary/50 border border-border rounded-full transition-smooth hover:scale-110 hover:bg-primary/20 ${link.color} group`}
+                  className={`p-3 bg-secondary/50 border border-border rounded-full transition-fast ${link.color} group`}
                   aria-label={link.label}
                 >
                   {link.icon}
@@ -79,7 +78,7 @@ const HeroSection = () => {
           <div className="animate-fade-up flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6" style={{ animationDelay: '0.4s' }}>
             <Button 
               size="lg" 
-              className="neon-glow transition-smooth hover:scale-105 px-8 py-6 text-lg"
+              className="shadow-md transition-fast px-8 py-6 text-lg"
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View My Work
@@ -89,19 +88,12 @@ const HeroSection = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="transition-smooth hover:scale-105 hover:bg-primary/10 px-8 py-6 text-lg border-primary/50"
+              className="transition-fast px-8 py-6 text-lg"
               onClick={() => document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Get In Touch
             </Button>
           </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>

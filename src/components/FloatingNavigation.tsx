@@ -24,7 +24,6 @@ const FloatingNavigation = () => {
     { id: 'projects', icon: <Briefcase className="h-5 w-5" />, label: 'Projects' },
     { id: 'youtube', icon: <Youtube className="h-5 w-5" />, label: 'YouTube' },
     { id: 'articles', icon: <FileText className="h-5 w-5" />, label: 'Articles' },
-    { id: 'opensource', icon: <Github className="h-5 w-5" />, label: 'Open Source' },
     { id: 'connect', icon: <MessageCircle className="h-5 w-5" />, label: 'Connect' },
   ];
 

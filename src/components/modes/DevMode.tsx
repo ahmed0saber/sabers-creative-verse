@@ -363,7 +363,7 @@ An intelligent content generation tool powered by AI that creates marketing copy
     <div className="h-screen pt-16 bg-[#1e1e1e] text-gray-300 font-mono">
       <div className="flex h-full">
         {/* File Explorer Sidebar */}
-        <div className="w-80 bg-[#252526] border-r border-[#3e3e42] flex flex-col">
+        <div className="w-full md:w-80 bg-[#252526] border-r border-[#3e3e42] flex flex-col md:relative absolute z-10 md:z-auto">
           <div className="p-4 border-b border-[#3e3e42]">
             <h2 className="text-sm font-semibold text-gray-200 uppercase tracking-wide">
               Explorer
@@ -377,16 +377,16 @@ An intelligent content generation tool powered by AI that creates marketing copy
         </div>
 
         {/* Main Editor Area */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col min-w-0">
           {/* Tabs */}
-          <div className="bg-[#2d2d30] border-b border-[#3e3e42] flex">
-            <div className="flex items-center px-4 py-2 bg-[#1e1e1e] border-r border-[#3e3e42] text-sm">
+          <div className="bg-[#2d2d30] border-b border-[#3e3e42] flex overflow-x-auto">
+            <div className="flex items-center px-2 md:px-4 py-2 bg-[#1e1e1e] border-r border-[#3e3e42] text-sm whitespace-nowrap">
               <FileText className="h-4 w-4 mr-2" />
-              {selectedFile}
+              <span className="truncate">{selectedFile}</span>
               <Button
                 variant="ghost"
                 size="sm"
-                className="ml-2 h-4 w-4 p-0 hover:bg-red-500/20"
+                className="ml-2 h-4 w-4 p-0 hover:bg-red-500/20 flex-shrink-0"
                 onClick={() => setSelectedFile('README.md')}
               >
                 ×
@@ -395,10 +395,10 @@ An intelligent content generation tool powered by AI that creates marketing copy
           </div>
 
           {/* File Content */}
-          <div className="flex-1 bg-[#1e1e1e]">
+          <div className="flex-1 bg-[#1e1e1e] overflow-hidden">
             <ScrollArea className="h-full">
-              <div className="p-6">
-                <pre className="text-sm leading-relaxed whitespace-pre-wrap text-gray-300">
+              <div className="p-3 md:p-6">
+                <pre className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap text-gray-300 break-words">
                   {getFileContent(selectedFile)}
                 </pre>
               </div>
@@ -406,15 +406,15 @@ An intelligent content generation tool powered by AI that creates marketing copy
           </div>
 
           {/* Status Bar */}
-          <div className="bg-[#007acc] text-white px-4 py-1 text-xs flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <span>Ahmed Saber Portfolio</span>
-              <span>•</span>
-              <span>Dev Mode</span>
+          <div className="bg-[#007acc] text-white px-2 md:px-4 py-1 text-xs flex items-center justify-between">
+            <div className="flex items-center space-x-2 md:space-x-4">
+              <span className="truncate">Ahmed Saber Portfolio</span>
+              <span className="hidden md:inline">•</span>
+              <span className="hidden md:inline">Dev Mode</span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 md:space-x-4">
               <span>UTF-8</span>
-              <span>Markdown</span>
+              <span className="hidden md:inline">Markdown</span>
               <span>Ln 1, Col 1</span>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Keyboard } from 'lucide-react';
+import VirtualKeyboard from '../VirtualKeyboard';
 
 const HackerMode = () => {
   const [input, setInput] = useState('');
@@ -14,6 +15,57 @@ const HackerMode = () => {
   const [showKeyboard, setShowKeyboard] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const projects = [
+    {
+      name: 'ecommerce-platform',
+      description: 'Full-stack e-commerce solution with React & Node.js',
+      tech: 'React, Node.js, PostgreSQL, Stripe',
+      status: 'Production'
+    },
+    {
+      name: 'ai-content-generator',
+      description: 'AI-powered content generation tool',
+      tech: 'Next.js, OpenAI, Tailwind',
+      status: 'Production'
+    },
+    {
+      name: 'task-management-app',
+      description: 'Collaborative project management tool',
+      tech: 'Vue.js, Express, Socket.io',
+      status: 'Production'
+    }
+  ];
+
+  const articles = [
+    {
+      title: 'Building Scalable React Applications',
+      platform: 'Dev.to',
+      date: 'Jan 15, 2024',
+      url: 'https://dev.to/ahmedsaber/building-scalable-react'
+    },
+    {
+      title: 'Mastering TypeScript: Advanced Types',
+      platform: 'Medium',
+      date: 'Dec 28, 2023',
+      url: 'https://medium.com/@ahmedsaber/typescript-advanced'
+    }
+  ];
+
+  const youtubeVideos = [
+    {
+      title: 'Building a Full-Stack App with React & Node.js',
+      views: '125K',
+      duration: '45:30',
+      date: '2 weeks ago'
+    },
+    {
+      title: 'Advanced TypeScript Patterns',
+      views: '89K',
+      duration: '32:15',
+      date: '1 month ago'
+    }
+  ];
+
   const commands = {
     help: () => [
       'Available commands:',
@@ -22,10 +74,13 @@ const HackerMode = () => {
       '  ls projects     - List projects',
       '  ls articles     - List published articles',
       '  ls youtube      - List YouTube videos',
-      '  ls opensource   - List open source contributions',
+      '  cat <project>   - View project details',
       '  contact         - Get contact information',
       '  clear           - Clear terminal',
       '  history         - Show command history',
+      '  pwd             - Show current directory',
+      '  date            - Show current date',
+      '  uname           - System information',
       ''
     ],
     whoami: () => [
@@ -35,24 +90,62 @@ const HackerMode = () => {
       'Experience: 5+ years',
       'Location: Remote',
       'Passion: Building innovative web applications and sharing knowledge',
+      'Specialties: React, Node.js, TypeScript, Cloud Architecture',
       ''
     ],
     'ls skills': () => [
       'Technical Skills:',
-      '├── Frontend: React (95%), TypeScript (90%), Vue.js (85%)',
-      '├── Backend: Node.js (93%), Python (87%), PostgreSQL (85%)',
-      '├── DevOps: Docker (88%), AWS (85%), CI/CD (82%)',
-      '└── Other: Git (95%), UI/UX Design (75%), Content Creation (90%)',
+      '├── Frontend:',
+      '│   ├── React (Expert)',
+      '│   ├── TypeScript (Advanced)',
+      '│   ├── Vue.js (Proficient)',
+      '│   └── Tailwind CSS (Expert)',
+      '├── Backend:',
+      '│   ├── Node.js (Expert)', 
+      '│   ├── Python (Advanced)',
+      '│   ├── PostgreSQL (Advanced)',
+      '│   └── MongoDB (Proficient)',
+      '├── DevOps:',
+      '│   ├── Docker (Advanced)',
+      '│   ├── AWS (Advanced)',
+      '│   └── CI/CD (Proficient)',
+      '└── Other:',
+      '    ├── Git (Expert)',
+      '    ├── UI/UX Design (Intermediate)',
+      '    └── Content Creation (Expert)',
       ''
     ],
     'ls projects': () => [
-      'Featured Projects:',
-      '├── E-Commerce Platform - React, Node.js, PostgreSQL',
-      '├── AI Content Generator - Next.js, OpenAI, Tailwind',
-      '├── Task Management App - Vue.js, Express, Socket.io',
-      '└── Developer Portfolio CMS - React, Strapi, GraphQL',
+      'Projects:',
+      ...projects.map((project, i) => 
+        `${i === projects.length - 1 ? '└──' : '├──'} ${project.name}/`
+      ),
       '',
-      'Type "cat project_name" for details (coming soon)',
+      'Use "cat <project-name>" for details',
+      ''
+    ],
+    'ls articles': () => [
+      'Published Articles:',
+      ...articles.map((article, i) => [
+        `${i === articles.length - 1 ? '└──' : '├──'} ${article.title}`,
+        `    Platform: ${article.platform}`,
+        `    Date: ${article.date}`,
+        `    URL: ${article.url}`,
+      ]).flat(),
+      ''
+    ],
+    'ls youtube': () => [
+      'YouTube Content:',
+      '📺 Channel: @ahmedsaber',
+      '👥 Subscribers: 85.2K',
+      '👀 Total Views: 2.1M',
+      '',
+      'Recent Videos:',
+      ...youtubeVideos.map((video, i) => [
+        `${i === youtubeVideos.length - 1 ? '└──' : '├──'} ${video.title}`,
+        `    Views: ${video.views} | Duration: ${video.duration}`,
+        `    Published: ${video.date}`,
+      ]).flat(),
       ''
     ],
     contact: () => [
@@ -61,7 +154,9 @@ const HackerMode = () => {
       '├── GitHub: https://github.com/ahmedsaber',
       '├── LinkedIn: https://linkedin.com/in/ahmedsaber',
       '├── YouTube: https://youtube.com/@ahmedsaber',
-      '└── Telegram: https://t.me/ahmedsaber',
+      '├── Telegram: https://t.me/ahmedsaber',
+      '├── Dev.to: https://dev.to/ahmedsaber',
+      '└── Medium: https://medium.com/@ahmedsaber',
       ''
     ],
     clear: () => {
@@ -72,16 +167,42 @@ const HackerMode = () => {
       'Command History:',
       ...history.map((cmd, i) => `  ${i + 1}. ${cmd}`),
       ''
-    ]
+    ],
+    pwd: () => ['/home/ahmed/portfolio', ''],
+    date: () => [new Date().toString(), ''],
+    uname: () => ['Ahmed Saber Portfolio Terminal v1.0.0 (Linux x86_64)', '']
+  };
+
+  // Handle cat command for project details
+  const handleCatCommand = (projectName: string) => {
+    const project = projects.find(p => p.name === projectName || p.name.includes(projectName));
+    if (project) {
+      return [
+        `# ${project.name}`,
+        '',
+        `Description: ${project.description}`,
+        `Technologies: ${project.tech}`,
+        `Status: ${project.status}`,
+        '',
+        `GitHub: https://github.com/ahmedsaber/${project.name}`,
+        `Demo: https://${project.name}-demo.com`,
+        ''
+      ];
+    }
+    return [`cat: ${projectName}: No such file or directory`, ''];
   };
 
   const executeCommand = (cmd: string) => {
     const trimmedCmd = cmd.trim().toLowerCase();
-    const result = commands[trimmedCmd as keyof typeof commands];
     
-    if (result) {
-      const newOutput = result();
-      setOutput(prev => [...prev, `$ ${cmd}`, ...newOutput]);
+    // Handle cat command
+    if (trimmedCmd.startsWith('cat ')) {
+      const projectName = trimmedCmd.substring(4).trim();
+      const result = handleCatCommand(projectName);
+      setOutput(prev => [...prev, `$ ${cmd}`, ...result]);
+    } else if (commands[trimmedCmd as keyof typeof commands]) {
+      const result = commands[trimmedCmd as keyof typeof commands]();
+      setOutput(prev => [...prev, `$ ${cmd}`, ...result]);
     } else if (trimmedCmd === '') {
       setOutput(prev => [...prev, '$']);
     } else {
@@ -118,6 +239,20 @@ const HackerMode = () => {
         setHistoryIndex(-1);
         setInput('');
       }
+    }
+  };
+
+  const handleVirtualKeyPress = (key: string) => {
+    if (key === 'Backspace') {
+      setInput(prev => prev.slice(0, -1));
+    } else if (key === 'Enter') {
+      executeCommand(input);
+      setInput('');
+      setHistoryIndex(-1);
+    } else if (key === 'Tab') {
+      setInput(prev => prev + '  ');
+    } else {
+      setInput(prev => prev + key);
     }
   };
 
@@ -168,14 +303,12 @@ const HackerMode = () => {
           {showKeyboard ? 'Hide' : 'Show'} Keyboard
         </Button>
 
-        {/* Virtual Keyboard (placeholder) */}
+        {/* Virtual Keyboard */}
         {showKeyboard && (
-          <div className="fixed bottom-16 right-4 bg-green-900/90 p-4 rounded border border-green-400">
-            <div className="text-xs text-green-400 mb-2">Virtual Keyboard</div>
-            <div className="text-xs text-green-300">
-              Coming soon... Use physical keyboard for now
-            </div>
-          </div>
+          <VirtualKeyboard
+            onKeyPress={handleVirtualKeyPress}
+            onClose={() => setShowKeyboard(false)}
+          />
         )}
       </div>
     </div>
