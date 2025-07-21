@@ -1,0 +1,111 @@
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Github, Linkedin, Youtube, Mail, ExternalLink } from 'lucide-react';
+
+const HeroSection = () => {
+  const socialLinks = [
+    { 
+      icon: <Github className="h-5 w-5" />, 
+      href: 'https://github.com/ahmedsaber', 
+      label: 'GitHub',
+      color: 'hover:text-foreground'
+    },
+    { 
+      icon: <Linkedin className="h-5 w-5" />, 
+      href: 'https://linkedin.com/in/ahmedsaber', 
+      label: 'LinkedIn',
+      color: 'hover:text-blue-400'
+    },
+    { 
+      icon: <Youtube className="h-5 w-5" />, 
+      href: 'https://youtube.com/@ahmedsaber', 
+      label: 'YouTube',
+      color: 'hover:text-red-400'
+    },
+    { 
+      icon: <Mail className="h-5 w-5" />, 
+      href: 'mailto:ahmed@example.com', 
+      label: 'Email',
+      color: 'hover:text-primary'
+    },
+  ];
+
+  return (
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-cyber opacity-30"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-4xl mx-auto">
+          {/* Main Content */}
+          <div className="animate-fade-up">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-glow">
+              <span className="text-primary">Ahmed</span>{' '}
+              <span className="text-foreground">Saber</span>
+            </h1>
+            
+            <h2 className="text-2xl md:text-3xl font-semibold mb-8 text-muted-foreground">
+              Full Stack Developer & Content Creator
+            </h2>
+            
+            <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+              Passionate about building innovative web applications and sharing knowledge 
+              through content creation. I specialize in modern JavaScript frameworks, 
+              backend technologies, and creating engaging developer experiences.
+            </p>
+          </div>
+
+          {/* Social Links */}
+          <div className="animate-fade-up mb-12" style={{ animationDelay: '0.2s' }}>
+            <div className="flex items-center justify-center space-x-6">
+              {socialLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-3 bg-secondary/50 border border-border rounded-full transition-smooth hover:scale-110 hover:bg-primary/20 ${link.color} group`}
+                  aria-label={link.label}
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="animate-fade-up flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6" style={{ animationDelay: '0.4s' }}>
+            <Button 
+              size="lg" 
+              className="neon-glow transition-smooth hover:scale-105 px-8 py-6 text-lg"
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              View My Work
+              <ExternalLink className="ml-2 h-5 w-5" />
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="transition-smooth hover:scale-105 hover:bg-primary/10 px-8 py-6 text-lg border-primary/50"
+              onClick={() => document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Get In Touch
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;

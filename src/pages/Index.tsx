@@ -1,13 +1,44 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React from 'react';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { ModeProvider, useMode } from '@/contexts/ModeContext';
+import Navbar from '@/components/Navbar';
+import NormalMode from '@/components/modes/NormalMode';
+import DevMode from '@/components/modes/DevMode';
+import HackerMode from '@/components/modes/HackerMode';
+
+const PortfolioContent = () => {
+  const { mode } = useMode();
+
+  const renderMode = () => {
+    switch (mode) {
+      case 'normal':
+        return <NormalMode />;
+      case 'dev':
+        return <DevMode />;
+      case 'hacker':
+        return <HackerMode />;
+      default:
+        return <NormalMode />;
+    }
+  };
+
+  return (
+    <>
+      <Navbar />
+      <main className="transition-smooth">
+        {renderMode()}
+      </main>
+    </>
+  );
+};
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <ThemeProvider>
+      <ModeProvider>
+        <PortfolioContent />
+      </ModeProvider>
+    </ThemeProvider>
   );
 };
 
