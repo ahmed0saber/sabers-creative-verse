@@ -7,6 +7,7 @@ interface Project {
     images: string[];
     githubUrl?: string;
     demoUrl: string;
+    story?: string;
 }
 
 export type { Project };

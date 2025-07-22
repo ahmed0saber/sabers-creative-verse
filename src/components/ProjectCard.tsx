@@ -1,7 +1,8 @@
-import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink, Github, BookOpen } from "lucide-react";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Project } from "@/types/Project";
 
@@ -74,6 +75,26 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                 </div>
 
                 <div className="flex space-x-2">
+                    {project.story && (
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="ghost" size="sm" className="p-2">
+                                    <BookOpen className="h-4 w-4" />
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                                <DialogHeader>
+                                    <DialogTitle>{project.title} - Project Story</DialogTitle>
+                                    <DialogDescription>
+                                        The story behind this project
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="mt-4 text-sm leading-relaxed whitespace-pre-wrap">
+                                    {project.story}
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+                    )}
                     <Button variant="ghost" size="sm" asChild className="p-2">
                         <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                             <Github className="h-4 w-4" />
