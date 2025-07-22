@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { 
-  Folder, 
-  FolderOpen, 
-  File, 
-  FileText, 
-  Image, 
-  ChevronRight, 
-  ChevronDown 
+import {
+  Folder,
+  FolderOpen,
+  File,
+  FileText,
+  ChevronRight,
+  ChevronDown
 } from 'lucide-react';
+import skillsCategories from '@/data/skills';
+import articles from '@/data/articles';
+import socialPlatforms from '@/data/social-platforms';
+import youtubeContent from '@/data/youtube-content';
+import projects from '@/data/projects';
+import openSourceProjects from '@/data/opensource-projects';
+import experience from '@/data/experience';
+import education from '@/data/education';
+import convertProjectsToTree from '@/utils/convertProjectToTree';
+import generateReadmeContent from '@/utils/generateReadme';
 
 interface FileNode {
   name: string;
@@ -18,6 +26,7 @@ interface FileNode {
   content?: string;
   children?: FileNode[];
   icon?: React.ReactNode;
+  url?: string; // For images or other file types that may have a URL
 }
 
 const DevMode = () => {
@@ -29,249 +38,62 @@ const DevMode = () => {
       name: 'README.md',
       type: 'file',
       icon: <FileText className="h-4 w-4" />,
-      content: `# Ahmed Saber - Full Stack Developer & Content Creator
-
-## About Me
-I'm a passionate Full Stack Developer with 5+ years of experience building modern web applications. I specialize in React, Node.js, and TypeScript, with a strong focus on creating scalable and maintainable code.
-
-## Skills
-- **Frontend**: React, Vue.js, TypeScript, Tailwind CSS
-- **Backend**: Node.js, Express, Python, PostgreSQL, MongoDB
-- **DevOps**: Docker, AWS, CI/CD, Kubernetes
-- **Tools**: Git, VS Code, Figma, Adobe Creative Suite
-
-## Experience
-### Senior Full Stack Developer | TechCorp (2021 - Present)
-- Lead development of microservices architecture serving 100k+ users
-- Implemented CI/CD pipeline reducing deployment time by 60%
-- Mentored junior developers and conducted code reviews
-
-### Full Stack Developer | StartupXYZ (2019 - 2021)
-- Built customer-facing web application from MVP to production
-- Integrated payment systems and real-time notifications
-- Optimized database queries improving response time by 40%
-
-## Education
-**Bachelor of Computer Science** - University of Technology (2015-2019)
-
-## Contact
-- Email: ahmed@example.com
-- LinkedIn: /in/ahmedsaber
-- GitHub: /ahmedsaber`
+      content: generateReadmeContent()
     },
     {
       name: 'skills.json',
       type: 'file',
       icon: <File className="h-4 w-4" />,
-      content: `{
-  "frontend": [
-    { "name": "React", "level": 95, "years": 4 },
-    { "name": "TypeScript", "level": 90, "years": 3 },
-    { "name": "Vue.js", "level": 85, "years": 2 },
-    { "name": "Tailwind CSS", "level": 92, "years": 3 }
-  ],
-  "backend": [
-    { "name": "Node.js", "level": 93, "years": 4 },
-    { "name": "Python", "level": 87, "years": 3 },
-    { "name": "PostgreSQL", "level": 85, "years": 3 },
-    { "name": "MongoDB", "level": 82, "years": 2 }
-  ],
-  "devops": [
-    { "name": "Docker", "level": 88, "years": 2 },
-    { "name": "AWS", "level": 85, "years": 3 },
-    { "name": "CI/CD", "level": 82, "years": 2 }
-  ]
-}`
+      content: JSON.stringify(skillsCategories, null, 2)
     },
+    convertProjectsToTree(projects),
     {
-      name: 'projects',
-      type: 'folder',
-      children: [
-        {
-          name: 'ecommerce-platform',
-          type: 'folder',
-          children: [
-            {
-              name: 'README.md',
-              type: 'file',
-              icon: <FileText className="h-4 w-4" />,
-              content: `# E-Commerce Platform
-
-## Overview
-A full-stack e-commerce solution built with modern technologies, featuring real-time inventory management, secure payment processing, and a comprehensive admin dashboard.
-
-## Tech Stack
-- **Frontend**: React, TypeScript, Tailwind CSS
-- **Backend**: Node.js, Express, PostgreSQL
-- **Payment**: Stripe Integration
-- **Deployment**: Docker, AWS
-
-## Features
-- User authentication and authorization
-- Product catalog with search and filtering
-- Shopping cart and checkout process
-- Payment processing with Stripe
-- Admin dashboard for inventory management
-- Real-time order tracking
-- Responsive design for mobile and desktop
-
-## Architecture
-The application follows a microservices architecture with:
-- Authentication service
-- Product service  
-- Order service
-- Payment service
-- Notification service
-
-## Demo
-🔗 [Live Demo](https://ecommerce-demo.com)
-📁 [GitHub Repository](https://github.com/ahmedsaber/ecommerce)
-
-## Key Achievements
-- Processed $50k+ in transactions
-- 99.9% uptime
-- 40% faster page load times`
-            },
-            {
-              name: 'images',
-              type: 'folder',
-              children: [
-                { name: 'screenshot1.png', type: 'file', icon: <Image className="h-4 w-4" /> },
-                { name: 'screenshot2.png', type: 'file', icon: <Image className="h-4 w-4" /> },
-                { name: 'architecture.png', type: 'file', icon: <Image className="h-4 w-4" /> }
-              ]
-            }
-          ]
-        },
-        {
-          name: 'ai-content-generator',
-          type: 'folder',
-          children: [
-            {
-              name: 'README.md',
-              type: 'file',
-              icon: <FileText className="h-4 w-4" />,
-              content: `# AI Content Generator
-
-## Overview
-An intelligent content generation tool powered by AI that creates marketing copy, blog posts, and social media content. Built with Next.js and integrated with multiple AI APIs.
-
-## Tech Stack
-- **Frontend**: Next.js, React, Tailwind CSS
-- **Backend**: Next.js API Routes, Prisma
-- **AI Integration**: OpenAI GPT-4, Anthropic Claude
-- **Database**: PostgreSQL
-- **Deployment**: Vercel
-
-## Features
-- Multiple content types (blog posts, social media, emails)
-- Tone and style customization
-- Content optimization suggestions
-- Bulk content generation
-- Export to various formats
-- Content analytics and performance tracking
-
-## AI Models Integrated
-- OpenAI GPT-4 for creative writing
-- Claude for analytical content
-- Custom fine-tuned models for specific use cases
-
-## Demo
-🔗 [Live Demo](https://ai-content-demo.com)
-📁 [GitHub Repository](https://github.com/ahmedsaber/ai-content)
-
-## Impact
-- Generated 10k+ pieces of content
-- Saved users 500+ hours of writing time
-- 95% user satisfaction rate`
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'youtube-content.md',
+      name: 'experience.json',
       type: 'file',
-      icon: <FileText className="h-4 w-4" />,
-      content: `# YouTube Content
-
-## Channel Statistics
-- **Subscribers**: 85.2K
-- **Total Views**: 2.1M
-- **Videos**: 127
-- **Upload Schedule**: Weekly
-
-## Popular Videos
-
-### Building a Full-Stack App with React & Node.js
-- **Views**: 125K
-- **Duration**: 45:30
-- **Published**: 2 weeks ago
-- **Topics**: React, Node.js, Full-Stack Development
-
-### Advanced TypeScript Patterns
-- **Views**: 89K  
-- **Duration**: 32:15
-- **Published**: 1 month ago
-- **Topics**: TypeScript, Advanced Concepts, Patterns
-
-### Deploying Apps with Docker & AWS
-- **Views**: 67K
-- **Duration**: 38:42
-- **Published**: 3 weeks ago
-- **Topics**: Docker, AWS, DevOps
-
-## Content Strategy
-- Weekly tutorials on modern web development
-- Live coding sessions
-- Tech news and discussions
-- Q&A sessions with viewers
-- Collaboration with other creators
-
-## Upcoming Content
-- GraphQL with React and Apollo
-- Microservices with Node.js
-- Advanced CSS animations
-- Database optimization techniques`
+      icon: <File className="h-4 w-4" />,
+      content: JSON.stringify(experience, null, 2)
+    },
+    {
+      name: 'education.json',
+      type: 'file',
+      icon: <File className="h-4 w-4" />,
+      content: JSON.stringify(education, null, 2)
+    },
+    {
+      name: 'projects.json',
+      type: 'file',
+      icon: <File className="h-4 w-4" />,
+      content: JSON.stringify(projects, null, 2)
+    },
+    {
+      name: 'open-source.json',
+      type: 'file',
+      icon: <File className="h-4 w-4" />,
+      content: JSON.stringify(openSourceProjects, null, 2)
+    },
+    {
+      name: 'youtube.json',
+      type: 'file',
+      icon: <File className="h-4 w-4" />,
+      content: JSON.stringify(youtubeContent, null, 2)
     },
     {
       name: 'articles.json',
       type: 'file',
       icon: <File className="h-4 w-4" />,
-      content: `{
-  "featured": [
-    {
-      "title": "Building Scalable React Applications with Modern Patterns",
-      "platform": "Dev.to",
-      "url": "https://dev.to/ahmedsaber/building-scalable-react",
-      "publishedAt": "Jan 15, 2024",
-      "readTime": "8 min read",
-      "tags": ["React", "Patterns", "Architecture"]
+      content: JSON.stringify(articles, null, 2)
     },
     {
-      "title": "Mastering TypeScript: Advanced Types and Generics",
-      "platform": "Medium", 
-      "url": "https://medium.com/@ahmedsaber/typescript-advanced",
-      "publishedAt": "Dec 28, 2023",
-      "readTime": "12 min read",
-      "tags": ["TypeScript", "Advanced", "Types"]
-    }
-  ],
-  "recent": [
-    {
-      "title": "API Security Best Practices for Node.js Applications",
-      "platform": "Medium",
-      "publishedAt": "Nov 22, 2023",
-      "readTime": "10 min read"
-    },
-    {
-      "title": "Performance Optimization in React Applications", 
-      "platform": "Dev.to",
-      "publishedAt": "Nov 5, 2023",
-      "readTime": "9 min read"
-    }
-  ]
-}`
+      name: 'connect.json',
+      type: 'file',
+      icon: <File className="h-4 w-4" />,
+      content: JSON.stringify(socialPlatforms.map(item => ({
+        name: item.name,
+        url: item.url,
+        description: item.description,
+        followers: item.followers,
+        handle: item.handle
+      })), null, 2)
     }
   ];
 
@@ -293,9 +115,8 @@ An intelligent content generation tool powered by AI that creates marketing copy
       return (
         <div key={currentPath} className="select-none">
           <div
-            className={`flex items-center py-1 px-2 hover:bg-muted/50 cursor-pointer transition-smooth ${
-              selectedFile === currentPath ? 'bg-primary/20 text-primary' : ''
-            }`}
+            className={`flex items-center py-1 px-2 hover:bg-muted/50 cursor-pointer transition-smooth ${selectedFile === currentPath ? 'bg-primary/20 text-primary' : ''
+              }`}
             onClick={() => {
               if (node.type === 'folder') {
                 toggleFolder(currentPath);
@@ -314,7 +135,7 @@ An intelligent content generation tool powered by AI that creates marketing copy
                   )}
                 </span>
               )}
-              
+
               <span>
                 {node.type === 'folder' ? (
                   isExpanded ? (
@@ -326,11 +147,11 @@ An intelligent content generation tool powered by AI that creates marketing copy
                   node.icon || <File className="h-4 w-4" />
                 )}
               </span>
-              
+
               <span className="text-sm">{node.name}</span>
             </div>
           </div>
-          
+
           {node.type === 'folder' && isExpanded && node.children && (
             <div className="ml-6 border-l border-border">
               {renderFileTree(node.children, currentPath)}
@@ -341,22 +162,41 @@ An intelligent content generation tool powered by AI that creates marketing copy
     });
   };
 
-  const getFileContent = (fileName: string): string => {
-    const findFile = (nodes: FileNode[], target: string): FileNode | null => {
+  const getFileContent = (filePath: string): string | JSX.Element => {
+    const findFileByPath = (nodes: FileNode[], pathParts: string[]): FileNode | null => {
+      if (!pathParts.length) return null;
+
+      const [currentPart, ...restParts] = pathParts;
+
       for (const node of nodes) {
-        if (node.name === target || `${node.name}` === target) {
-          return node;
-        }
-        if (node.children) {
-          const found = findFile(node.children, target);
-          if (found) return found;
+        if (node.name === currentPart) {
+          if (restParts.length === 0) {
+            // This is the target file or folder
+            return node.type === 'file' ? node : null;
+          }
+
+          // Continue traversing inside this folder
+          if (node.type === 'folder' && node.children) {
+            return findFileByPath(node.children, restParts);
+          }
         }
       }
+
       return null;
     };
 
-    const file = findFile(fileStructure, fileName);
-    return file?.content || 'File content not available';
+    const pathParts = filePath.split('/').filter(Boolean); // remove empty parts
+    const file = findFileByPath(fileStructure, pathParts);
+
+    if (file?.content) {
+      return file?.content;
+    }
+
+    if (file?.url) {
+      return <img src={file.url} alt={file.name} className="max-w-full h-auto" />;
+    }
+
+    return 'File content not available';
   };
 
   return (
@@ -369,7 +209,7 @@ An intelligent content generation tool powered by AI that creates marketing copy
               Explorer
             </h2>
           </div>
-          
+
           <ScrollArea className="flex-1 p-2">
             <div className="text-xs text-gray-400 mb-2 px-2">AHMED SABER PORTFOLIO</div>
             {renderFileTree(fileStructure, '')}
