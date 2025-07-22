@@ -96,7 +96,7 @@ const YouTubeSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-up">
           <div className="flex items-center justify-center mb-6">
-            <h2 className="text-4xl md:text-5xl font-bold text-glow">
+            <h2 className="text-3xl md:text-5xl font-bold text-glow">
               YouTube Content
             </h2>
           </div>

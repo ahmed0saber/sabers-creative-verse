@@ -19,7 +19,7 @@ const experience = [
   {
     title: "Full Stack Developer",
     company: "StartupXYZ",
-    type: "Full-time", 
+    type: "Full-time",
     location: "Cairo, Egypt",
     period: "2022 - 2023",
     description: "Developed and maintained full-stack applications for fintech startup focused on digital payments.",
@@ -35,7 +35,7 @@ const experience = [
     title: "Frontend Developer Intern",
     company: "Digital Agency Pro",
     type: "Internship",
-    location: "Cairo, Egypt", 
+    location: "Cairo, Egypt",
     period: "2021 - 2022",
     description: "Worked on client projects building modern web interfaces and learning industry best practices.",
     responsibilities: [
@@ -53,7 +53,9 @@ const ExperienceSection = () => {
     <section id="experience" className="py-16 sm:py-24 px-4 sm:px-6 bg-card/30">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Experience</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            Experience
+          </h2>
           <p className="text-muted-foreground">My professional journey and contributions</p>
         </div>
 
@@ -64,7 +66,7 @@ const ExperienceSection = () => {
               {index !== 0 && (
                 <div className="hidden sm:block absolute top-0 left-6 w-px h-8 bg-border -translate-y-8"></div>
               )}
-              
+
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                 {/* Timeline marker */}
                 <div className="flex-shrink-0 relative self-start sm:self-auto">
@@ -83,7 +85,7 @@ const ExperienceSection = () => {
                     {/* Left column - Basic info */}
                     <div className="lg:col-span-1">
                       <h3 className="text-lg sm:text-xl font-semibold mb-3">{item.title}</h3>
-                      
+
                       <div className="flex items-center gap-2 text-muted-foreground mb-2">
                         <Building className="w-4 h-4 flex-shrink-0" />
                         <span className="font-medium">{item.company}</span>
@@ -111,7 +113,7 @@ const ExperienceSection = () => {
                     {/* Right column - Details */}
                     <div className="lg:col-span-2 mt-4 lg:mt-0">
                       <p className="text-muted-foreground mb-4 text-sm sm:text-base leading-relaxed">{item.description}</p>
-                      
+
                       <div>
                         <h4 className="font-medium mb-3 text-sm sm:text-base">Key Responsibilities:</h4>
                         <div className="space-y-2 sm:space-y-3">

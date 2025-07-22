@@ -16,7 +16,7 @@ const education = [
   {
     degree: "High School Diploma",
     institution: "Al-Azhar High School",
-    location: "Cairo, Egypt", 
+    location: "Cairo, Egypt",
     period: "2015 - 2018",
     gpa: "95%",
     achievements: [
@@ -32,14 +32,16 @@ const EducationSection = () => {
     <section id="education" className="py-16 sm:py-24 px-4 sm:px-6">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Education</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            Education & Certificates
+          </h2>
           <p className="text-muted-foreground">My academic journey and achievements</p>
         </div>
 
         <div className="relative">
           {/* Timeline line - hidden on mobile, shown on larger screens */}
           <div className="hidden sm:block absolute left-8 top-0 bottom-0 w-px bg-border"></div>
-          
+
           <div className="space-y-8 sm:space-y-12">
             {education.map((item, index) => (
               <div key={index} className="relative flex flex-col sm:flex-row items-start gap-4 sm:gap-8">

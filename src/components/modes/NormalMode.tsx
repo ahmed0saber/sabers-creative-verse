@@ -8,6 +8,7 @@ import ArticlesSection from './normal/ArticlesSection';
 import ConnectSection from './normal/ConnectSection';
 import FloatingNavigation from '../FloatingNavigation';
 import Footer from '../Footer';
+import OpenSourceSection from './normal/OpenSourceSection';
 
 const NormalMode = () => {
   return (
@@ -18,6 +19,7 @@ const NormalMode = () => {
         <ExperienceSection />
         <EducationSection />
         <ProjectsSection />
+        <OpenSourceSection />
         <YouTubeSection />
         <ArticlesSection />
         <ConnectSection />
