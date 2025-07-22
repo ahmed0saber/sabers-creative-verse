@@ -1,7 +1,7 @@
-import React from 'react';
 import HeroSection from './normal/HeroSection';
 import SkillsSection from './normal/SkillsSection';
 import ProjectsSection from './normal/ProjectsSection';
+import OpenSourceSection from './normal/OpenSourceSection';
 import YouTubeSection from './normal/YouTubeSection';
 import ArticlesSection from './normal/ArticlesSection';
 import ConnectSection from './normal/ConnectSection';
@@ -15,6 +15,7 @@ const NormalMode = () => {
         <HeroSection />
         <SkillsSection />
         <ProjectsSection />
+        <OpenSourceSection />
         <YouTubeSection />
         <ArticlesSection />
         <ConnectSection />

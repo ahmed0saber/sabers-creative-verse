@@ -1,8 +1,7 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Youtube, Eye, Clock, Calendar, ExternalLink } from 'lucide-react';
+import { Youtube, Eye, Calendar, ExternalLink } from 'lucide-react';
 
 interface YouTubeVideo {
   id: string;
@@ -97,15 +96,14 @@ const YouTubeSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-up">
           <div className="flex items-center justify-center mb-6">
-            <Youtube className="h-12 w-12 text-red-500 mr-4" />
             <h2 className="text-4xl md:text-5xl font-bold text-glow">
-              YouTube <span className="text-primary">Content</span>
+              YouTube Content
             </h2>
           </div>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             Educational programming content helping developers learn and grow
           </p>
-          
+
           {/* Channel Stats */}
           <div className="flex items-center justify-center space-x-8 mb-8">
             <div className="text-center">
@@ -122,7 +120,7 @@ const YouTubeSection = () => {
             </div>
           </div>
 
-          <Button asChild className="neon-glow transition-smooth hover:scale-105">
+          <Button asChild className="neon-glow transition-smooth">
             <a href="https://youtube.com/@ahmedsaber" target="_blank" rel="noopener noreferrer">
               <Youtube className="h-5 w-5 mr-2" />
               Subscribe to Channel
@@ -133,19 +131,19 @@ const YouTubeSection = () => {
         {/* Videos Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {videos.map((video, index) => (
-            <Card 
-              key={video.id} 
-              className="overflow-hidden bg-card/50 border-border hover:border-primary/50 transition-smooth hover:scale-105 card-elevated group animate-fade-up"
+            <Card
+              key={video.id}
+              className="overflow-hidden bg-card/50 border-border transition-smooth card-elevated group animate-fade-up flex flex-col"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Thumbnail */}
-              <div className="relative overflow-hidden">
-                <img 
+              <div className="relative overflow-hidden w-full">
+                <img
                   src={video.thumbnail}
                   alt={video.title}
-                  className="w-full h-48 object-cover transition-smooth group-hover:scale-110"
+                  className="w-full h-48 object-cover transition-smooth"
                 />
-                
+
                 {/* Duration Badge */}
                 <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded text-sm font-medium">
                   {video.duration}
@@ -159,17 +157,17 @@ const YouTubeSection = () => {
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-6 w-full flex-1 flex flex-col">
                 <h3 className="text-lg font-semibold mb-3 group-hover:text-primary transition-smooth line-clamp-2">
                   {video.title}
                 </h3>
-                
+
                 <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                   {video.description}
                 </p>
 
                 {/* Video Stats */}
-                <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
+                <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4 mt-auto">
                   <div className="flex items-center">
                     <Eye className="h-4 w-4 mr-1" />
                     {video.views} views
@@ -190,9 +188,9 @@ const YouTubeSection = () => {
                 </div>
 
                 {/* Watch Button */}
-                <Button 
-                  asChild 
-                  className="w-full transition-smooth hover:scale-105"
+                <Button
+                  asChild
+                  className="w-full transition-smooth"
                 >
                   <a href={video.url} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="h-4 w-4 mr-2" />

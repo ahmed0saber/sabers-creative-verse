@@ -1,11 +1,9 @@
-import React from 'react';
-
 const Footer = () => {
   return (
-    <footer className="py-8 border-t border-border bg-background">
+    <footer className="pt-8 pb-24 border-t border-border bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center text-sm text-muted-foreground">
-          <p>© 2024 Ahmed Saber. All rights reserved.</p>
+          <p>© 2025 Ahmed Saber. All rights reserved.</p>
           <p className="mt-1">Developed by Ahmed Saber</p>
         </div>
       </div>

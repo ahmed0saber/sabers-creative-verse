@@ -361,9 +361,9 @@ An intelligent content generation tool powered by AI that creates marketing copy
 
   return (
     <div className="h-screen pt-16 bg-[#1e1e1e] text-gray-300 font-mono">
-      <div className="flex h-full">
+      <div className="flex h-full flex-col md:flex-row">
         {/* File Explorer Sidebar */}
-        <div className="w-full md:w-80 bg-[#252526] border-r border-[#3e3e42] flex flex-col md:relative absolute z-10 md:z-auto">
+        <div className="w-full md:w-80 bg-[#252526] border-r border-[#3e3e42] flex flex-col relative z-10 md:z-auto">
           <div className="p-4 border-b border-[#3e3e42]">
             <h2 className="text-sm font-semibold text-gray-200 uppercase tracking-wide">
               Explorer

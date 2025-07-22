@@ -18,11 +18,10 @@ const VirtualKeyboard: React.FC<VirtualKeyboardProps> = ({ onKeyPress, onClose }
     { key: ' ', label: 'Space', width: 'w-32' },
     { key: 'Backspace', label: '⌫', width: 'w-16' },
     { key: 'Enter', label: '↵', width: 'w-16' },
-    { key: 'Tab', label: '⇥', width: 'w-12' }
   ];
 
   return (
-    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-green-900/95 border border-green-400 rounded-lg p-4 z-50 backdrop-blur-sm">
+    <div className="fixed bottom-0 sm:bottom-4 left-1/2 transform -translate-x-1/2 bg-green-900/95 border border-green-400 rounded-lg p-4 z-50 backdrop-blur-sm max-w-full w-full sm:w-auto">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-green-400 font-mono text-sm">Virtual Keyboard</h3>
         <Button

@@ -1,4 +1,3 @@
-import React from 'react';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ModeProvider, useMode } from '@/contexts/ModeContext';
 import Navbar from '@/components/Navbar';

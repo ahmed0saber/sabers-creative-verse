@@ -1,11 +1,11 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { 
-  Github, 
-  Linkedin, 
-  Youtube, 
-  Mail, 
+import {
+  Github,
+  Linkedin,
+  Youtube,
+  Mail,
   MessageCircle,
   ExternalLink,
   Users,
@@ -14,7 +14,7 @@ import {
 
 interface SocialPlatform {
   name: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   url: string;
   description: string;
   followers?: string;
@@ -91,10 +91,10 @@ const ConnectSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fade-up">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-glow">
-            Let's <span className="text-primary">Connect</span>
+            Let's Connect
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            I'm always excited to connect with fellow developers, creators, and tech enthusiasts. 
+            I'm always excited to connect with fellow developers, creators, and tech enthusiasts.
             Reach out on any platform you prefer!
           </p>
         </div>
@@ -102,22 +102,22 @@ const ConnectSection = () => {
         {/* Social Media Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {socialPlatforms.map((platform, index) => (
-            <Card 
+            <Card
               key={platform.name}
-              className="overflow-hidden border-border hover:border-primary/50 transition-smooth hover:scale-105 card-elevated group animate-fade-up"
+              className="overflow-hidden border-border hover:border-primary/50 transition-smooth card-elevated group animate-fade-up flex flex-col"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div 
-                className={`p-6 bg-gradient-to-br ${platform.bgGradient} ${platform.color} relative overflow-hidden`}
+              <div
+                className={`p-6 bg-gradient-to-br ${platform.bgGradient} ${platform.color} relative overflow-hidden w-full flex-1 flex flex-col`}
               >
                 {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
+                <div className="absolute inset-0 opacity-10 w-full">
                   <div className="absolute top-0 right-0 w-32 h-32 transform rotate-45 translate-x-16 -translate-y-16">
                     {platform.icon}
                   </div>
                 </div>
 
-                <div className="relative z-10">
+                <div className="relative z-10 w-full flex-1 flex flex-col">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       {platform.icon}
@@ -139,14 +139,14 @@ const ConnectSection = () => {
                     {platform.handle}
                   </div>
 
-                  <Button 
-                    asChild 
-                    variant="secondary" 
-                    className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30 transition-smooth"
+                  <Button
+                    asChild
+                    variant="secondary"
+                    className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30 transition-smooth mt-auto"
                   >
-                    <a 
-                      href={platform.url} 
-                      target="_blank" 
+                    <a
+                      href={platform.url}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center"
                     >
@@ -166,11 +166,11 @@ const ConnectSection = () => {
             <Users className="h-16 w-16 text-primary mx-auto mb-6" />
             <h3 className="text-2xl font-bold mb-4">Ready to Collaborate?</h3>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Whether you're interested in discussing a project, have a question about my content, 
-              or just want to chat about technology, I'd love to hear from you. Choose your 
+              Whether you're interested in discussing a project, have a question about my content,
+              or just want to chat about technology, I'd love to hear from you. Choose your
               preferred platform above or send me a direct email.
             </p>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Button asChild size="lg" className="neon-glow">
                 <a href="mailto:ahmed@example.com">
@@ -186,22 +186,6 @@ const ConnectSection = () => {
               </Button>
             </div>
           </Card>
-        </div>
-
-        {/* Quick Contact Stats */}
-        <div className="flex items-center justify-center space-x-8 mt-16 animate-fade-up" style={{ animationDelay: '1s' }}>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-primary">24h</div>
-            <div className="text-sm text-muted-foreground">Response Time</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-primary">5+</div>
-            <div className="text-sm text-muted-foreground">Platforms</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-primary">100+</div>
-            <div className="text-sm text-muted-foreground">Connections</div>
-          </div>
         </div>
       </div>
     </section>

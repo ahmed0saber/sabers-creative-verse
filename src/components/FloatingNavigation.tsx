@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  User, 
-  Wrench, 
-  Briefcase, 
-  Youtube, 
-  FileText, 
-  Github, 
-  MessageCircle 
+import {
+  User,
+  Wrench,
+  Briefcase,
+  Youtube,
+  FileText,
+  Github,
+  MessageCircle
 } from 'lucide-react';
 
 interface NavItem {
@@ -22,6 +22,7 @@ const FloatingNavigation = () => {
     { id: 'hero', icon: <User className="h-5 w-5" />, label: 'About' },
     { id: 'skills', icon: <Wrench className="h-5 w-5" />, label: 'Skills' },
     { id: 'projects', icon: <Briefcase className="h-5 w-5" />, label: 'Projects' },
+    { id: 'opensource', icon: <Github className="h-5 w-5" />, label: 'Open Source' },
     { id: 'youtube', icon: <Youtube className="h-5 w-5" />, label: 'YouTube' },
     { id: 'articles', icon: <FileText className="h-5 w-5" />, label: 'Articles' },
     { id: 'connect', icon: <MessageCircle className="h-5 w-5" />, label: 'Connect' },
@@ -59,17 +60,16 @@ const FloatingNavigation = () => {
           <button
             key={item.id}
             onClick={() => scrollToSection(item.id)}
-            className={`p-2 rounded-full transition-smooth group relative ${
-              activeSection === item.id
-                ? 'bg-primary text-primary-foreground neon-glow'
-                : 'hover:bg-muted text-muted-foreground hover:text-foreground'
-            }`}
+            className={`p-2 rounded-full transition-smooth group relative ${activeSection === item.id
+              ? 'bg-primary text-primary-foreground neon-glow'
+              : 'hover:bg-muted text-muted-foreground hover:text-foreground'
+              }`}
             title={item.label}
           >
             {item.icon}
-            
+
             {/* Tooltip */}
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-card border border-border rounded text-xs opacity-0 group-hover:opacity-100 transition-smooth pointer-events-none whitespace-nowrap">
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-foreground bg-card border border-border rounded text-xs opacity-0 group-hover:opacity-100 transition-smooth pointer-events-none whitespace-nowrap">
               {item.label}
             </div>
           </button>

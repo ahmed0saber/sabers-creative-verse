@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -75,10 +74,10 @@ const ArticlesSection = () => {
           {articles.map((article, index) => (
             <Card 
               key={article.id} 
-              className="p-6 bg-card border-border transition-fast shadow-sm animate-fade-up"
+              className="p-6 bg-card border-border transition-fast shadow-sm animate-fade-up flex flex-col items-start"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="flex items-start justify-between mb-4">
+              <div className="flex items-start justify-between mb-4 w-full">
                 <Badge className="text-xs bg-muted text-muted-foreground">
                   {article.platform}
                 </Badge>
@@ -102,7 +101,7 @@ const ArticlesSection = () => {
                 {article.description}
               </p>
               
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-4 mt-auto">
                 {article.tags.map(tag => (
                   <Badge key={tag} variant="secondary" className="text-xs">
                     {tag}

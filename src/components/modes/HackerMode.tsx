@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Keyboard } from 'lucide-react';
-import VirtualKeyboard from '../VirtualKeyboard';
+import { useState, useRef, useEffect } from 'react';
+// import { Button } from '@/components/ui/button';
+// import { Keyboard } from 'lucide-react';
+// import VirtualKeyboard from '../VirtualKeyboard';
 
 const HackerMode = () => {
   const [input, setInput] = useState('');
@@ -12,7 +12,7 @@ const HackerMode = () => {
     'Type "help" to see available commands',
     ''
   ]);
-  const [showKeyboard, setShowKeyboard] = useState(false);
+  // const [showKeyboard, setShowKeyboard] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const projects = [
@@ -249,8 +249,6 @@ const HackerMode = () => {
       executeCommand(input);
       setInput('');
       setHistoryIndex(-1);
-    } else if (key === 'Tab') {
-      setInput(prev => prev + '  ');
     } else {
       setInput(prev => prev + key);
     }
@@ -294,22 +292,22 @@ const HackerMode = () => {
         </form>
 
         {/* Show Keyboard Button */}
-        <Button
+        {/* <Button
           onClick={() => setShowKeyboard(!showKeyboard)}
           className="fixed bottom-4 right-4 bg-green-600 hover:bg-green-700 text-black"
           size="sm"
         >
           <Keyboard className="h-4 w-4 mr-2" />
           {showKeyboard ? 'Hide' : 'Show'} Keyboard
-        </Button>
+        </Button> */}
 
         {/* Virtual Keyboard */}
-        {showKeyboard && (
+        {/* {showKeyboard && (
           <VirtualKeyboard
             onKeyPress={handleVirtualKeyPress}
             onClose={() => setShowKeyboard(false)}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

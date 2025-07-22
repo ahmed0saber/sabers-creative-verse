@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Github, Linkedin, Youtube, Mail, ExternalLink } from 'lucide-react';
 
@@ -8,25 +7,25 @@ const HeroSection = () => {
       icon: <Github className="h-5 w-5" />, 
       href: 'https://github.com/ahmedsaber', 
       label: 'GitHub',
-      color: 'hover:text-foreground'
+      color: 'hover:text-violet-500'
     },
     { 
       icon: <Linkedin className="h-5 w-5" />, 
       href: 'https://linkedin.com/in/ahmedsaber', 
       label: 'LinkedIn',
-      color: 'hover:text-blue-400'
+      color: 'hover:text-teal-500'
     },
     { 
       icon: <Youtube className="h-5 w-5" />, 
       href: 'https://youtube.com/@ahmedsaber', 
       label: 'YouTube',
-      color: 'hover:text-red-400'
+      color: 'hover:text-red-500'
     },
     { 
       icon: <Mail className="h-5 w-5" />, 
       href: 'mailto:ahmed@example.com', 
       label: 'Email',
-      color: 'hover:text-primary'
+      color: 'hover:text-yellow-500'
     },
   ];
 
@@ -41,15 +40,15 @@ const HeroSection = () => {
         <div className="text-center max-w-4xl mx-auto">
           {/* Main Content */}
           <div className="animate-fade-up">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 mt-6">
               <span className="text-foreground">Ahmed Saber</span>
             </h1>
             
-            <h2 className="text-2xl md:text-3xl font-semibold mb-8 text-muted-foreground">
+            <h2 className="text-xl md:text-2xl font-semibold mb-8 text-muted-foreground">
               Full Stack Developer & Content Creator
             </h2>
             
-            <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
               Passionate about building innovative web applications and sharing knowledge 
               through content creation. I specialize in modern JavaScript frameworks, 
               backend technologies, and creating engaging developer experiences.
