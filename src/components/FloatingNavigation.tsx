@@ -3,9 +3,9 @@ import {
   User,
   Wrench,
   Briefcase,
+  GraduationCap,
   Youtube,
   FileText,
-  Github,
   MessageCircle
 } from 'lucide-react';
 
@@ -21,8 +21,9 @@ const FloatingNavigation = () => {
   const navItems: NavItem[] = [
     { id: 'hero', icon: <User className="h-5 w-5" />, label: 'About' },
     { id: 'skills', icon: <Wrench className="h-5 w-5" />, label: 'Skills' },
+    { id: 'experience', icon: <Briefcase className="h-5 w-5" />, label: 'Experience' },
+    { id: 'education', icon: <GraduationCap className="h-5 w-5" />, label: 'Education' },
     { id: 'projects', icon: <Briefcase className="h-5 w-5" />, label: 'Projects' },
-    { id: 'opensource', icon: <Github className="h-5 w-5" />, label: 'Open Source' },
     { id: 'youtube', icon: <Youtube className="h-5 w-5" />, label: 'YouTube' },
     { id: 'articles', icon: <FileText className="h-5 w-5" />, label: 'Articles' },
     { id: 'connect', icon: <MessageCircle className="h-5 w-5" />, label: 'Connect' },
