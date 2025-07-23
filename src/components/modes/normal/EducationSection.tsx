@@ -29,25 +29,23 @@ const EducationSection = () => {
                 {/* Content */}
                 <div className="flex-1 bg-card rounded-lg border border-border p-4 sm:p-6 shadow-sm w-full">
                   <div className="flex flex-col gap-3 mb-4">
-                    <h3 className="text-lg sm:text-xl font-semibold">{item.degree}</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold">
+                      {item.degree}
+                      <span className="text-muted-foreground text-sm sm:text-base"> in {item.field}</span>
+                    </h3>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Calendar className="w-4 h-4 flex-shrink-0" />
                       <span>{item.period}</span>
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-muted-foreground mb-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-muted-foreground mb-4">
                     <div className="flex items-center gap-2">
                       <MapPin className="w-4 h-4 flex-shrink-0" />
                       <span className="font-medium">{item.institution}</span>
                     </div>
                     <span className="hidden sm:inline">•</span>
                     <span className="text-sm sm:text-base pl-6 sm:pl-0">{item.location}</span>
-                  </div>
-
-                  <div className="mb-4">
-                    <span className="text-sm font-medium">GPA: </span>
-                    <span className="text-sm text-muted-foreground">{item.gpa}</span>
                   </div>
 
                   <div>

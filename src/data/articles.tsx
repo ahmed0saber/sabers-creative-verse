@@ -3,43 +3,63 @@ import { Article } from "@/types/Article";
 const articles: Article[] = [
     {
         id: '1',
-        title: 'Building Scalable React Applications with Modern Patterns',
-        description: 'Explore advanced React patterns and architectural decisions that help build maintainable, scalable applications.',
-        url: 'https://dev.to/ahmedsaber/building-scalable-react',
-        platform: 'Dev.to',
-        publishedAt: 'Jan 15, 2024',
-        readTime: '8 min read',
-        tags: ['React', 'Patterns', 'Architecture']
+        title: 'Multi-Threading With The Single-Threaded JavaScript',
+        description: 'Exploring how JavaScript handles multi-threading using Web Workers, with practical examples and performance considerations.',
+        url: 'https://eqraatech.com/multi-threading-with-the-single-threaded-javascript/',
+        platform: 'EqraaTech',
+        publishedAt: '28 Mar, 2024',
+        readTime: '2 min read',
+        tags: ['JavaScript', 'Multi-Threading', 'Web Workers']
     },
     {
         id: '2',
-        title: 'Mastering TypeScript: Advanced Types and Generics',
-        description: 'Deep dive into TypeScript\'s type system, exploring advanced patterns and practical use cases.',
-        url: 'https://medium.com/@ahmedsaber/typescript-advanced',
-        platform: 'Medium',
-        publishedAt: 'Dec 28, 2023',
-        readTime: '12 min read',
-        tags: ['TypeScript', 'Advanced', 'Types']
+        title: 'Cross-Tab Communication with Broadcast Channel API',
+        description: 'Exploring the Broadcast Channel API for seamless communication between browser tabs, with practical examples and use cases.',
+        url: 'https://eqraatech.com/cross-tab-communication-with-broadcast-channel-api/',
+        platform: 'EqraaTech',
+        publishedAt: '27 Feb, 2025',
+        readTime: '5 min read',
+        tags: ['JavaScript', 'Web APIs', 'Broadcast Channel']
     },
     {
         id: '3',
-        title: 'API Security Best Practices for Node.js Applications',
-        description: 'Comprehensive guide to securing REST APIs, covering authentication, authorization, and common vulnerabilities.',
-        url: 'https://medium.com/@ahmedsaber/api-security',
-        platform: 'Medium',
-        publishedAt: 'Nov 22, 2023',
-        readTime: '10 min read',
-        tags: ['Security', 'Node.js', 'API']
+        title: 'CSS Sprites',
+        description: 'Comprehensive guide to CSS sprites, covering techniques, benefits, and implementation strategies.',
+        url: 'https://eqraatech.com/css-sprites/',
+        platform: 'EqraaTech',
+        publishedAt: '5 Mar, 2024',
+        readTime: '3 min read',
+        tags: ['CSS', 'Web Design', 'Performance']
     },
     {
         id: '4',
-        title: 'Performance Optimization in React Applications',
-        description: 'Practical strategies for optimizing React app performance, from bundle size to runtime efficiency.',
-        url: 'https://dev.to/ahmedsaber/react-performance',
+        title: 'Flexbox vs. Grid in CSS',
+        description: 'Comparative analysis of Flexbox and Grid layout systems in CSS, with practical examples and use cases.',
+        url: 'https://eqraatech.com/flexbox-vs-grid-in-css/',
+        platform: 'EqraaTech',
+        publishedAt: '9 Dec, 2024',
+        readTime: '5 min read',
+        tags: ['CSS', 'Web Design']
+    },
+    {
+        id: '5',
+        title: 'How to write better Git commit messages',
+        description: 'Comprehensive guide to writing effective Git commit messages, covering best practices and common pitfalls.',
+        url: 'https://dev.to/ahmed0saber/how-to-write-better-git-commit-messages--40al',
         platform: 'Dev.to',
-        publishedAt: 'Nov 5, 2023',
-        readTime: '9 min read',
-        tags: ['React', 'Performance', 'Optimization']
+        publishedAt: 'Mar 26, 2023',
+        readTime: '2 min read',
+        tags: ['Git', 'Version Control']
+    },
+    {
+        id: '6',
+        title: 'How to gain experience without work',
+        description: 'Practical strategies for gaining experience and building skills without traditional employment.',
+        url: 'https://ahmed0saber.medium.com/how-to-gain-experience-without-work-4dc954627a45',
+        platform: 'Medium',
+        publishedAt: 'Mar 23, 2023',
+        readTime: '2 min read',
+        tags: ['Career Development', 'Experience']
     }
 ];
 

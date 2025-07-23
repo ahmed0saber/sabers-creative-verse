@@ -38,7 +38,7 @@ const OpenSourceSection = () => {
                     {openSourceProjects.map((project, index) => (
                         <Card
                             key={project.id}
-                            className="overflow-hidden bg-card border-border transition-fast shadow-sm group animate-fade-up flex flex-col"
+                            className="overflow-hidden bg-card border-border transition-fast shadow-sm animate-fade-up flex flex-col"
                             style={{ animationDelay: `${index * 0.1}s` }}
                         >
                             <div className="p-6 w-full flex-1 flex flex-col">
@@ -61,16 +61,21 @@ const OpenSourceSection = () => {
                                     </p>
                                 )}
 
-                                <div className="flex flex-wrap gap-1 mb-4 mt-auto">
+                                <div className="flex flex-wrap items-stretch gap-1 mb-4 mt-auto">
                                     {project.tags.slice(0, 3).map(tag => (
                                         <Badge key={tag} variant="secondary" className="text-xs">
                                             {tag}
                                         </Badge>
                                     ))}
                                     {project.tags.length > 3 && (
-                                        <Badge variant="secondary" className="text-xs">
-                                            +{project.tags.length - 3}
-                                        </Badge>
+                                        <div className="relative group flex">
+                                            <Badge variant="secondary" className="text-xs">
+                                                +{project.tags.length - 3}
+                                            </Badge>
+                                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 px-2 py-1 text-foreground bg-card border border-border rounded text-xs opacity-0 group-hover:opacity-100 transition-smooth pointer-events-none whitespace-nowrap">
+                                                {project.tags.slice(3).join(', ')}
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
 

@@ -6,27 +6,27 @@ const HeroSection = () => {
   const socialLinks = [
     {
       icon: <Github className="h-5 w-5" />,
-      href: 'https://github.com/ahmedsaber',
+      href: 'https://github.com/ahmed0saber',
       label: 'GitHub',
       color: 'hover:text-violet-500'
     },
     {
       icon: <Linkedin className="h-5 w-5" />,
-      href: 'https://linkedin.com/in/ahmedsaber',
+      href: 'https://linkedin.com/in/ahmed0saber',
       label: 'LinkedIn',
-      color: 'hover:text-teal-500'
+      color: 'hover:text-emerald-500'
     },
     {
       icon: <Youtube className="h-5 w-5" />,
-      href: 'https://youtube.com/@ahmedsaber',
+      href: 'https://youtube.com/@ahmed0saber',
       label: 'YouTube',
       color: 'hover:text-red-500'
     },
     {
       icon: <Mail className="h-5 w-5" />,
-      href: 'mailto:ahmed@example.com',
+      href: 'mailto:ahmed0saber33@gmail.com',
       label: 'Email',
-      color: 'hover:text-yellow-500'
+      color: 'hover:text-amber-500'
     },
   ];
 

@@ -1,65 +1,65 @@
 import { SocialPlatform } from "@/types/SocialPlatform";
-import { BookOpen, Github, Linkedin, Mail, MessageCircle, Youtube } from "lucide-react";
+import { Facebook, Github, Linkedin, Mail, MessageCircle, Youtube } from "lucide-react";
 
 const socialPlatforms: SocialPlatform[] = [
     {
         name: 'GitHub',
         icon: <Github className="h-8 w-8" />,
-        url: 'https://github.com/ahmedsaber',
+        url: 'https://github.com/ahmed0saber',
         description: 'Follow my open source work and code repositories',
         followers: '2.3k',
-        handle: '@ahmedsaber',
+        handle: '@ahmed0saber',
         color: 'text-white',
-        bgGradient: 'from-gray-800 to-gray-900'
+        bgGradient: 'from-violet-700 to-violet-900'
     },
     {
         name: 'LinkedIn',
         icon: <Linkedin className="h-8 w-8" />,
-        url: 'https://linkedin.com/in/ahmedsaber',
+        url: 'https://www.linkedin.com/in/ahmed0saber/',
         description: 'Connect professionally and see my career journey',
         followers: '5.1k',
-        handle: '/in/ahmedsaber',
+        handle: '/in/ahmed0saber',
         color: 'text-white',
-        bgGradient: 'from-blue-600 to-blue-700'
+        bgGradient: 'from-emerald-700 to-emerald-900'
     },
     {
         name: 'YouTube',
         icon: <Youtube className="h-8 w-8" />,
-        url: 'https://youtube.com/@ahmedsaber',
+        url: 'https://youtube.com/@ahmed0saber',
         description: 'Subscribe for programming tutorials and tech content',
         followers: '85.2k',
-        handle: '@ahmedsaber',
+        handle: '@ahmed0saber',
         color: 'text-white',
-        bgGradient: 'from-red-600 to-red-700'
+        bgGradient: 'from-red-700 to-red-900'
     },
     {
         name: 'Telegram',
         icon: <MessageCircle className="h-8 w-8" />,
-        url: 'https://t.me/ahmedsaber',
+        url: 'https://t.me/ahmed0saber_channel',
         description: 'Join my channel for quick tips and updates',
         followers: '12.5k',
-        handle: '@ahmedsaber',
+        handle: '@ahmed0saber_channel',
         color: 'text-white',
-        bgGradient: 'from-blue-500 to-blue-600'
+        bgGradient: 'from-lime-700 to-lime-900'
     },
     {
-        name: 'Dev.to',
-        icon: <BookOpen className="h-8 w-8" />,
-        url: 'https://dev.to/ahmedsaber',
-        description: 'Read my technical articles and tutorials',
+        name: 'Facebook',
+        icon: <Facebook className="h-8 w-8" />,
+        url: 'https://www.facebook.com/profile.php?id=100092736532709',
+        description: 'Connect with me on Facebook for updates and discussions',
         followers: '3.2k',
-        handle: '@ahmedsaber',
+        handle: '@Ahmed Saber',
         color: 'text-white',
-        bgGradient: 'from-green-600 to-green-700'
+        bgGradient: 'from-sky-700 to-sky-900'
     },
     {
         name: 'Email',
         icon: <Mail className="h-8 w-8" />,
-        url: 'mailto:ahmed@example.com',
-        description: 'Get in touch for collaboration opportunities',
-        handle: 'ahmed@example.com',
+        url: 'mailto:ahmed0saber33@gmail.com',
+        description: 'Contact me for collaborations or inquiries',
+        handle: 'ahmed0saber33@gmail.com',
         color: 'text-white',
-        bgGradient: 'from-purple-600 to-purple-700'
+        bgGradient: 'from-amber-700 to-amber-900'
     }
 ];
 

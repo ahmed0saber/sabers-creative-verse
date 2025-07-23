@@ -1,26 +1,24 @@
 const education = [
     {
-        degree: "Bachelor of Computer Science",
-        field: "Software Engineering",
-        institution: "Cairo University",
-        location: "Cairo, Egypt",
-        period: "2018 - 2022",
+        degree: "Bachelor of Applied Science",
+        field: "Physics",
+        institution: "Kafr El-Sheikh University",
+        location: "Kafr El-Sheikh, Egypt",
+        period: "2019 - 2023",
         achievements: [
-            "Graduated with Honors",
-            "Dean's List for 3 consecutive semesters",
-            "Best Graduation Project Award"
+            "Our graduation project focuses on the development of a laser-controlled alert circuit, and studying some of its applications, including security systems, and measuring the level of wheat stored in silos, and by adjusting the sensitivity of the device to detect the absence of natural light, it can be used to turn on the street lamps automatically when it becomes dark outside."
         ]
     },
     {
-        degree: "High School Diploma",
+        degree: "Specialization Diploma",
         field: "Software Engineering",
-        institution: "Al-Azhar High School",
-        location: "Cairo, Egypt",
-        period: "2015 - 2018",
+        institution: "Coursera",
+        location: "Online",
+        period: "2024 - 2025",
         achievements: [
-            "Valedictorian",
-            "Mathematics Olympiad Winner",
-            "Science Fair First Place"
+            "IBM's Applied Software Engineering Fundamentals - Specialization",
+            "The Hong Kong University of Science and Technology's Software Engineering - Specialization",
+            "IBM's Introduction to DevOps - Course"
         ]
     }
 ];

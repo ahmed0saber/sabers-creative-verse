@@ -96,13 +96,13 @@ const ConnectSection = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Button asChild size="lg" className="neon-glow">
-                <a href="mailto:ahmed@example.com">
+                <a href="mailto:ahmed0saber33@gmail.com" target="_blank" rel="noopener noreferrer">
                   <Mail className="h-5 w-5 mr-2" />
                   Send Email
                 </a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-primary/50">
-                <a href="https://linkedin.com/in/ahmedsaber" target="_blank" rel="noopener noreferrer">
+                <a href="https://linkedin.com/in/ahmed0saber" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="h-5 w-5 mr-2" />
                   LinkedIn
                 </a>

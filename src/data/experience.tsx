@@ -1,48 +1,65 @@
 const experience = [
     {
-        title: "Senior Full Stack Developer",
-        company: "TechCorp Solutions",
-        type: "Full-time",
-        location: "Remote",
-        period: "2023 - Present",
-        description: "Leading development of scalable web applications using React, Node.js, and cloud technologies.",
+        title: "Frontend Instructor",
+        company: "EraaSoft",
+        type: "Part-time",
+        location: "Hybrid (Cairo, Egypt)",
+        period: "March 2023 - July 2024",
+        description: "Led frontend development training for aspiring developers, focusing on practical skills and real-world applications.",
         responsibilities: [
-            "Built microservices architecture serving 1M+ users",
-            "Mentored 5 junior developers and conducted code reviews",
-            "Implemented CI/CD pipelines reducing deployment time by 70%",
-            "Collaborated with product team to define technical requirements"
+            "Conduct two weekly online meetings with each student group",
+            "Equip students with the necessary skills for frontend developer roles",
+            "Convene in-person in Cairo for semi-final and graduation project discussions",
+            "Provide feedback and engage in discourse with the students"
         ],
-        technologies: ["React", "TypeScript", "Node.js", "AWS", "Docker"]
+        technologies: ["HTML & CSS", "JavaScript", "Bootstrap", "React.js", "Redux", "Git & GitHub", "Figma"]
     },
     {
-        title: "Full Stack Developer",
-        company: "StartupXYZ",
+        title: "Mid-Level Frontend Developer",
+        company: "Valinteca",
         type: "Full-time",
-        location: "Cairo, Egypt",
-        period: "2022 - 2023",
-        description: "Developed and maintained full-stack applications for fintech startup focused on digital payments.",
+        location: "Remote (Dubai, UAE)",
+        period: "April 2022 - July 2024",
+        description: "Developed and maintained web applications with a focus on performance and user experience, collaborating with cross-functional teams.",
         responsibilities: [
-            "Created responsive web applications using React and Next.js",
-            "Designed and implemented RESTful APIs with Express.js",
-            "Integrated payment gateways and third-party services",
-            "Optimized database queries improving performance by 40%"
+            "Mentor and manage a group of junior and intern frontend developers",
+            "Design and implement user interfaces using React.js and JavaScript",
+            "Participate in code reviews and refactoring to maintain clean and reusable code",
+            "Optimize performance and ensure cross-browser compatibility",
+            "Collaborate with backend developers to integrate APIs",
+            "Maintain legacy code and implement new features",
+            "Work closely with the design team to ensure UI/UX consistency",
+            "Contribute to the development of internal tools and libraries"
         ],
-        technologies: ["React", "Next.js", "Express.js", "MongoDB", "Stripe"]
+        technologies: ["HTML & CSS", "JavaScript", "Bootstrap", "Sass", "jQuery", "Gulp.js", "React.js", "Git & GitHub", "Figma", "ClickUp", "CI/CD", "Twig.js", "Blade Templating"]
     },
     {
-        title: "Frontend Developer Intern",
-        company: "Digital Agency Pro",
+        title: "Frontend Developer",
+        company: "Orizon PR & Marketing",
+        type: "Freelance",
+        location: "Remote (Doha, Qatar)",
+        period: "January 2023 - July 2023",
+        description: "Developed responsive and user-friendly web applications, focusing on E-commerce solutions and landing pages.",
+        responsibilities: [
+            "Partner with a cross-functional team to develop a range of notable projects",
+            "Build and maintain E-commerce websites and landing pages",
+            "Contribute to project planning, design discussions and time estimation"
+        ],
+        technologies: ["HTML & CSS", "JavaScript", "Tailwind CSS", "React.js", "Redux", "Next.js", "Git & GitHub", "Figma", "Trello"]
+    },
+    {
+        title: "React JS Developer",
+        company: "Across The Globe (ATG)",
         type: "Internship",
-        location: "Cairo, Egypt",
-        period: "2021 - 2022",
-        description: "Worked on client projects building modern web interfaces and learning industry best practices.",
+        location: "Remote (Bengaluru, India)",
+        period: "April 2022 - May 2022",
+        description: "Gained hands-on experience in developing web applications using React.js and contributed to various projects.",
         responsibilities: [
-            "Converted designs to responsive React components",
-            "Implemented state management using Redux",
-            "Collaborated with design team on UI/UX improvements",
-            "Participated in agile development process"
+            "Collaborate with multinational teams to build web applications with React.js",
+            "Fix non-urgent bugs in mobile applications built with React Native and Expo",
+            "Contribute to the development of a simpler websites built with JavaScript",
         ],
-        technologies: ["React", "Redux", "Sass", "JavaScript", "Figma"]
+        technologies: ["HTML & CSS", "JavaScript", "React.js", "Redux", "React Native", "Git & GitHub", "Figma"]
     }
 ];
 
