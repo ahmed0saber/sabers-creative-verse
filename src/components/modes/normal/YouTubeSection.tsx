@@ -35,7 +35,7 @@ const YouTubeSection = () => {
           </div>
 
           <Button asChild className="neon-glow transition-smooth">
-            <a href="https://youtube.com/@ahmedsaber" target="_blank" rel="noopener noreferrer">
+            <a href="https://youtube.com/@ahmed0saber" target="_blank" rel="noopener noreferrer">
               <Youtube className="h-5 w-5 mr-2" />
               Subscribe to Channel
             </a>
@@ -47,15 +47,15 @@ const YouTubeSection = () => {
           {youtubeContent.videos.map((video, index) => (
             <Card
               key={video.id}
-              className="overflow-hidden bg-card/50 border-border transition-smooth card-elevated group animate-fade-up flex flex-col"
+              className="bg-card/50 border-border transition-smooth card-elevated animate-fade-up flex flex-col"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Thumbnail */}
-              <div className="relative overflow-hidden w-full">
+              <div className="relative overflow-hidden w-full group overflow-y-hidden rounded-t-lg">
                 <img
                   src={video.thumbnail}
                   alt={video.title}
-                  className="w-full h-48 object-cover transition-smooth"
+                  className="w-full transition-smooth"
                 />
 
                 {/* Duration Badge */}
@@ -93,12 +93,24 @@ const YouTubeSection = () => {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {video.tags.map(tag => (
+                <div className="flex flex-wrap items-stretch gap-1 mb-4 mt-auto">
+                  {video.tags.slice(0, 3).map(tag => (
                     <Badge key={tag} variant="secondary" className="text-xs">
                       {tag}
                     </Badge>
                   ))}
+                  {video.tags.length > 3 && (
+                    <div className="relative group flex">
+                      <Badge variant="secondary" className="text-xs">
+                        +{video.tags.length - 3}
+                      </Badge>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 px-2 py-1 text-foreground bg-card border border-border rounded text-xs opacity-0 group-hover:opacity-100 transition-smooth pointer-events-none whitespace-nowrap">
+                        {video.tags.slice(3).map(tag => (
+                          <span key={tag} className="block">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Watch Button */}
@@ -122,10 +134,10 @@ const YouTubeSection = () => {
             <Youtube className="h-16 w-16 text-red-500 mx-auto mb-4" />
             <h3 className="text-2xl font-bold mb-4">Join the Community</h3>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Subscribe for weekly programming tutorials, tech talks, and development tips
+              Subscribe for various programming tutorials, tech talks, and development tips
             </p>
             <Button asChild size="lg" className="neon-glow">
-              <a href="https://youtube.com/@ahmedsaber" target="_blank" rel="noopener noreferrer">
+              <a href="https://youtube.com/@ahmed0saber" target="_blank" rel="noopener noreferrer">
                 Subscribe Now
               </a>
             </Button>
