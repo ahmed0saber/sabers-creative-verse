@@ -52,37 +52,23 @@ function generateReadmeContent(project: Project): string {
     const {
         title,
         description,
-        longDescription,
         tags,
         githubUrl,
         demoUrl,
         story
     } = project;
 
-    const frontend = tags.find(t => /react|next|vue/i.test(t)) || 'Unknown';
-    const backend = tags.find(t => /node|express/i.test(t)) || 'Unknown';
-    const db = tags.find(t => /mongo|sql/i.test(t)) || 'Unknown';
-    const ai = tags.find(t => /openai|claude/i.test(t)) || '';
-    const deploy = tags.find(t => /vercel|docker|aws/i.test(t)) || 'Unknown';
-
     return `# ${title}
 
 ## Overview
 ${description.endsWith('.') ? description : description + '.'}
 
-## Description
-${longDescription}
-
 ## Tech Stack
-- **Frontend**: ${frontend}
-- **Backend**: ${backend}
-${ai ? `- **AI Integration**: ${ai}` : ''}
-- **Database**: ${db}
-- **Deployment**: ${deploy}
+${tags.length ? tags.map(tag => `- ${tag}`).join('\n') : 'No tags provided.'}
 
 ## Demo
 🔗 [Live Demo](${demoUrl})
-📁 [GitHub Repository](${githubUrl})
+${githubUrl ? `📁 [GitHub Repository](${githubUrl})` : ''}
 
 ${story ? `## Project Story\n${story}` : ''}
 `;

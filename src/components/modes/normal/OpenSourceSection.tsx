@@ -73,7 +73,9 @@ const OpenSourceSection = () => {
                                                 +{project.tags.length - 3}
                                             </Badge>
                                             <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 px-2 py-1 text-foreground bg-card border border-border rounded text-xs opacity-0 group-hover:opacity-100 transition-smooth pointer-events-none whitespace-nowrap">
-                                                {project.tags.slice(3).join(', ')}
+                                                {project.tags.slice(3).map(tag => (
+                                                    <span key={tag} className="block">{tag}</span>
+                                                ))}
                                             </div>
                                         </div>
                                     )}

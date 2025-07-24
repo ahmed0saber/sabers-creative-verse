@@ -149,6 +149,8 @@ const HackerMode = () => {
         '',
         `GitHub: ${project.githubUrl}`,
         `Demo: ${project.demoUrl}`,
+        '\n',
+        `Project Story:\n${project.story}`,
         ''
       ];
     }

@@ -20,11 +20,11 @@ export default function ProjectCard({ project, index }: { project: Project, inde
     return (
         <Card
             key={project.id}
-            className="overflow-hidden bg-card border-border transition-fast shadow-sm group animate-fade-up flex flex-col"
+            className="bg-card border-border transition-fast shadow-sm animate-fade-up flex flex-col"
             style={{ animationDelay: `${index * 0.1}s` }}
         >
             {/* Image Slider */}
-            <div className="relative h-48 overflow-hidden w-full">
+            <div className="relative w-full group overflow-hidden rounded-t-lg">
                 <img
                     src={project.images[currentImageIndex]}
                     alt={project.title}
@@ -35,13 +35,13 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                     <>
                         <button
                             onClick={() => prevImage()}
-                            className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-fast"
+                            className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full md:opacity-0 opacity-1 group-hover:opacity-100 transition-fast"
                         >
                             <ChevronLeft className="h-4 w-4 text-white" />
                         </button>
                         <button
                             onClick={() => nextImage()}
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-fast"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full md:opacity-0 opacity-1 group-hover:opacity-100 transition-fast"
                         >
                             <ChevronRight className="h-4 w-4 text-white" />
                         </button>
@@ -61,20 +61,27 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                 </div>
                 <p className="text-muted-foreground text-sm mb-4">{project.description}</p>
 
-                <div className="flex flex-wrap gap-1 mb-4 mt-auto">
+                <div className="flex flex-wrap items-stretch gap-1 mb-4 mt-auto">
                     {project.tags.slice(0, 3).map(tag => (
                         <Badge key={tag} variant="secondary" className="text-xs">
                             {tag}
                         </Badge>
                     ))}
                     {project.tags.length > 3 && (
-                        <Badge variant="secondary" className="text-xs">
-                            +{project.tags.length - 3}
-                        </Badge>
+                        <div className="relative group flex">
+                            <Badge variant="secondary" className="text-xs">
+                                +{project.tags.length - 3}
+                            </Badge>
+                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 px-2 py-1 text-foreground bg-card border border-border rounded text-xs opacity-0 group-hover:opacity-100 transition-smooth pointer-events-none whitespace-nowrap">
+                                {project.tags.slice(3).map(tag => (
+                                    <span key={tag} className="block">{tag}</span>
+                                ))}
+                            </div>
+                        </div>
                     )}
                 </div>
 
-                <div className="flex space-x-2">
+                <div className="flex space-x-2 max-w-full">
                     {project.story && (
                         <Dialog>
                             <DialogTrigger asChild>
