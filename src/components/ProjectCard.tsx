@@ -102,11 +102,13 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                             </DialogContent>
                         </Dialog>
                     )}
-                    <Button variant="ghost" size="sm" asChild className="p-2">
-                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                            <Github className="h-4 w-4" />
-                        </a>
-                    </Button>
+                    {project.githubUrl && (
+                        <Button variant="ghost" size="sm" asChild className="p-2">
+                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                                <Github className="h-4 w-4" />
+                            </a>
+                        </Button>
+                    )}
                     {project.demoUrl && (
                         <Button variant="ghost" size="sm" asChild className="p-2">
                             <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">

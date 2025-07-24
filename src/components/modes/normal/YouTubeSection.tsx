@@ -120,7 +120,7 @@ const YouTubeSection = () => {
                 >
                   <a href={video.url} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="h-4 w-4 mr-2" />
-                    Watch Video
+                    Watch Now
                   </a>
                 </Button>
               </div>
