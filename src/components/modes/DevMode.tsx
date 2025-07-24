@@ -223,14 +223,16 @@ const DevMode = () => {
             <div className="flex items-center px-2 md:px-4 py-2 bg-[#1e1e1e] border-r border-[#3e3e42] text-sm whitespace-nowrap">
               <FileText className="h-4 w-4 mr-2" />
               <span className="truncate">{selectedFile}</span>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="ml-2 h-4 w-4 p-0 hover:bg-red-500/20 flex-shrink-0"
-                onClick={() => setSelectedFile('README.md')}
-              >
-                ×
-              </Button>
+              {selectedFile !== 'README.md' && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="ml-2 h-4 w-4 p-0 hover:bg-red-500/20 flex-shrink-0"
+                  onClick={() => setSelectedFile('README.md')}
+                >
+                  &times;
+                </Button>
+              )}
             </div>
           </div>
 
