@@ -215,7 +215,7 @@ const HackerMode = () => {
   }, [output]);
 
   return (
-    <div className="h-screen pt-16 bg-black text-green-400 font-mono overflow-hidden">
+    <div className="h-svh pt-16 bg-black text-green-400 font-mono overflow-hidden">
       <div className="h-full flex flex-col p-4">
         {/* Terminal Output */}
         <div
