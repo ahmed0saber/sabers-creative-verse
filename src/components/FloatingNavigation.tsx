@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, ReactNode } from 'react';
 import {
   User,
   Wrench,
@@ -7,12 +7,13 @@ import {
   Youtube,
   FileText,
   MessageCircle,
-  Github
+  Github,
+  AppWindow
 } from 'lucide-react';
 
 interface NavItem {
   id: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
 }
 
@@ -27,7 +28,7 @@ const FloatingNavigation = () => {
     { id: 'skills', icon: <Wrench className="h-5 w-5" />, label: 'Skills' },
     { id: 'experience', icon: <Briefcase className="h-5 w-5" />, label: 'Experience' },
     { id: 'education', icon: <GraduationCap className="h-5 w-5" />, label: 'Education' },
-    { id: 'projects', icon: <Briefcase className="h-5 w-5" />, label: 'Projects' },
+    { id: 'projects', icon: <AppWindow className="h-5 w-5" />, label: 'Projects' },
     { id: 'opensource', icon: <Github className="h-5 w-5" />, label: 'Open Source' },
     { id: 'youtube', icon: <Youtube className="h-5 w-5" />, label: 'YouTube' },
     { id: 'articles', icon: <FileText className="h-5 w-5" />, label: 'Articles' },

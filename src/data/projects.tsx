@@ -42,7 +42,24 @@ In April 2024, I began building ContentAt, a content creation tool that helps us
 Building this tool was a rewarding experience. I tackled several interesting challenges: generating dynamic images with Next.js, building custom color pickers, ensuring accessible color contrast, generating PDFs, optimizing with debounce, implementing retry logic for API calls, using localStorage for thumbnail saving, and tracking storage space. I even added a sleek storage management modal, inspired by Google's Play Store, to help users manage their content when nearing quota limits.
 
 My hope is that ContentAt empowers other content creators to craft high-quality visuals quickly and effortlessly.`
-    }
+    },
+    {
+        id: '3',
+        title: 'QGame',
+        description: 'Online game platform that allows users to play a collection of word, math, and memory games designed to sharpen their mind and improve their skills.',
+        tags: ['Web Components', 'MicroFrontends', 'JavaScript', 'HTML & CSS', 'Cloudflare'],
+        images: ['/images/projects/qgame/1.png', '/images/projects/qgame/2.png', '/images/projects/qgame/3.png'],
+        demoUrl: 'https://qgame.pages.dev',
+        story: `As a software developer passionate about gaming, I've always wanted to build something that blends entertainment with technical depth. After reading the book: "Micro Frontends In Action", I became inspired to apply the concept in a real-world project, and that's how QGame was born.
+
+QGame is an online game platform that hosts a growing collection of word, math, and memory games, each game is designed to sharpen the mind and provide meaningful play. But beyond the gameplay, the platform itself is an architectural experiment. I built QGame as a microfrontend-driven system, where each game is developed as a standalone web component that can be loaded at runtime.
+
+This approach gave me the flexibility to update, deploy, or maintain each game independently without touching the core platform. Want to release a new game or patch a bug? Just redeploy the game's own repository, with no need to rebuild or redeploy the entire platform.
+
+Building QGame was a technically enriching experience. I explored various microfrontend integration strategies and gained insight into how each approach impacts performance and SEO. I also learned how to manage cross-repo versioning effectively and facilitate state communication between isolated components.
+
+QGame isn't just a playground for users, it's also a playground for architectural experimentation. My hope is that it brings joy to players while inspiring developers to explore modular frontend systems in practice.`
+    },
 ];
 
 export default projects;
