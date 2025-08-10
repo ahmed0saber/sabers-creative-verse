@@ -16,6 +16,8 @@ const HackerMode = () => {
   const [output, setOutput] = useState<string[]>([
     'Welcome to Ahmed Saber Portfolio Terminal v1.0.0',
     'Type "help" to see available commands',
+    'Use tab to autocomplete commands, or press up/down arrows to navigate command history',
+    'Tab focus navigation works when command is empty',
     ''
   ]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -187,7 +189,16 @@ const HackerMode = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowUp') {
+    if (e.key === 'Tab' && input.trim()) {
+      e.preventDefault();
+      const lowerCaseInput = input.trim().toLowerCase();
+      const matchingCommands = Object.keys(commands).filter(cmd => cmd.startsWith(lowerCaseInput));
+      if (matchingCommands.length === 1) {
+        setInput(matchingCommands[0]);
+      } else if (matchingCommands.length > 1) {
+        setOutput(prev => [...prev, `Available commands: ${matchingCommands.join(', ')}`, '']);
+      }
+    } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (historyIndex < history.length - 1) {
         const newIndex = historyIndex + 1;
