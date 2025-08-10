@@ -131,7 +131,7 @@ const HackerMode = () => {
     },
     history: () => [
       'Command History:',
-      ...history.map((cmd, i) => `  ${i + 1}. ${cmd}`),
+      history.length > 0 ? history.map((cmd, i) => `  ${i + 1}. ${cmd}`) : '  No commands executed yet.',
       ''
     ],
     pwd: () => ['/home/ahmed/portfolio', ''],
