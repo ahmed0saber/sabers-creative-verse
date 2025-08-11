@@ -125,7 +125,7 @@ const DevMode = () => {
               }
             }}
           >
-            <div className="flex items-center space-x-2 flex-1">
+            <button className="flex items-center space-x-2 flex-1">
               {node.type === 'folder' && (
                 <span className="transition-smooth">
                   {isExpanded ? (
@@ -149,7 +149,7 @@ const DevMode = () => {
               </span>
 
               <span className="text-sm">{node.name}</span>
-            </div>
+            </button>
           </div>
 
           {node.type === 'folder' && isExpanded && node.children && (

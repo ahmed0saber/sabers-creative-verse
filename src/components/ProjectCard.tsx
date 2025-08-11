@@ -35,13 +35,13 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                     <>
                         <button
                             onClick={() => prevImage()}
-                            className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full md:opacity-0 opacity-1 group-hover:opacity-100 transition-fast"
+                            className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full md:opacity-0 opacity-1 group-hover:opacity-100 transition-fast focus-visible:opacity-100"
                         >
                             <ChevronLeft className="h-4 w-4 text-white" />
                         </button>
                         <button
                             onClick={() => nextImage()}
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full md:opacity-0 opacity-1 group-hover:opacity-100 transition-fast"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full md:opacity-0 opacity-1 group-hover:opacity-100 transition-fast focus-visible:opacity-100"
                         >
                             <ChevronRight className="h-4 w-4 text-white" />
                         </button>
