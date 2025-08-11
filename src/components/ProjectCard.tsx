@@ -34,12 +34,14 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                 {project.images.length > 1 && (
                     <>
                         <button
+                            aria-label="Previous image"
                             onClick={() => prevImage()}
                             className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full md:opacity-0 opacity-1 group-hover:opacity-100 transition-fast focus-visible:opacity-100"
                         >
                             <ChevronLeft className="h-4 w-4 text-white" />
                         </button>
                         <button
+                            aria-label="Next image"
                             onClick={() => nextImage()}
                             className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 rounded-full md:opacity-0 opacity-1 group-hover:opacity-100 transition-fast focus-visible:opacity-100"
                         >
@@ -85,7 +87,7 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                     {project.story && (
                         <Dialog>
                             <DialogTrigger asChild>
-                                <Button variant="ghost" size="sm" className="p-2">
+                                <Button variant="ghost" size="sm" className="p-2" aria-label="Open project story">
                                     <BookOpen className="h-4 w-4" />
                                 </Button>
                             </DialogTrigger>
@@ -104,14 +106,14 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                     )}
                     {project.githubUrl && (
                         <Button variant="ghost" size="sm" asChild className="p-2">
-                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="Open GitHub repository">
                                 <Github className="h-4 w-4" />
                             </a>
                         </Button>
                     )}
                     {project.demoUrl && (
                         <Button variant="ghost" size="sm" asChild className="p-2">
-                            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" aria-label="Open live demo">
                                 <ExternalLink className="h-4 w-4" />
                             </a>
                         </Button>

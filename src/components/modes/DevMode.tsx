@@ -238,7 +238,7 @@ const DevMode = () => {
 
           {/* File Content */}
           <div className="flex-1 bg-[#1e1e1e] overflow-hidden">
-            <ScrollArea className="h-full">
+            <ScrollArea className="h-full border focus-within:border-gray-300" tabIndexable={true}>
               <div className="p-3 md:p-6">
                 <pre className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap text-gray-300 break-words">
                   {getFileContent(selectedFile)}

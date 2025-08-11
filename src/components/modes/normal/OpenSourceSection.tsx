@@ -83,7 +83,7 @@ const OpenSourceSection = () => {
 
                                 <div className="flex justify-between items-end space-x-2">
                                     <Button variant="ghost" size="sm" asChild className="p-2">
-                                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label="Open GitHub repository">
                                             <Github className="h-4 w-4" />
                                         </a>
                                     </Button>
