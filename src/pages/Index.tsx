@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import NormalMode from '@/components/modes/NormalMode';
 import DevMode from '@/components/modes/DevMode';
 import HackerMode from '@/components/modes/HackerMode';
+import { useEffect } from 'react';
 
 const PortfolioContent = () => {
   const { mode } = useMode();
@@ -20,6 +21,10 @@ const PortfolioContent = () => {
         return <NormalMode />;
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [mode]);
 
   return (
     <>
