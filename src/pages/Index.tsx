@@ -1,4 +1,3 @@
-import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ModeProvider, useMode } from '@/contexts/ModeContext';
 import Navbar from '@/components/Navbar';
 import NormalMode from '@/components/modes/NormalMode';
@@ -45,11 +44,9 @@ const PortfolioContent = () => {
 
 const Index = () => {
   return (
-    <ThemeProvider>
-      <ModeProvider>
-        <PortfolioContent />
-      </ModeProvider>
-    </ThemeProvider>
+    <ModeProvider>
+      <PortfolioContent />
+    </ModeProvider>
   );
 };
 
