@@ -229,6 +229,7 @@ const DevMode = () => {
                   size="sm"
                   className="ml-2 h-4 w-4 p-0 hover:bg-red-500/20 flex-shrink-0"
                   onClick={() => setSelectedFile('README.md')}
+                  aria-label={`Close ${selectedFile}`}
                 >
                   &times;
                 </Button>
