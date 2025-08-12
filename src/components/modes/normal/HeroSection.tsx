@@ -40,7 +40,7 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           {/* Main Content */}
-          <div className="animate-fade-up">
+          <div className="animate-fade-up" style={{ animationDuration: '0.4s' }}>
             <h1 className="text-4xl md:text-7xl font-bold mb-6 mt-6">
               <span className="text-foreground">{developerDetails.name}</span>
             </h1>
