@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, ExternalLink, Github, BookOpen } from "lucide-react";
-import { Card } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
+import { Card } from "../../../ui/card";
+import { Badge } from "../../../ui/badge";
+import { Button } from "../../../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Project } from "@/types/Project";

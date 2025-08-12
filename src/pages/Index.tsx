@@ -1,5 +1,5 @@
 import { ModeProvider, useMode } from '@/contexts/ModeContext';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/layout/Navbar';
 import NormalMode from '@/components/modes/NormalMode';
 import DevMode from '@/components/modes/DevMode';
 import HackerMode from '@/components/modes/HackerMode';
