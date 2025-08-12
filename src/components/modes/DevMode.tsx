@@ -193,7 +193,7 @@ const DevMode = () => {
     }
 
     if (file?.url) {
-      return <img src={file.url} alt={file.name} className="max-w-full h-auto" />;
+      return <img src={`images/projects/${file.url}`} alt={file.name} className="w-full max-w-full h-auto" />;
     }
 
     return 'File content not available';
