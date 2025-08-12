@@ -26,6 +26,13 @@ const PortfolioContent = () => {
     window.scrollTo(0, 0);
   }, [mode]);
 
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+  }, []);
+
   return (
     <>
       <Navbar />
