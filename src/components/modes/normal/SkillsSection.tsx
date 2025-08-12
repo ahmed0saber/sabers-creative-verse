@@ -26,13 +26,19 @@ const SkillsSection = () => {
                   key={skill.name}
                   className="p-4 bg-card border-border transition-fast shadow-sm group animate-fade-up flex flex-col items-center justify-center cursor-default hover:border-primary/50"
                   style={{ animationDelay: `${(categoryIndex * 0.1) + (index * 0.1)}s` }}
-                  >
-                    <div className="text-center flex flex-col items-center justify-center gap-4">
-                      <img src={`/images/skills/${skill.icon}`} alt={`${skill.name} icon`} className="inline-block h-12" />
-                      <h4 className="text-sm font-medium">{skill.name}</h4>
-                    </div>
-                  </Card>
-                ))}
+                >
+                  <div className="text-center flex flex-col items-center justify-center gap-4">
+                    <img
+                      src={`/images/skills/${skill.icon}`}
+                      alt={`${skill.name} icon`}
+                      className="inline-block h-12"
+                      width={48}
+                      height={48}
+                    />
+                    <h4 className="text-sm font-medium">{skill.name}</h4>
+                  </div>
+                </Card>
+              ))}
             </div>
           </div>
         ))}

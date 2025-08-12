@@ -56,6 +56,8 @@ const YouTubeSection = () => {
                   src={`images/youtube/${video.thumbnail}`}
                   alt={video.title}
                   className="w-full transition-smooth"
+                  width={720}
+                  height={405}
                 />
 
                 {/* Duration Badge */}

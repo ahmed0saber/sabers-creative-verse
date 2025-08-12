@@ -29,6 +29,8 @@ export default function ProjectCard({ project, index }: { project: Project, inde
                     src={`images/projects/${project.images[currentImageIndex]}`}
                     alt={project.title}
                     className="w-full h-full object-cover transition-fast"
+                    width={720}
+                    height={405}
                 />
 
                 {project.images.length > 1 && (
