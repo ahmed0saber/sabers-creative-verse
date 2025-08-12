@@ -26,7 +26,7 @@ export default function ProjectCard({ project, index }: { project: Project, inde
             {/* Image Slider */}
             <div className="relative w-full group overflow-hidden rounded-t-lg">
                 <img
-                    src={project.images[currentImageIndex]}
+                    src={`images/projects/${project.images[currentImageIndex]}`}
                     alt={project.title}
                     className="w-full h-full object-cover transition-fast"
                 />

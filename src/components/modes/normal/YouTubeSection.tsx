@@ -43,7 +43,7 @@ const YouTubeSection = () => {
         </div>
 
         {/* Videos Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {youtubeContent.videos.map((video, index) => (
             <Card
               key={video.id}
@@ -53,7 +53,7 @@ const YouTubeSection = () => {
               {/* Thumbnail */}
               <div className="relative overflow-hidden w-full group overflow-y-hidden rounded-t-lg">
                 <img
-                  src={video.thumbnail}
+                  src={`images/youtube/${video.thumbnail}`}
                   alt={video.title}
                   className="w-full transition-smooth"
                 />

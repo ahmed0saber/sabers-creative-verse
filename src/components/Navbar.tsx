@@ -62,7 +62,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" aria-label='Open menu'>
                   <Menu className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>

@@ -6,7 +6,7 @@ const projects: Project[] = [
         title: 'Intern2Grow',
         description: 'Virtual internship programs provider, which offers virtual internships with real tasks, so users can work on some real projects to gain work experience, and be job-ready.',
         tags: ['Next.js', 'MongoDB', 'Deno KV', 'YouTube API', 'Deno Runtime', 'Deno Deploy', 'Vercel', 'Cloudflare'],
-        images: ['/images/projects/intern2grow/1.png', '/images/projects/intern2grow/2.png', '/images/projects/intern2grow/3.png', '/images/projects/intern2grow/4.png', '/images/projects/intern2grow/5.png'],
+        images: ['intern2grow/1.webp', 'intern2grow/2.webp', 'intern2grow/3.webp', 'intern2grow/4.webp', 'intern2grow/5.webp'],
         demoUrl: 'https://intern2grow.pages.dev',
         story: `On September 2022, I first conceived of the idea for Intern2Grow. Validating the idea and checking similar platforms took me months until I brought the Intern2Grow website online on March 2023.
 
@@ -31,7 +31,7 @@ I enjoyed handling redirects from domain to another and migrating from tech stac
         title: 'ContentAt',
         description: 'Content creation tool that allows users to create high-quality covers, thumbnails and PDF carousels for their social media posts, blogs, and other content.',
         tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel', 'React.js'],
-        images: ['/images/projects/contentat/1.png', '/images/projects/contentat/2.png', '/images/projects/contentat/3.png', '/images/projects/contentat/4.png', '/images/projects/contentat/5.png'],
+        images: ['contentat/1.webp', 'contentat/2.webp', 'contentat/3.webp', 'contentat/4.webp', 'contentat/5.webp'],
         demoUrl: 'https://content-at.vercel.app',
         story: `As a content creator, I've always wanted an easy way to design high-quality covers and thumbnails for my social media posts and blogs. Most existing tools were either too complicated or lacked the features I needed, so I decided to build my own.
 
@@ -48,7 +48,7 @@ My hope is that ContentAt empowers other content creators to craft high-quality 
         title: 'QGame',
         description: 'Online game platform that allows users to play a collection of word, math, and memory games designed to sharpen their mind and improve their skills.',
         tags: ['Web Components', 'MicroFrontends', 'JavaScript', 'HTML & CSS', 'Cloudflare'],
-        images: ['/images/projects/qgame/1.png', '/images/projects/qgame/2.png', '/images/projects/qgame/3.png'],
+        images: ['qgame/1.webp', 'qgame/2.webp', 'qgame/3.webp'],
         demoUrl: 'https://qgame.pages.dev',
         story: `As a software developer passionate about gaming, I've always wanted to build something that blends entertainment with technical depth. After reading the book: "Micro Frontends In Action", I became inspired to apply the concept in a real-world project, and that's how QGame was born.
 
