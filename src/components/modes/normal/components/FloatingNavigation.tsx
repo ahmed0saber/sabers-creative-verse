@@ -93,7 +93,7 @@ const FloatingNavigation = () => {
             ref={(el) => itemRefs.current[item.id] = el}
             onClick={() => scrollToSection(item.id)}
             className={`p-2 rounded-full transition-smooth group relative ${activeSection === item.id
-              ? 'bg-primary text-primary-foreground neon-glow'
+              ? 'bg-primary text-primary-foreground neon-glow active-nav-tab'
               : 'hover:bg-muted text-muted-foreground hover:text-foreground'
               }`}
             title={item.label}

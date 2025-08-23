@@ -125,3 +125,10 @@
 .w-68 {
   width: 17rem;
 }
+
+@media (forced-colors: active) {
+  .active-nav-tab {
+    background-color: CanvasText;
+    color: Canvas;
+  }
+}
