@@ -3,8 +3,8 @@ import { Briefcase, Calendar, Building } from 'lucide-react';
 
 const ExperienceSection = () => {
   return (
-    <section id="experience" className="py-16 sm:py-24 px-4 sm:px-6 bg-card/30">
-      <div className="container mx-auto max-w-6xl">
+    <section id="experience" className="py-20 bg-card/30">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Experience

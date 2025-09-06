@@ -3,8 +3,8 @@ import { GraduationCap, Calendar, MapPin } from 'lucide-react';
 
 const EducationSection = () => {
   return (
-    <section id="education" className="py-16 sm:py-24 px-4 sm:px-6">
-      <div className="container mx-auto max-w-4xl">
+    <section id="education" className="py-20">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Education & Certificates
