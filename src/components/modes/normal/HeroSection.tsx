@@ -31,7 +31,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="hero" style={{ minHeight: "calc(100svh - 64px)" }} className="flex items-center justify-center relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-subtle opacity-50"></div>
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-muted/5 rounded-full blur-3xl animate-float"></div>
@@ -41,15 +41,15 @@ const HeroSection = () => {
         <div className="text-center max-w-4xl mx-auto">
           {/* Main Content */}
           <div className="animate-fade-up" style={{ animationDuration: '0.4s' }}>
-            <h1 className="text-4xl md:text-7xl font-bold mb-6 mt-6">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-3 sm:mb-6 mt-0 sm:mt-3 md:mt-6">
               <span className="text-foreground">{developerDetails.name}</span>
             </h1>
 
-            <h2 className="text-xl md:text-2xl font-semibold mb-8 text-muted-foreground">
+            <h2 className="text-xl md:text-2xl opacity-85 font-semibold mb-3 sm:mb-6 md:mb-8">
               {developerDetails.title}
             </h2>
 
-            <p className="text-lg md:text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-lg opacity-70 mb-12 max-w-2xl mx-auto leading-relaxed">
               {developerDetails.description}
             </p>
           </div>
