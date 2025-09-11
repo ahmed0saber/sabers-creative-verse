@@ -66,8 +66,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    font-family: 'Ubuntu', system-ui, -apple-system, sans-serif;
+    @apply bg-background text-foreground;
   }
 
   .font-mono {
