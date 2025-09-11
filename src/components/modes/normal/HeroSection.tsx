@@ -49,13 +49,13 @@ const HeroSection = () => {
               {developerDetails.title}
             </h2>
 
-            <p className="text-lg md:text-lg opacity-70 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-lg opacity-70 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
               {developerDetails.description}
             </p>
           </div>
 
           {/* Social Links */}
-          <div className="animate-fade-up mb-12" style={{ animationDelay: '0.2s' }}>
+          <div className="animate-fade-up mb-8 sm:mb-12" style={{ animationDelay: '0.2s' }}>
             <div className="flex items-center justify-center space-x-6">
               {socialLinks.map((link, index) => (
                 <a
