@@ -9,6 +9,7 @@ import ConnectSection from './normal/ConnectSection';
 import FloatingNavigation from './normal/components/FloatingNavigation';
 import Footer from '../layout/Footer';
 import OpenSourceSection from './normal/OpenSourceSection';
+import BuildYourOwnXSection from './normal/BuildYourOwnX';
 
 const NormalMode = () => {
   return (
@@ -20,6 +21,7 @@ const NormalMode = () => {
         <EducationSection />
         <ProjectsSection />
         <OpenSourceSection />
+        <BuildYourOwnXSection />
         <YouTubeSection />
         <ArticlesSection />
         <ConnectSection />

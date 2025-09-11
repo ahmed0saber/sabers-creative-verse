@@ -8,7 +8,8 @@ import {
   FileText,
   MessageCircle,
   Github,
-  AppWindow
+  AppWindow,
+  Hammer
 } from 'lucide-react';
 
 interface NavItem {
@@ -30,6 +31,7 @@ const FloatingNavigation = () => {
     { id: 'education', icon: <GraduationCap className="h-5 w-5" />, label: 'Education' },
     { id: 'projects', icon: <AppWindow className="h-5 w-5" />, label: 'Projects' },
     { id: 'opensource', icon: <Github className="h-5 w-5" />, label: 'Open Source' },
+    { id: 'buildyourownx', icon: <Hammer className="h-5 w-5" />, label: 'Build Your Own X' },
     { id: 'youtube', icon: <Youtube className="h-5 w-5" />, label: 'YouTube' },
     { id: 'articles', icon: <FileText className="h-5 w-5" />, label: 'Articles' },
     { id: 'connect', icon: <MessageCircle className="h-5 w-5" />, label: 'Connect' },
