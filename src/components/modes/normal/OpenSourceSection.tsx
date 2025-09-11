@@ -1,27 +1,10 @@
-import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Github, ChevronLeft, ChevronRight, Star, GitFork } from 'lucide-react';
+import { Github, Star, GitFork } from 'lucide-react';
 import openSourceProjects from '@/data/opensource-projects';
 
 const OpenSourceSection = () => {
-    const [currentImageIndex, setCurrentImageIndex] = useState<{ [key: string]: number }>({});
-
-    const nextImage = (projectId: string, maxImages: number) => {
-        setCurrentImageIndex(prev => ({
-            ...prev,
-            [projectId]: ((prev[projectId] || 0) + 1) % maxImages
-        }));
-    };
-
-    const prevImage = (projectId: string, maxImages: number) => {
-        setCurrentImageIndex(prev => ({
-            ...prev,
-            [projectId]: ((prev[projectId] || 0) - 1 + maxImages) % maxImages
-        }));
-    };
-
     return (
         <section id="opensource" className="py-20">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">

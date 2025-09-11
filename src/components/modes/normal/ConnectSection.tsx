@@ -33,13 +33,6 @@ const ConnectSection = () => {
               <div
                 className={`p-6 bg-gradient-to-br ${platform.bgGradient} ${platform.color} relative overflow-hidden w-full flex-1 flex flex-col`}
               >
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10 w-full">
-                  <div className="absolute top-0 right-0 w-32 h-32 transform rotate-45 translate-x-16 -translate-y-16">
-                    {platform.icon}
-                  </div>
-                </div>
-
                 <div className="relative z-10 w-full flex-1 flex flex-col">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
