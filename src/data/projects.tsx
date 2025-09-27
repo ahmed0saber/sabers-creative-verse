@@ -6,7 +6,7 @@ const projects: Project[] = [
         title: 'Intern2Grow',
         description: 'Virtual internship programs provider, which offers virtual internships with real tasks, so users can work on some real projects to gain work experience, and be job-ready.',
         tags: ['Next.js', 'MongoDB', 'Deno KV', 'YouTube API', 'Deno Runtime', 'Deno Deploy', 'Vercel', 'Cloudflare'],
-        images: ['intern2grow/1.webp', 'intern2grow/2.webp', 'intern2grow/3.webp', 'intern2grow/4.webp', 'intern2grow/5.webp'],
+        images: ['intern2grow/1.webp', 'intern2grow/2.webp', 'intern2grow/3.webp', 'intern2grow/4.webp', 'intern2grow/5.webp', 'intern2grow/6.webp'],
         demoUrl: 'https://intern2grow.pages.dev',
         story: `On September 2022, I first conceived of the idea for Intern2Grow. Validating the idea and checking similar platforms took me months until I brought the Intern2Grow website online on March 2023.
 
