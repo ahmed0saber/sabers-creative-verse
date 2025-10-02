@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useMode } from '@/contexts/ModeContext';
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -19,9 +19,9 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-foreground">
+            <span className="text-xl font-bold text-foreground">
               Ahmed Saber
-            </h1>
+            </span>
           </div>
 
           {/* Desktop Navigation */}
