@@ -50,6 +50,7 @@ My hope is that ContentAt empowers other content creators to craft high-quality 
         tags: ['Web Components', 'MicroFrontends', 'JavaScript', 'HTML & CSS', 'Cloudflare'],
         images: ['qgame/1.webp', 'qgame/2.webp', 'qgame/3.webp'],
         demoUrl: 'https://qgame.pages.dev',
+        githubUrl: 'https://github.com/ahmed0saber/qgame',
         story: `As a software developer passionate about gaming, I've always wanted to build something that blends entertainment with technical depth. After reading the book: "Micro Frontends In Action", I became inspired to apply the concept in a real-world project, and that's how QGame was born.
 
 QGame is an online game platform that hosts a growing collection of word, math, and memory games, each game is designed to sharpen the mind and provide meaningful play. But beyond the gameplay, the platform itself is an architectural experiment. I built QGame as a microfrontend-driven system, where each game is developed as a standalone web component that can be loaded at runtime.
