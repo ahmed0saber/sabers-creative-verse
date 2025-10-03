@@ -13,6 +13,7 @@ A fast, modern, and customizable developer portfolio built with React, TypeScrip
 - **Icons**: lucide-react
 - **Routing**: react-router-dom
 - **Linting**: ESLint 9 (TypeScript + React hooks + refresh)
+- **User Tracking**: Hotjar
 
 ---
 
