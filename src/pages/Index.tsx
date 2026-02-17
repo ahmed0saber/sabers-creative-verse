@@ -3,6 +3,7 @@ import Navbar from '@/components/layout/Navbar';
 import NormalMode from '@/components/modes/NormalMode';
 import DevMode from '@/components/modes/DevMode';
 import HackerMode from '@/components/modes/HackerMode';
+import AIMode from '@/components/modes/AIMode';
 import { useEffect } from 'react';
 
 const PortfolioContent = () => {
@@ -16,6 +17,8 @@ const PortfolioContent = () => {
         return <DevMode />;
       case 'hacker':
         return <HackerMode />;
+      case 'ai':
+        return <AIMode />;
       default:
         return <NormalMode />;
     }

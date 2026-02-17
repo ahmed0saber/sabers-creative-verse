@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Menu, Terminal, Code, User } from 'lucide-react';
+import { Menu, Terminal, Code, User, Zap } from 'lucide-react';
 
 const Navbar = () => {
   const { mode, setMode } = useMode();
@@ -55,6 +55,15 @@ const Navbar = () => {
                 <Terminal className="h-4 w-4 mr-2" />
                 Hacker
               </Button>
+              <Button
+                variant={mode === 'ai' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setMode('ai')}
+                className="transition-fast"
+              >
+                <Zap className="h-4 w-4 mr-2" />
+                AI
+              </Button>
             </div>
           </div>
 
@@ -78,6 +87,10 @@ const Navbar = () => {
                 <DropdownMenuItem onClick={() => setMode('hacker')}>
                   <Terminal className="h-4 w-4 mr-2" />
                   Hacker Mode
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setMode('ai')}>
+                  <Zap className="h-4 w-4 mr-2" />
+                  AI Mode
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-export type PortfolioMode = 'normal' | 'dev' | 'hacker';
+export type PortfolioMode = 'normal' | 'dev' | 'hacker' | 'ai';
 
 interface ModeContextType {
   mode: PortfolioMode;
