@@ -69,7 +69,14 @@ const AIMode = () => {
       timestamp: new Date(),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    const initialAssistantMessage: ChatMessage = {
+      id: assistantMessageId,
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage, initialAssistantMessage]);
     setInput('');
     setIsLoading(true);
 
@@ -97,17 +104,27 @@ const AIMode = () => {
       for await (const chunk of responseStream) {
         if (chunk.text) {
           fullResponse += chunk.text;
+
+          const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+          if (messageElement) {
+            const messageContentElement = messageElement.querySelector('.message-content');
+            if (messageContentElement) {
+              messageContentElement.textContent += chunk.text;
+            }
+            if (fullResponse.trim() === chunk.text.trim() && fullResponse.trim() !== "") {
+              messageElement.classList.remove('hidden');
+            }
+          }
         }
       }
 
-      const assistantMessage: ChatMessage = {
-        id: assistantMessageId,
-        role: 'assistant',
-        content: fullResponse.trim(),
-        timestamp: new Date(),
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === assistantMessageId
+            ? { ...msg, content: fullResponse.trim() }
+            : msg
+        )
+      );
     } catch (error) {
       const errorObj = parseAiError(error)
       console.error('Error generating response:', errorObj);
@@ -132,7 +149,8 @@ const AIMode = () => {
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'
+                id={`msg-${message.id}`}
+                className={`flex ${message.content === '' ? 'hidden' : ''} ${message.role === 'user' ? 'justify-end' : 'justify-start'
                   }`}
               >
                 <div
@@ -141,7 +159,7 @@ const AIMode = () => {
                     : 'bg-muted text-foreground border border-border'
                     }`}
                 >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                  <p className='text-sm whitespace-pre-wrap message-content'>{message.content}</p>
                   <p
                     className={`text-xs mt-2 ${message.role === 'user'
                       ? 'text-primary-foreground/70'
