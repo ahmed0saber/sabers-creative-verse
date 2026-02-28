@@ -286,7 +286,7 @@ const AIMode = () => {
         </ScrollArea>
 
         <div className="border rounded-lg p-4 bg-muted/30 space-y-3">
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <input
               type="text"
               value={input}
