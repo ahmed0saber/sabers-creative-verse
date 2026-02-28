@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send, Loader2, MessageCircle } from 'lucide-react';
-import { prepareAIContext } from '@/utils/aiDataProcessor';
+import { prepareAIContext, getSkillsAnswer, getProjectsAnswer, getExperienceAnswer, getEducationAnswer } from '@/utils/aiDataProcessor';
 import { GoogleGenAI } from '@google/genai';
 
 const initialMessage = 'Hi! I\'m Ahmed\'s AI assistant, powered by Gemma 3 27B. I can answer questions about Ahmed\'s skills, projects, experience, and more. Feel free to ask me anything!'
@@ -34,6 +34,7 @@ const AIMode = () => {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showPredefinedPrompts, setShowPredefinedPrompts] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const aiRef = useRef<GoogleGenAI | null>(null);
   const contextRef = useRef<string>('');
@@ -57,6 +58,7 @@ const AIMode = () => {
   }, [messages]);
 
   const handleSendMessage = async () => {
+    setShowPredefinedPrompts(false);
     const trimmedInput = input.trim();
     if (!trimmedInput || isLoading) return;
 
@@ -128,14 +130,83 @@ const AIMode = () => {
     } catch (error) {
       const errorObj = parseAiError(error)
       console.error('Error generating response:', errorObj);
-      const assistantMessage: ChatMessage = {
-        id: assistantMessageId,
-        role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again later.',
-        timestamp: new Date(),
-      };
 
-      setMessages((prev) => [...prev, assistantMessage]);
+      const errorMessage = 'Sorry, I encountered an error connecting to the AI model. You can try the predefined questions below.';
+      const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+      if (messageElement) {
+        const messageContentElement = messageElement.querySelector('.message-content');
+        if (messageContentElement) {
+          messageContentElement.textContent = errorMessage;
+        }
+        messageElement.classList.remove('hidden');
+      }
+
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === assistantMessageId
+            ? { ...msg, content: errorMessage }
+            : msg
+        )
+      );
+      setShowPredefinedPrompts(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePredefinedQuestion = async (questionText: string, getAnswerFn: () => string) => {
+    setShowPredefinedPrompts(false);
+
+    const userMessageId = Date.now().toString();
+    const assistantMessageId = (Date.now() + 1).toString();
+
+    const userMessage: ChatMessage = {
+      id: userMessageId,
+      role: 'user',
+      content: questionText,
+      timestamp: new Date(),
+    };
+
+    const initialAssistantMessage: ChatMessage = {
+      id: assistantMessageId,
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage, initialAssistantMessage]);
+    setIsLoading(true);
+
+    try {
+      const answer = getAnswerFn();
+      const chunks = answer.match(/.{1,3}/g) || [answer];
+      let fullResponse = '';
+
+      for (const chunk of chunks) {
+        await new Promise(resolve => setTimeout(resolve, 15));
+        fullResponse += chunk;
+
+        const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+        if (messageElement) {
+          const messageContentElement = messageElement.querySelector('.message-content') as HTMLElement | null;
+          if (messageContentElement) {
+            messageContentElement.innerHTML = fullResponse;
+          }
+          if (fullResponse.trim() !== "") {
+            messageElement.classList.remove('hidden');
+          }
+        }
+      }
+
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === assistantMessageId
+            ? { ...msg, content: fullResponse.trim() }
+            : msg
+        )
+      );
+    } catch (error) {
+      console.error("Error streaming predefined answer:", error);
     } finally {
       setIsLoading(false);
     }
@@ -159,7 +230,14 @@ const AIMode = () => {
                     : 'bg-muted text-foreground border border-border'
                     }`}
                 >
-                  <p className='text-sm whitespace-pre-wrap message-content'>{message.content}</p>
+                  <p className='text-sm whitespace-pre-wrap message-content'>
+                    {message.content.split('\n').map((line, i) => (
+                      <span key={i}>
+                        {line}
+                        {i !== message.content.split('\n').length - 1 && <br />}
+                      </span>
+                    ))}
+                  </p>
                   <p
                     className={`text-xs mt-2 ${message.role === 'user'
                       ? 'text-primary-foreground/70'
@@ -179,6 +257,26 @@ const AIMode = () => {
                     <Loader2 className="h-4 w-4 animate-spin" />
                     <p className="text-sm">Thinking...</p>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {showPredefinedPrompts && (
+              <div className="flex flex-col gap-2 mt-4 items-start animate-in fade-in slide-in-from-bottom-2">
+                <p className="text-sm text-muted-foreground ml-2">Here are some things you can ask me directly instead:</p>
+                <div className="flex flex-wrap gap-2">
+                  <Button variant="outline" size="sm" onClick={() => handlePredefinedQuestion("What are Ahmed's skills?", getSkillsAnswer)}>
+                    Skills
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={() => handlePredefinedQuestion("Can you list his projects?", getProjectsAnswer)}>
+                    Projects
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={() => handlePredefinedQuestion("Tell me about his work experience.", getExperienceAnswer)}>
+                    Experience
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={() => handlePredefinedQuestion("What is his educational background?", getEducationAnswer)}>
+                    Education
+                  </Button>
                 </div>
               </div>
             )}
