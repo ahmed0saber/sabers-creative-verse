@@ -38,6 +38,7 @@ const AIMode = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const aiRef = useRef<GoogleGenAI | null>(null);
   const contextRef = useRef<string>('');
+  const cacheRef = useRef<Map<string, string>>(new Map());
 
   useEffect(() => {
     const aiContext = prepareAIContext();
@@ -83,65 +84,99 @@ const AIMode = () => {
     setIsLoading(true);
 
     try {
-      if (!aiRef.current) throw new Error('GoogleGenAI is not initialized.');
+      const cacheKey = trimmedInput.toLowerCase();
+      const cachedAnswer = cacheRef.current.get(cacheKey);
 
-      const contents = [
-        {
-          role: 'user',
-          parts: [{ text: `System Instruction: You are Ahmed's AI assistant. Answer questions concisely based ONLY on this portfolio data, if you can't find the answer in the data, start your response with #123# then say that you can't answer this question and mention that you only answer questions about Ahmed's portfolio, and always answer in plain text without any markdown formatting:\n\n${contextRef.current}` }]
-        },
-        {
-          role: 'user',
-          parts: [{ text: trimmedInput }]
-        }
-      ];
+      if (cachedAnswer) {
+        const chunks = cachedAnswer.match(/.{1,3}/g) || [cachedAnswer];
+        let displayed = '';
 
-      const model = 'gemma-3-27b-it';
-      const responseStream = await aiRef.current.models.generateContentStream({
-        model,
-        contents: contents as any,
-      });
-
-      let fullResponse = '';
-      for await (const chunk of responseStream) {
-        if (chunk.text) {
-          fullResponse += chunk.text;
-          const textToDisplay = fullResponse.replace('#123#', '').trim();
+        for (const chunk of chunks) {
+          await new Promise(resolve => setTimeout(resolve, 15));
+          displayed += chunk;
 
           const messageElement = document.getElementById(`msg-${assistantMessageId}`);
           if (messageElement) {
             const messageContentElement = messageElement.querySelector('.message-content');
             if (messageContentElement) {
-              messageContentElement.textContent = textToDisplay;
+              messageContentElement.textContent = displayed;
             }
-            if (textToDisplay === chunk.text.trim() && textToDisplay !== "") {
+            if (displayed.trim() !== '') {
               messageElement.classList.remove('hidden');
             }
           }
         }
-      }
 
-      const finalResponse = fullResponse.trim();
-      const cantAnswer = finalResponse.includes('#123#');
-      const cleanedResponse = finalResponse.replace(/#123#/g, '').trim();
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMessageId
+              ? { ...msg, content: cachedAnswer }
+              : msg
+          )
+        );
+      } else {
+        if (!aiRef.current) throw new Error('GoogleGenAI is not initialized.');
 
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.id === assistantMessageId
-            ? { ...msg, content: cleanedResponse }
-            : msg
-        )
-      );
+        const contents = [
+          {
+            role: 'user',
+            parts: [{ text: `System Instruction: You are Ahmed's AI assistant. Answer questions concisely based ONLY on this portfolio data, if you can't find the answer in the data, start your response with #123# then say that you can't answer this question and mention that you only answer questions about Ahmed's portfolio, and always answer in plain text without any markdown formatting:\n\n${contextRef.current}` }]
+          },
+          {
+            role: 'user',
+            parts: [{ text: trimmedInput }]
+          }
+        ];
 
-      if (cantAnswer) {
-        const messageElement = document.getElementById(`msg-${assistantMessageId}`);
-        if (messageElement) {
-          const messageContentElement = messageElement.querySelector('.message-content');
-          if (messageContentElement) {
-            messageContentElement.textContent = cleanedResponse;
+        const model = 'gemma-3-27b-it';
+        const responseStream = await aiRef.current.models.generateContentStream({
+          model,
+          contents: contents as any,
+        });
+
+        let fullResponse = '';
+        for await (const chunk of responseStream) {
+          if (chunk.text) {
+            fullResponse += chunk.text;
+            const textToDisplay = fullResponse.replace('#123#', '').trim();
+
+            const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+            if (messageElement) {
+              const messageContentElement = messageElement.querySelector('.message-content');
+              if (messageContentElement) {
+                messageContentElement.textContent = textToDisplay;
+              }
+              if (textToDisplay === chunk.text.trim() && textToDisplay !== "") {
+                messageElement.classList.remove('hidden');
+              }
+            }
           }
         }
-        setShowPredefinedPrompts(true);
+
+        const finalResponse = fullResponse.trim();
+        const cantAnswer = finalResponse.includes('#123#');
+        const cleanedResponse = finalResponse.replace(/#123#/g, '').trim();
+
+        cacheRef.current.set(cacheKey, cleanedResponse);
+
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMessageId
+              ? { ...msg, content: cleanedResponse }
+              : msg
+          )
+        );
+
+        if (cantAnswer) {
+          const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+          if (messageElement) {
+            const messageContentElement = messageElement.querySelector('.message-content');
+            if (messageContentElement) {
+              messageContentElement.textContent = cleanedResponse;
+            }
+          }
+          setShowPredefinedPrompts(true);
+        }
       }
     } catch (error) {
       const errorObj = parseAiError(error)
