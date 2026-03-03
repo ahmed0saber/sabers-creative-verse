@@ -88,7 +88,7 @@ const AIMode = () => {
       const contents = [
         {
           role: 'user',
-          parts: [{ text: `System Instruction: You are Ahmed's AI assistant. Answer questions concisely based ONLY on this portfolio data, if you can't find the answer in the data, say that you can't answer this question and mention that you only answer questions about Ahmed's portfolio, and always answer in plain text without any markdown formatting:\n\n${contextRef.current}` }]
+          parts: [{ text: `System Instruction: You are Ahmed's AI assistant. Answer questions concisely based ONLY on this portfolio data, if you can't find the answer in the data, start your response with #123# then say that you can't answer this question and mention that you only answer questions about Ahmed's portfolio, and always answer in plain text without any markdown formatting:\n\n${contextRef.current}` }]
         },
         {
           role: 'user',
@@ -106,27 +106,43 @@ const AIMode = () => {
       for await (const chunk of responseStream) {
         if (chunk.text) {
           fullResponse += chunk.text;
+          const textToDisplay = fullResponse.replace('#123#', '').trim();
 
           const messageElement = document.getElementById(`msg-${assistantMessageId}`);
           if (messageElement) {
             const messageContentElement = messageElement.querySelector('.message-content');
             if (messageContentElement) {
-              messageContentElement.textContent += chunk.text;
+              messageContentElement.textContent = textToDisplay;
             }
-            if (fullResponse.trim() === chunk.text.trim() && fullResponse.trim() !== "") {
+            if (textToDisplay === chunk.text.trim() && textToDisplay !== "") {
               messageElement.classList.remove('hidden');
             }
           }
         }
       }
 
+      const finalResponse = fullResponse.trim();
+      const cantAnswer = finalResponse.includes('#123#');
+      const cleanedResponse = finalResponse.replace(/#123#/g, '').trim();
+
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === assistantMessageId
-            ? { ...msg, content: fullResponse.trim() }
+            ? { ...msg, content: cleanedResponse }
             : msg
         )
       );
+
+      if (cantAnswer) {
+        const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+        if (messageElement) {
+          const messageContentElement = messageElement.querySelector('.message-content');
+          if (messageContentElement) {
+            messageContentElement.textContent = cleanedResponse;
+          }
+        }
+        setShowPredefinedPrompts(true);
+      }
     } catch (error) {
       const errorObj = parseAiError(error)
       console.error('Error generating response:', errorObj);
