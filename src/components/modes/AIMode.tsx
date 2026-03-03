@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send, Loader2, MessageCircle } from 'lucide-react';
@@ -35,10 +35,11 @@ const AIMode = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPredefinedPrompts, setShowPredefinedPrompts] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const aiRef = useRef<GoogleGenAI | null>(null);
   const contextRef = useRef<string>('');
-  const cacheRef = useRef<Map<string, string>>(new Map());
+  const cacheRef = useRef<Map<string, { answer: string; cantAnswer: boolean }>>(new Map());
 
   useEffect(() => {
     const aiContext = prepareAIContext();
@@ -58,10 +59,28 @@ const AIMode = () => {
     }
   }, [messages]);
 
+  const startCooldown = useCallback(() => {
+    setCooldown(10);
+  }, []);
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const timer = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [cooldown]);
+
   const handleSendMessage = async () => {
     setShowPredefinedPrompts(false);
     const trimmedInput = input.trim();
-    if (!trimmedInput || isLoading) return;
+    if (!trimmedInput || isLoading || cooldown > 0) return;
 
     const userMessageId = Date.now().toString();
     const assistantMessageId = (Date.now() + 1).toString();
@@ -85,10 +104,10 @@ const AIMode = () => {
 
     try {
       const cacheKey = trimmedInput.toLowerCase();
-      const cachedAnswer = cacheRef.current.get(cacheKey);
+      const cached = cacheRef.current.get(cacheKey);
 
-      if (cachedAnswer) {
-        const chunks = cachedAnswer.match(/.{1,3}/g) || [cachedAnswer];
+      if (cached) {
+        const chunks = cached.answer.match(/.{1,3}/g) || [cached.answer];
         let displayed = '';
 
         for (const chunk of chunks) {
@@ -110,10 +129,14 @@ const AIMode = () => {
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === assistantMessageId
-              ? { ...msg, content: cachedAnswer }
+              ? { ...msg, content: cached.answer }
               : msg
           )
         );
+
+        if (cached.cantAnswer) {
+          setShowPredefinedPrompts(true);
+        }
       } else {
         if (!aiRef.current) throw new Error('GoogleGenAI is not initialized.');
 
@@ -157,7 +180,7 @@ const AIMode = () => {
         const cantAnswer = finalResponse.includes('#123#');
         const cleanedResponse = finalResponse.replace(/#123#/g, '').trim();
 
-        cacheRef.current.set(cacheKey, cleanedResponse);
+        cacheRef.current.set(cacheKey, { answer: cleanedResponse, cantAnswer });
 
         setMessages((prev) =>
           prev.map((msg) =>
@@ -202,6 +225,7 @@ const AIMode = () => {
       setShowPredefinedPrompts(true);
     } finally {
       setIsLoading(false);
+      startCooldown();
     }
   };
 
@@ -260,6 +284,7 @@ const AIMode = () => {
       console.error("Error streaming predefined answer:", error);
     } finally {
       setIsLoading(false);
+      startCooldown();
     }
   };
 
@@ -316,16 +341,16 @@ const AIMode = () => {
               <div className="flex flex-col gap-2 mt-4 items-start animate-in fade-in slide-in-from-bottom-2">
                 <p className="text-sm text-muted-foreground ml-2">Here are some things you can ask me directly instead:</p>
                 <div className="flex flex-wrap gap-2">
-                  <Button variant="outline" size="sm" onClick={() => handlePredefinedQuestion("What are Ahmed's skills?", getSkillsAnswer)}>
+                  <Button variant="outline" size="sm" disabled={cooldown > 0} onClick={() => handlePredefinedQuestion("What are Ahmed's skills?", getSkillsAnswer)}>
                     Skills
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => handlePredefinedQuestion("Can you list his projects?", getProjectsAnswer)}>
+                  <Button variant="outline" size="sm" disabled={cooldown > 0} onClick={() => handlePredefinedQuestion("Can you list his projects?", getProjectsAnswer)}>
                     Projects
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => handlePredefinedQuestion("Tell me about his work experience.", getExperienceAnswer)}>
+                  <Button variant="outline" size="sm" disabled={cooldown > 0} onClick={() => handlePredefinedQuestion("Tell me about his work experience.", getExperienceAnswer)}>
                     Experience
                   </Button>
-                  <Button variant="outline" size="sm" onClick={() => handlePredefinedQuestion("What is his educational background?", getEducationAnswer)}>
+                  <Button variant="outline" size="sm" disabled={cooldown > 0} onClick={() => handlePredefinedQuestion("What is his educational background?", getEducationAnswer)}>
                     Education
                   </Button>
                 </div>
@@ -349,16 +374,22 @@ const AIMode = () => {
                 }
               }}
               placeholder="Ask me about Ahmed's skills, projects, experience..."
-              disabled={isLoading}
+              disabled={isLoading || cooldown > 0}
               className="w-0 flex-1 px-3 py-2 bg-background border border-border rounded text-foreground placeholder-muted-foreground disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <Button
               onClick={handleSendMessage}
-              disabled={isLoading || !input.trim()}
-              className="gap-2"
+              disabled={isLoading || !input.trim() || cooldown > 0}
+              className="gap-2 min-w-14 sm:min-w-24"
             >
-              <Send className="h-4 w-4" />
-              <span className="hidden sm:inline">Send</span>
+              {cooldown > 0 ? (
+                <span>{cooldown}s</span>
+              ) : (
+                <>
+                  <Send className="h-4 w-4" />
+                  <span className="hidden sm:inline">Send</span>
+                </>
+              )}
             </Button>
           </div>
 
