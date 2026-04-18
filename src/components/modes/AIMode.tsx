@@ -5,7 +5,7 @@ import { Send, Loader2, MessageCircle } from 'lucide-react';
 import { prepareAIContext, getSkillsAnswer, getProjectsAnswer, getExperienceAnswer, getEducationAnswer } from '@/utils/aiDataProcessor';
 import { GoogleGenAI } from '@google/genai';
 
-const initialMessage = 'Hi! I\'m Ahmed\'s AI assistant, powered by Gemma 3 27B. I can answer questions about Ahmed\'s skills, projects, experience, and more. Feel free to ask me anything!'
+const initialMessage = 'Hi! I\'m Ahmed\'s AI assistant, powered by Gemma 4. I can answer questions about Ahmed\'s skills, projects, experience, and more. Feel free to ask me anything!'
 
 const parseAiError = (error: any) => {
   let resultError = error
@@ -48,6 +48,10 @@ const AIMode = () => {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
     if (apiKey) {
       aiRef.current = new GoogleGenAI({ apiKey });
+      // list available models
+      // aiRef.current.models.list().then((models) => {
+      //   console.log({ models });
+      // });
     } else {
       console.warn('VITE_GEMINI_API_KEY is not set. Please add it to your .env file.');
     }
@@ -151,7 +155,9 @@ const AIMode = () => {
           }
         ];
 
-        const model = 'gemma-3-27b-it';
+        // const model = 'gemma-4-31b-it';
+        // gemma-4-31b-it is better but faces a lot of timeout errors
+        const model = 'gemma-4-26b-a4b-it';
         const responseStream = await aiRef.current.models.generateContentStream({
           model,
           contents: contents as any,
@@ -395,7 +401,7 @@ const AIMode = () => {
 
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <MessageCircle className="h-4 w-4" />
-            <span>Powered by Google Gen AI (Gemma 3 27B)</span>
+            <span>Powered by Google Gen AI (Gemma 4)</span>
           </div>
         </div>
       </div>
