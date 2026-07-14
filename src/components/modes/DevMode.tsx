@@ -18,6 +18,7 @@ import openSourceProjects from '@/data/opensource-projects';
 import experience from '@/data/experience';
 import journey from '@/data/journey';
 import education from '@/data/education';
+import certifications from '@/data/certifications';
 import convertProjectsToTree from '@/utils/convertProjectToTree';
 import generateReadmeContent from '@/utils/generateReadme';
 
@@ -59,6 +60,12 @@ const DevMode = () => {
       type: 'file',
       icon: <File className="h-4 w-4" />,
       content: JSON.stringify(education, null, 2)
+    },
+    {
+      name: 'certifications.json',
+      type: 'file',
+      icon: <File className="h-4 w-4" />,
+      content: JSON.stringify(certifications, null, 2)
     },
     {
       name: 'journey.json',

@@ -4,6 +4,7 @@ import experience from "@/data/experience"
 import skillsCategories from "@/data/skills"
 import socialPlatforms from "@/data/social-platforms"
 import journey from "@/data/journey"
+import certifications from "@/data/certifications"
 
 const generateReadmeContent = () => {
     return `# ${developerDetails.name} - ${developerDetails.title}
@@ -19,6 +20,9 @@ ${experience.map(exp => `- **${exp.title}** at ${exp.company} (${exp.period.join
 
 ## Education
 ${education.map(edu => `- **${edu.degree}** in ${edu.field} from ${edu.institution} (${edu.period})`).join('\n')}
+
+## Certifications
+${certifications.map(cert => `- **${cert.title}** from ${cert.organization} (${cert.date}) - [Verify](${cert.verifyUrl})`).join('\n')}
 
 ## My Journey
 ${journey.headline}

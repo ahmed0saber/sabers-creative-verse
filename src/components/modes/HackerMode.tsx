@@ -5,6 +5,7 @@ import experience from "@/data/experience";
 import openSourceProjects from "@/data/opensource-projects";
 import projects from "@/data/projects";
 import journey from "@/data/journey";
+import certifications from "@/data/certifications";
 import skillsCategories from "@/data/skills";
 import socialPlatforms from "@/data/social-platforms";
 import youtubeContent from "@/data/youtube-content";
@@ -26,22 +27,23 @@ const HackerMode = () => {
   const commands = {
     help: () => [
       "Available commands:",
-      "  whoami          - About Ahmed Saber",
-      "  ls skills       - List technical skills",
-      "  ls experience   - List work experience",
-      "  ls education    - List educational background",
-      "  ls projects     - List projects",
-      "  cat <project>   - View project details",
-      "  ls open-source  - List open source contributions",
-      "  ls youtube      - List YouTube videos",
-      "  ls articles     - List published articles",
-      "  journey         - View programming journey",
-      "  contact         - Get contact information",
-      "  clear           - Clear terminal",
-      "  history         - Show command history",
-      "  pwd             - Show current directory",
-      "  date            - Show current date",
-      "  uname           - System information",
+      "  whoami             - About Ahmed Saber",
+      "  ls skills          - List technical skills",
+      "  ls experience      - List work experience",
+      "  ls education       - List educational background",
+      "  ls certifications  - List certifications",
+      "  ls projects        - List projects",
+      "  cat <project>      - View project details",
+      "  ls open-source     - List open source contributions",
+      "  ls youtube         - List YouTube videos",
+      "  ls articles        - List published articles",
+      "  journey            - View programming journey",
+      "  contact            - Get contact information",
+      "  clear              - Clear terminal",
+      "  history            - Show command history",
+      "  pwd                - Show current directory",
+      "  date               - Show current date",
+      "  uname              - System information",
       "",
     ],
     whoami: () => [
@@ -82,6 +84,17 @@ const HackerMode = () => {
         .map((edu, i) => [
           `${i === education.length - 1 ? "└──" : "├──"} ${edu.institution} (${edu.degree})`,
           `    Duration: ${edu.period}`,
+        ])
+        .flat(),
+      "",
+    ],
+    "ls certifications": () => [
+      "Certifications:",
+      ...certifications
+        .map((cert, i) => [
+          `${i === certifications.length - 1 ? "└──" : "├──"} ${cert.title}`,
+          `    Organization: ${cert.organization} (${cert.date})`,
+          `    Verify: ${cert.verifyUrl}`,
         ])
         .flat(),
       "",

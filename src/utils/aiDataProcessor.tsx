@@ -9,6 +9,7 @@ import socialPlatforms from '@/data/social-platforms';
 import developerDetails from '@/data/developer-details';
 import buildYourOwnXProjects from '@/data/build-x-projects';
 import journey from '@/data/journey';
+import certifications from '@/data/certifications';
 
 export const prepareAIContext = (): string => {
   const jsonContext = {
@@ -23,6 +24,7 @@ export const prepareAIContext = (): string => {
     socialPlatforms,
     buildYourOwnXProjects,
     journey,
+    certifications,
   };
 
   return JSON.stringify(jsonContext, null, 2);

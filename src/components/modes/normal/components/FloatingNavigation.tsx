@@ -10,7 +10,8 @@ import {
   Github,
   AppWindow,
   Hammer,
-  Rocket
+  Rocket,
+  Award
 } from 'lucide-react';
 
 interface NavItem {
@@ -31,6 +32,7 @@ const FloatingNavigation = () => {
     { id: 'skills', icon: <Wrench className="h-5 w-5" />, label: 'Skills' },
     { id: 'experience', icon: <Briefcase className="h-5 w-5" />, label: 'Experience' },
     { id: 'education', icon: <GraduationCap className="h-5 w-5" />, label: 'Education' },
+    { id: 'certifications', icon: <Award className="h-5 w-5" />, label: 'Certifications' },
     { id: 'projects', icon: <AppWindow className="h-5 w-5" />, label: 'Projects' },
     { id: 'opensource', icon: <Github className="h-5 w-5" />, label: 'Open Source' },
     { id: 'buildyourownx', icon: <Hammer className="h-5 w-5" />, label: 'Build Your Own X' },

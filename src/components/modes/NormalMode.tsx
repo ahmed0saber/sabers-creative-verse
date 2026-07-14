@@ -3,6 +3,7 @@ import JourneySection from './normal/JourneySection';
 import SkillsSection from './normal/SkillsSection';
 import ExperienceSection from './normal/ExperienceSection';
 import EducationSection from './normal/EducationSection';
+import CertificationsSection from './normal/CertificationsSection';
 import ProjectsSection from './normal/ProjectsSection';
 import YouTubeSection from './normal/YouTubeSection';
 import ArticlesSection from './normal/ArticlesSection';
@@ -21,6 +22,7 @@ const NormalMode = () => {
         <SkillsSection />
         <ExperienceSection />
         <EducationSection />
+        <CertificationsSection />
         <ProjectsSection />
         <OpenSourceSection />
         <BuildYourOwnXSection />
