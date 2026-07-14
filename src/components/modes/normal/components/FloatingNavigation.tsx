@@ -9,7 +9,8 @@ import {
   MessageCircle,
   Github,
   AppWindow,
-  Hammer
+  Hammer,
+  Rocket
 } from 'lucide-react';
 
 interface NavItem {
@@ -26,6 +27,7 @@ const FloatingNavigation = () => {
 
   const navItems: NavItem[] = [
     { id: 'hero', icon: <User className="h-5 w-5" />, label: 'About' },
+    { id: 'journey', icon: <Rocket className="h-5 w-5" />, label: 'Journey' },
     { id: 'skills', icon: <Wrench className="h-5 w-5" />, label: 'Skills' },
     { id: 'experience', icon: <Briefcase className="h-5 w-5" />, label: 'Experience' },
     { id: 'education', icon: <GraduationCap className="h-5 w-5" />, label: 'Education' },

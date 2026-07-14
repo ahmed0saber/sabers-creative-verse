@@ -3,6 +3,7 @@ import education from "@/data/education"
 import experience from "@/data/experience"
 import skillsCategories from "@/data/skills"
 import socialPlatforms from "@/data/social-platforms"
+import journey from "@/data/journey"
 
 const generateReadmeContent = () => {
     return `# ${developerDetails.name} - ${developerDetails.title}
@@ -18,6 +19,14 @@ ${experience.map(exp => `- **${exp.title}** at ${exp.company} (${exp.period})\n 
 
 ## Education
 ${education.map(edu => `- **${edu.degree}** in ${edu.field} from ${edu.institution} (${edu.period})`).join('\n')}
+
+## My Journey
+${journey.headline}
+
+${journey.story}
+
+### References
+${journey.references.map(ref => `- [${ref.label}](${ref.url})`).join('\n')}
 
 ## Contact
 ${socialPlatforms.map(platform => `- [${platform.name}](${platform.url}) - ${platform.description} (${platform.followers || 'N/A'} followers)`).join('\n')}`

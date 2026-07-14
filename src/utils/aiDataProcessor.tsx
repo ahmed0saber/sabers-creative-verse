@@ -8,6 +8,7 @@ import youtubeContent from '@/data/youtube-content';
 import socialPlatforms from '@/data/social-platforms';
 import developerDetails from '@/data/developer-details';
 import buildYourOwnXProjects from '@/data/build-x-projects';
+import journey from '@/data/journey';
 
 export const prepareAIContext = (): string => {
   const jsonContext = {
@@ -21,6 +22,7 @@ export const prepareAIContext = (): string => {
     youtubeContent,
     socialPlatforms,
     buildYourOwnXProjects,
+    journey,
   };
 
   return JSON.stringify(jsonContext, null, 2);

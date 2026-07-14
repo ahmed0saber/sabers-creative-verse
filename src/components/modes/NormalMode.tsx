@@ -1,4 +1,5 @@
 import HeroSection from './normal/HeroSection';
+import JourneySection from './normal/JourneySection';
 import SkillsSection from './normal/SkillsSection';
 import ExperienceSection from './normal/ExperienceSection';
 import EducationSection from './normal/EducationSection';
@@ -16,6 +17,7 @@ const NormalMode = () => {
     <>
       <div className="pt-16"> {/* Account for fixed navbar */}
         <HeroSection />
+        <JourneySection />
         <SkillsSection />
         <ExperienceSection />
         <EducationSection />
