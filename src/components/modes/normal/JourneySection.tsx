@@ -1,5 +1,6 @@
 import journey from '@/data/journey';
 import { Rocket, Calendar, ExternalLink } from 'lucide-react';
+import JourneyReaderWidget from './components/JourneyReaderWidget';
 
 const JourneySection = () => {
   return (
@@ -14,6 +15,8 @@ const JourneySection = () => {
 
         {/* Story */}
         <div className="bg-card rounded-lg border border-border p-6 sm:p-8 shadow-sm mb-12 sm:mb-16">
+          <JourneyReaderWidget text={journey.story} />
+          
           <div className="prose prose-sm sm:prose-base max-w-none">
             {journey.story.split('\n\n').map((paragraph, index) => (
               <p

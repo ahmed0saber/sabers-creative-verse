@@ -29,7 +29,9 @@ In 2021, I expanded into web development by building my first full-stack web app
 
 In 2022, while still a university student, I began working as a full-time frontend developer, turning a lifelong passion into a profession.
 
-I graduated in 2023 with a Bachelor's degree in Physics from the Faculty of Science, Kafr El-Sheikh University. My journey from game development to software engineering has shaped my approach to continuous learning, problem-solving, and building products that create real value.`,
+I graduated in 2023 with a Bachelor's degree in Physics from the Faculty of Science, Kafr El-Sheikh University. My journey from game development to software engineering has shaped my approach to continuous learning, problem-solving, and building products that create real value.
+
+The journey continues, but I just wanted to share how it started!`,
   milestones: [
     {
       year: "Pre-2014",
@@ -78,6 +80,12 @@ I graduated in 2023 with a Bachelor's degree in Physics from the Faculty of Scie
       title: "Graduation",
       description:
         "Graduated with a Bachelor's degree in Physics from Kafr El-Sheikh University.",
+    },
+    {
+      year: "Present",
+      title: "The Journey Continues",
+      description:
+        "The journey continues, but I just wanted to share how it started!",
     },
   ],
   references: [
