@@ -6,6 +6,7 @@ import NormalMode from "./components/modes/NormalMode";
 import DevMode from "./components/modes/DevMode";
 import HackerMode from "./components/modes/HackerMode";
 import AIMode from "./components/modes/AIMode";
+import LinkedInBanner from "./components/layout/LinkedInBanner";
 import "./globals.css"
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+      <LinkedInBanner />
     </BrowserRouter>
   );
 };
