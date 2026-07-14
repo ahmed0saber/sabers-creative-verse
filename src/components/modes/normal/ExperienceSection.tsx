@@ -44,9 +44,13 @@ const ExperienceSection = () => {
                         <span className="font-medium">{item.company}</span>
                       </div>
 
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                        <Calendar className="w-4 h-4 flex-shrink-0" />
-                        <span>{item.period}</span>
+                      <div className="flex items-start gap-2 text-sm text-muted-foreground mb-3">
+                        <Calendar className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                        <div className="flex flex-col">
+                          {item.period.map((p, i) => (
+                            <span key={i}>{p}</span>
+                          ))}
+                        </div>
                       </div>
 
                       <div className="flex flex-wrap gap-2 text-xs sm:text-sm mb-4">

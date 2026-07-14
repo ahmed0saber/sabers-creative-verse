@@ -49,7 +49,7 @@ export const getProjectsAnswer = (): string => {
 export const getExperienceAnswer = (): string => {
   let answer = "Here is Ahmed's professional experience:<br/><br/>";
   experience.forEach(exp => {
-    answer += `- ${exp.title} at ${exp.company} (${exp.period})<br/>`;
+    answer += `- ${exp.title} at ${exp.company} (${exp.period.join(" & ")})<br/>`;
   });
   answer += "<br/>Feel free to ask for more details on any specific role.";
   return answer;

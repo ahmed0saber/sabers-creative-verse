@@ -70,7 +70,7 @@ const HackerMode = () => {
       ...experience
         .map((exp, i) => [
           `${i === experience.length - 1 ? "└──" : "├──"} ${exp.company} (${exp.title})`,
-          `    Duration: ${exp.period}`,
+          `    Duration: ${exp.period.join(" & ")}`,
           `    Description: ${exp.description}`,
         ])
         .flat(),

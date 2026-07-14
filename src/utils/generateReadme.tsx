@@ -15,7 +15,7 @@ ${developerDetails.description}
 ${skillsCategories.map(category => `- **${category.name}**: ${category.skills.map(skill => skill.name).join(', ')}`).join('\n')}
 
 ## Experience
-${experience.map(exp => `- **${exp.title}** at ${exp.company} (${exp.period})\n  ${exp.description}`).join('\n')}
+${experience.map(exp => `- **${exp.title}** at ${exp.company} (${exp.period.join(' & ')})\n  ${exp.description}`).join('\n')}
 
 ## Education
 ${education.map(edu => `- **${edu.degree}** in ${edu.field} from ${edu.institution} (${edu.period})`).join('\n')}
