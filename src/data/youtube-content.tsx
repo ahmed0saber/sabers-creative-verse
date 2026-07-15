@@ -2,9 +2,9 @@ import { YouTubeContent } from "@/types/YouTubeContent";
 
 const youtubeContent: YouTubeContent = {
   channelStats: {
-    subscribers: "1.66K",
-    totalViews: "24.2K",
-    videosCount: "92",
+    subscribers: "1.86K",
+    totalViews: "29.5K",
+    videosCount: "86",
     handle: "@ahmed0saber",
   },
   videos: [

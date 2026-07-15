@@ -1,24 +1,31 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send, Loader2, MessageCircle } from 'lucide-react';
-import { prepareAIContext, getSkillsAnswer, getProjectsAnswer, getExperienceAnswer, getEducationAnswer } from '@/utils/aiDataProcessor';
-import { GoogleGenAI } from '@google/genai';
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Send, Loader2, MessageCircle } from "lucide-react";
+import {
+  prepareAIContext,
+  getSkillsAnswer,
+  getProjectsAnswer,
+  getExperienceAnswer,
+  getEducationAnswer,
+} from "@/utils/aiDataProcessor";
+import { GoogleGenAI } from "@google/genai";
 
-const initialMessage = 'Hi! I\'m Ahmed\'s AI assistant, powered by Gemma 4. I can answer questions about Ahmed\'s skills, projects, experience, and more. Feel free to ask me anything!'
+const initialMessage =
+  "Hi! I'm Ahmed's AI assistant, powered by Gemma 4. I can answer questions about Ahmed's skills, projects, experience, and more. Feel free to ask me anything!";
 
 const parseAiError = (error: any) => {
-  let resultError = error
+  let resultError = error;
   while (resultError?.error?.message) {
-    resultError = JSON.parse(resultError.error.message)
+    resultError = JSON.parse(resultError.error.message);
   }
 
-  return resultError
-}
+  return resultError;
+};
 
 interface ChatMessage {
   id: string;
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
   timestamp: Date;
 }
@@ -26,26 +33,28 @@ interface ChatMessage {
 const AIMode = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
-      id: '0',
-      role: 'assistant',
+      id: "0",
+      role: "assistant",
       content: initialMessage,
       timestamp: new Date(),
     },
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPredefinedPrompts, setShowPredefinedPrompts] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const aiRef = useRef<GoogleGenAI | null>(null);
-  const contextRef = useRef<string>('');
-  const cacheRef = useRef<Map<string, { answer: string; cantAnswer: boolean }>>(new Map());
+  const contextRef = useRef<string>("");
+  const cacheRef = useRef<Map<string, { answer: string; cantAnswer: boolean }>>(
+    new Map(),
+  );
 
   useEffect(() => {
     const aiContext = prepareAIContext();
     contextRef.current = aiContext;
 
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
     if (apiKey) {
       aiRef.current = new GoogleGenAI({ apiKey });
       // list available models
@@ -53,13 +62,15 @@ const AIMode = () => {
       //   console.log({ models });
       // });
     } else {
-      console.warn('VITE_GEMINI_API_KEY is not set. Please add it to your .env file.');
+      console.warn(
+        "VITE_GEMINI_API_KEY is not set. Please add it to your .env file.",
+      );
     }
   }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
@@ -90,20 +101,20 @@ const AIMode = () => {
     const assistantMessageId = (Date.now() + 1).toString();
     const userMessage: ChatMessage = {
       id: userMessageId,
-      role: 'user',
+      role: "user",
       content: trimmedInput,
       timestamp: new Date(),
     };
 
     const initialAssistantMessage: ChatMessage = {
       id: assistantMessageId,
-      role: 'assistant',
-      content: '',
+      role: "assistant",
+      content: "",
       timestamp: new Date(),
     };
 
     setMessages((prev) => [...prev, userMessage, initialAssistantMessage]);
-    setInput('');
+    setInput("");
     setIsLoading(true);
 
     try {
@@ -112,20 +123,23 @@ const AIMode = () => {
 
       if (cached) {
         const chunks = cached.answer.match(/.{1,3}/g) || [cached.answer];
-        let displayed = '';
+        let displayed = "";
 
         for (const chunk of chunks) {
-          await new Promise(resolve => setTimeout(resolve, 15));
+          await new Promise((resolve) => setTimeout(resolve, 15));
           displayed += chunk;
 
-          const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+          const messageElement = document.getElementById(
+            `msg-${assistantMessageId}`,
+          );
           if (messageElement) {
-            const messageContentElement = messageElement.querySelector('.message-content');
+            const messageContentElement =
+              messageElement.querySelector(".message-content");
             if (messageContentElement) {
               messageContentElement.textContent = displayed;
             }
-            if (displayed.trim() !== '') {
-              messageElement.classList.remove('hidden');
+            if (displayed.trim() !== "") {
+              messageElement.classList.remove("hidden");
             }
           }
         }
@@ -134,57 +148,66 @@ const AIMode = () => {
           prev.map((msg) =>
             msg.id === assistantMessageId
               ? { ...msg, content: cached.answer }
-              : msg
-          )
+              : msg,
+          ),
         );
 
         if (cached.cantAnswer) {
           setShowPredefinedPrompts(true);
         }
       } else {
-        if (!aiRef.current) throw new Error('GoogleGenAI is not initialized.');
+        if (!aiRef.current) throw new Error("GoogleGenAI is not initialized.");
 
         const contents = [
           {
-            role: 'user',
-            parts: [{ text: `System Instruction: You are Ahmed's AI assistant. Answer questions concisely based ONLY on this portfolio data, if you can't find the answer in the data, start your response with #123# then say that you can't answer this question and mention that you only answer questions about Ahmed's portfolio, and always answer in plain text without any markdown formatting:\n\n${contextRef.current}` }]
+            role: "user",
+            parts: [
+              {
+                text: `System Instruction: You are Ahmed's AI assistant. Answer questions concisely based ONLY on this portfolio data, if you can't find the answer in the data, start your response with #123# then say that you can't answer this question and mention that you only answer questions about Ahmed's portfolio, and always answer in plain text without any markdown formatting:\n\n${contextRef.current}`,
+              },
+            ],
           },
           {
-            role: 'user',
-            parts: [{ text: trimmedInput }]
-          }
+            role: "user",
+            parts: [{ text: trimmedInput }],
+          },
         ];
 
         // const model = 'gemma-4-31b-it';
         // gemma-4-31b-it is better but faces a lot of timeout errors
-        const model = 'gemma-4-26b-a4b-it';
-        const responseStream = await aiRef.current.models.generateContentStream({
-          model,
-          contents: contents as any,
-        });
+        const model = "gemma-4-26b-a4b-it";
+        const responseStream = await aiRef.current.models.generateContentStream(
+          {
+            model,
+            contents: contents as any,
+          },
+        );
 
-        let fullResponse = '';
+        let fullResponse = "";
         for await (const chunk of responseStream) {
           if (chunk.text) {
             fullResponse += chunk.text;
-            const textToDisplay = fullResponse.replace('#123#', '').trim();
+            const textToDisplay = fullResponse.replace("#123#", "").trim();
 
-            const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+            const messageElement = document.getElementById(
+              `msg-${assistantMessageId}`,
+            );
             if (messageElement) {
-              const messageContentElement = messageElement.querySelector('.message-content');
+              const messageContentElement =
+                messageElement.querySelector(".message-content");
               if (messageContentElement) {
                 messageContentElement.textContent = textToDisplay;
               }
               if (textToDisplay === chunk.text.trim() && textToDisplay !== "") {
-                messageElement.classList.remove('hidden');
+                messageElement.classList.remove("hidden");
               }
             }
           }
         }
 
         const finalResponse = fullResponse.trim();
-        const cantAnswer = finalResponse.includes('#123#');
-        const cleanedResponse = finalResponse.replace(/#123#/g, '').trim();
+        const cantAnswer = finalResponse.includes("#123#");
+        const cleanedResponse = finalResponse.replace(/#123#/g, "").trim();
 
         cacheRef.current.set(cacheKey, { answer: cleanedResponse, cantAnswer });
 
@@ -192,14 +215,17 @@ const AIMode = () => {
           prev.map((msg) =>
             msg.id === assistantMessageId
               ? { ...msg, content: cleanedResponse }
-              : msg
-          )
+              : msg,
+          ),
         );
 
         if (cantAnswer) {
-          const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+          const messageElement = document.getElementById(
+            `msg-${assistantMessageId}`,
+          );
           if (messageElement) {
-            const messageContentElement = messageElement.querySelector('.message-content');
+            const messageContentElement =
+              messageElement.querySelector(".message-content");
             if (messageContentElement) {
               messageContentElement.textContent = cleanedResponse;
             }
@@ -208,25 +234,29 @@ const AIMode = () => {
         }
       }
     } catch (error) {
-      const errorObj = parseAiError(error)
-      console.error('Error generating response:', errorObj);
+      const errorObj = parseAiError(error);
+      console.error("Error generating response:", errorObj);
 
-      const errorMessage = 'Sorry, I encountered an error connecting to the AI model. You can try the predefined questions below.';
-      const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+      const errorMessage =
+        "Sorry, I encountered an error connecting to the AI model. You can try the predefined questions below.";
+      const messageElement = document.getElementById(
+        `msg-${assistantMessageId}`,
+      );
       if (messageElement) {
-        const messageContentElement = messageElement.querySelector('.message-content');
+        const messageContentElement =
+          messageElement.querySelector(".message-content");
         if (messageContentElement) {
           messageContentElement.textContent = errorMessage;
         }
-        messageElement.classList.remove('hidden');
+        messageElement.classList.remove("hidden");
       }
 
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === assistantMessageId
             ? { ...msg, content: errorMessage }
-            : msg
-        )
+            : msg,
+        ),
       );
       setShowPredefinedPrompts(true);
     } finally {
@@ -235,7 +265,10 @@ const AIMode = () => {
     }
   };
 
-  const handlePredefinedQuestion = async (questionText: string, getAnswerFn: () => string) => {
+  const handlePredefinedQuestion = async (
+    questionText: string,
+    getAnswerFn: () => string,
+  ) => {
     setShowPredefinedPrompts(false);
 
     const userMessageId = Date.now().toString();
@@ -243,15 +276,15 @@ const AIMode = () => {
 
     const userMessage: ChatMessage = {
       id: userMessageId,
-      role: 'user',
+      role: "user",
       content: questionText,
       timestamp: new Date(),
     };
 
     const initialAssistantMessage: ChatMessage = {
       id: assistantMessageId,
-      role: 'assistant',
-      content: '',
+      role: "assistant",
+      content: "",
       timestamp: new Date(),
     };
 
@@ -261,20 +294,24 @@ const AIMode = () => {
     try {
       const answer = getAnswerFn();
       const chunks = answer.match(/.{1,3}/g) || [answer];
-      let fullResponse = '';
+      let fullResponse = "";
 
       for (const chunk of chunks) {
-        await new Promise(resolve => setTimeout(resolve, 15));
+        await new Promise((resolve) => setTimeout(resolve, 15));
         fullResponse += chunk;
 
-        const messageElement = document.getElementById(`msg-${assistantMessageId}`);
+        const messageElement = document.getElementById(
+          `msg-${assistantMessageId}`,
+        );
         if (messageElement) {
-          const messageContentElement = messageElement.querySelector('.message-content') as HTMLElement | null;
+          const messageContentElement = messageElement.querySelector(
+            ".message-content",
+          ) as HTMLElement | null;
           if (messageContentElement) {
             messageContentElement.innerHTML = fullResponse;
           }
           if (fullResponse.trim() !== "") {
-            messageElement.classList.remove('hidden');
+            messageElement.classList.remove("hidden");
           }
         }
       }
@@ -283,8 +320,8 @@ const AIMode = () => {
         prev.map((msg) =>
           msg.id === assistantMessageId
             ? { ...msg, content: fullResponse.trim() }
-            : msg
-        )
+            : msg,
+        ),
       );
     } catch (error) {
       console.error("Error streaming predefined answer:", error);
@@ -295,7 +332,7 @@ const AIMode = () => {
   };
 
   return (
-    <div className="h-[100svh] pt-16 flex flex-col bg-background">
+    <div className="h-[100svh] pt-[90px] flex flex-col bg-background">
       <div className="h-full flex-1 max-w-2xl mx-auto w-full flex flex-col p-4">
         <ScrollArea className="flex-1 mb-4 border rounded-lg p-4 bg-muted/30">
           <div className="space-y-4">
@@ -303,28 +340,31 @@ const AIMode = () => {
               <div
                 key={message.id}
                 id={`msg-${message.id}`}
-                className={`flex ${message.content === '' ? 'hidden' : ''} ${message.role === 'user' ? 'justify-end' : 'justify-start'
-                  }`}
+                className={`flex ${message.content === "" ? "hidden" : ""} ${
+                  message.role === "user" ? "justify-end" : "justify-start"
+                }`}
               >
                 <div
-                  className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${message.role === 'user'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted text-foreground border border-border'
-                    }`}
+                  className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
+                    message.role === "user"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-foreground border border-border"
+                  }`}
                 >
-                  <p className='text-sm whitespace-pre-wrap message-content'>
-                    {message.content.split('\n').map((line, i) => (
+                  <p className="text-sm whitespace-pre-wrap message-content">
+                    {message.content.split("\n").map((line, i) => (
                       <span key={i}>
                         {line}
-                        {i !== message.content.split('\n').length - 1 && <br />}
+                        {i !== message.content.split("\n").length - 1 && <br />}
                       </span>
                     ))}
                   </p>
                   <p
-                    className={`text-xs mt-2 ${message.role === 'user'
-                      ? 'text-primary-foreground/70'
-                      : 'text-muted-foreground'
-                      }`}
+                    className={`text-xs mt-2 ${
+                      message.role === "user"
+                        ? "text-primary-foreground/70"
+                        : "text-muted-foreground"
+                    }`}
                   >
                     {message.timestamp.toLocaleTimeString()}
                   </p>
@@ -345,18 +385,60 @@ const AIMode = () => {
 
             {showPredefinedPrompts && (
               <div className="flex flex-col gap-2 mt-4 items-start animate-in fade-in slide-in-from-bottom-2">
-                <p className="text-sm text-muted-foreground ml-2">Here are some things you can ask me directly instead:</p>
+                <p className="text-sm text-muted-foreground ml-2">
+                  Here are some things you can ask me directly instead:
+                </p>
                 <div className="flex flex-wrap gap-2">
-                  <Button variant="outline" size="sm" disabled={cooldown > 0} onClick={() => handlePredefinedQuestion("What are Ahmed's skills?", getSkillsAnswer)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={cooldown > 0}
+                    onClick={() =>
+                      handlePredefinedQuestion(
+                        "What are Ahmed's skills?",
+                        getSkillsAnswer,
+                      )
+                    }
+                  >
                     Skills
                   </Button>
-                  <Button variant="outline" size="sm" disabled={cooldown > 0} onClick={() => handlePredefinedQuestion("Can you list his projects?", getProjectsAnswer)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={cooldown > 0}
+                    onClick={() =>
+                      handlePredefinedQuestion(
+                        "Can you list his projects?",
+                        getProjectsAnswer,
+                      )
+                    }
+                  >
                     Projects
                   </Button>
-                  <Button variant="outline" size="sm" disabled={cooldown > 0} onClick={() => handlePredefinedQuestion("Tell me about his work experience.", getExperienceAnswer)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={cooldown > 0}
+                    onClick={() =>
+                      handlePredefinedQuestion(
+                        "Tell me about his work experience.",
+                        getExperienceAnswer,
+                      )
+                    }
+                  >
                     Experience
                   </Button>
-                  <Button variant="outline" size="sm" disabled={cooldown > 0} onClick={() => handlePredefinedQuestion("What is his educational background?", getEducationAnswer)}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={cooldown > 0}
+                    onClick={() =>
+                      handlePredefinedQuestion(
+                        "What is his educational background?",
+                        getEducationAnswer,
+                      )
+                    }
+                  >
                     Education
                   </Button>
                 </div>
@@ -374,7 +456,7 @@ const AIMode = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
+                if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
                   handleSendMessage();
                 }

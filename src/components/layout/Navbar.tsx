@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Link, useLocation } from 'react-router-dom';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Menu, Terminal, Code, User, Zap } from 'lucide-react';
+} from "@/components/ui/dropdown-menu";
+import { Menu, Terminal, Code, User, Zap } from "lucide-react";
 
 const modes = [
-  { path: '/', label: 'Normal', icon: User },
-  { path: '/dev', label: 'Dev', icon: Code },
-  { path: '/hacker', label: 'Hacker', icon: Terminal },
-  { path: '/ai', label: 'AI', icon: Zap },
+  { path: "/", label: "Normal", icon: User },
+  { path: "/dev", label: "Dev", icon: Code },
+  { path: "/hacker", label: "Hacker", icon: Terminal },
+  { path: "/ai", label: "AI", icon: Zap },
 ];
 
 const Navbar = () => {
@@ -35,7 +35,7 @@ const Navbar = () => {
               {modes.map(({ path, label, icon: Icon }) => (
                 <Button
                   key={path}
-                  variant={pathname === path ? 'default' : 'ghost'}
+                  variant={pathname === path ? "default" : "ghost"}
                   size="sm"
                   className="transition-fast"
                   asChild
@@ -52,7 +52,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" aria-label='Open menu'>
+                <Button variant="ghost" size="sm" aria-label="Open menu">
                   <Menu className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
@@ -61,7 +61,7 @@ const Navbar = () => {
                   <DropdownMenuItem key={path} asChild>
                     <Link
                       to={path}
-                      className={pathname === path ? 'font-bold' : ''}
+                      className={pathname === path ? "font-bold" : ""}
                     >
                       <Icon className="h-4 w-4 mr-2" />
                       {label} Mode
@@ -72,6 +72,10 @@ const Navbar = () => {
             </DropdownMenu>
           </div>
         </div>
+      </div>
+      <div className="h-[26px] bg-primary/5 border-t border-border text-center text-xs py-1 font-mono text-muted-foreground flex items-center justify-center">
+        <span className="inline-block w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+        Last updated: July 2026
       </div>
     </nav>
   );
