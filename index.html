@@ -19,26 +19,38 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <!-- Hotjar Tracking Code for https://ahmed0saber.pages.dev -->
+  <!-- Hotjar Tracking Code (Lazy Loaded for Performance and Lighthouse compatibility) -->
   <script>
-    try {
-      (function (h, o, t, j, a, r) {
-        h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
-        h._hjSettings = { hjid: 6536785, hjsv: 6 };
-        a = o.getElementsByTagName('head')[0];
-        r = o.createElement('script'); r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        r.onerror = function () {};
-        a.appendChild(r);
-      })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-    } catch (e) {}
+    (function () {
+      var hotjarLoaded = false;
+      function loadHotjar() {
+        if (hotjarLoaded) return;
+        hotjarLoaded = true;
+        try {
+          (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 6536785, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            r.onerror = function () { };
+            a.appendChild(r);
+          })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+        } catch (e) { }
+      }
+
+      // Load Hotjar only after user interaction to avoid Lighthouse WebSocket errors and improve PageSpeed
+      ['scroll', 'mousemove', 'touchstart', 'click', 'keydown'].forEach(function (event) {
+        window.addEventListener(event, loadHotjar, { once: true, passive: true });
+      });
+    })();
   </script>
 </head>
 
 <body>
   <script>
     // Prevent flash of wrong theme
-    (function() {
+    (function () {
       var theme = localStorage.getItem('portfolio-theme');
       if (theme === 'light') {
         document.documentElement.classList.add('light');
