@@ -28,7 +28,7 @@ const LinkedInBanner = () => {
         }}
         aria-label="Dismiss banner"
       >
-        <X className="w-3.5 h-3.5" />
+        <X className="w-[18px] h-[18px]" />
       </button>
     </a>
   );

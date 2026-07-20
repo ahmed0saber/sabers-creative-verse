@@ -46,6 +46,7 @@ const CertificationsSection = () => {
                 href={cert.verifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Verify ${cert.title} credential`}
                 className="inline-flex items-center text-sm font-medium text-foreground hover:text-primary transition-smooth w-fit mt-auto"
               >
                 Verify Credential
