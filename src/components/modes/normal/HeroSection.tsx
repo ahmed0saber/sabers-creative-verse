@@ -56,10 +56,7 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           {/* Main Content */}
-          <div
-            className="animate-fade-up"
-            style={{ animationDuration: "0.4s" }}
-          >
+          <div>
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-3 sm:mb-6 mt-0 sm:mt-3 md:mt-6">
               <span className="text-foreground">{developerDetails.name}</span>
             </h1>
@@ -74,10 +71,7 @@ const HeroSection = () => {
           </div>
 
           {/* Social Links */}
-          <div
-            className="animate-fade-up mb-8 sm:mb-12"
-            style={{ animationDelay: "0.2s" }}
-          >
+          <div className="mb-8 sm:mb-12">
             <div className="flex items-center justify-center space-x-6">
               {socialLinks.map((link, index) => (
                 <a
@@ -99,10 +93,7 @@ const HeroSection = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div
-            className="animate-fade-up flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
-            style={{ animationDelay: "0.4s" }}
-          >
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
             <Button
               size="lg"
               className={`transition-fast px-8 py-6 text-lg ${
