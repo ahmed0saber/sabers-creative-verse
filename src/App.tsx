@@ -7,6 +7,7 @@ import DevMode from "./components/modes/DevMode";
 import HackerMode from "./components/modes/HackerMode";
 import AIMode from "./components/modes/AIMode";
 import LinkedInBanner from "./components/layout/LinkedInBanner";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import "./globals.css"
 
 const App = () => {
@@ -18,20 +19,23 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Navbar />
-      <main className="transition-smooth">
-        <Routes>
-          <Route path="/" element={<NormalMode />} />
-          <Route path="/dev" element={<DevMode />} />
-          <Route path="/hacker" element={<HackerMode />} />
-          <Route path="/ai" element={<AIMode />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <LinkedInBanner />
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Navbar />
+        <main className="transition-smooth">
+          <Routes>
+            <Route path="/" element={<NormalMode />} />
+            <Route path="/dev" element={<DevMode />} />
+            <Route path="/hacker" element={<HackerMode />} />
+            <Route path="/ai" element={<AIMode />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <LinkedInBanner />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 
 export default App;
+

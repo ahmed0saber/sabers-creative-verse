@@ -81,6 +81,7 @@ const YouTubeSection = () => {
                     href={video.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Play ${video.title}`}
                     className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center"
                   >
                     <div className="w-0 h-0 border-l-[20px] border-l-white border-y-[12px] border-y-transparent ml-1"></div>

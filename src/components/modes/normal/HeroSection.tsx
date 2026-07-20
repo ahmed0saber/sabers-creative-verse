@@ -1,32 +1,39 @@
 import { Button } from "@/components/ui/button";
 import developerDetails from "@/data/developer-details";
 import { Github, Linkedin, Youtube, Mail, ExternalLink } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const HeroSection = () => {
+  const { theme } = useTheme();
+
   const socialLinks = [
     {
       icon: <Github className="h-5 w-5" />,
       href: "https://github.com/ahmed0saber",
       label: "GitHub",
-      color: "hover:text-violet-500",
+      darkColor: "hover:text-violet-500",
+      lightColor: "hover:text-[#1D2770]",
     },
     {
       icon: <Linkedin className="h-5 w-5" />,
       href: "https://linkedin.com/in/ahmed0saber",
       label: "LinkedIn",
-      color: "hover:text-emerald-500",
+      darkColor: "hover:text-emerald-500",
+      lightColor: "hover:text-[#2837AA]",
     },
     {
       icon: <Youtube className="h-5 w-5" />,
       href: "https://youtube.com/@ahmed0saber",
       label: "YouTube",
-      color: "hover:text-red-500",
+      darkColor: "hover:text-red-500",
+      lightColor: "hover:text-red-600",
     },
     {
       icon: <Mail className="h-5 w-5" />,
       href: "mailto:ahmed0saber33@gmail.com",
       label: "Email",
-      color: "hover:text-amber-500",
+      darkColor: "hover:text-amber-500",
+      lightColor: "hover:text-[#2837AA]",
     },
   ];
 
@@ -34,7 +41,9 @@ const HeroSection = () => {
     <section
       id="hero"
       style={{ minHeight: "calc(100svh - 90px)" }}
-      className="flex items-center justify-center relative overflow-hidden"
+      className={`flex items-center justify-center relative overflow-hidden ${
+        theme === "light" ? "hero-gradient-light" : ""
+      }`}
     >
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-subtle opacity-50"></div>
@@ -76,7 +85,11 @@ const HeroSection = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 bg-secondary/50 border border-border rounded-full transition-fast ${link.color} group`}
+                  className={`p-3 border rounded-full transition-fast group ${
+                    theme === "light"
+                      ? `border-[#D2D8FE] bg-[#CDD2FF1A] text-[#2837AA] ${link.lightColor}`
+                      : `bg-secondary/50 border-border ${link.darkColor}`
+                  }`}
                   aria-label={link.label}
                 >
                   {link.icon}
@@ -92,7 +105,11 @@ const HeroSection = () => {
           >
             <Button
               size="lg"
-              className="shadow-md transition-fast px-8 py-6 text-lg"
+              className={`transition-fast px-8 py-6 text-lg ${
+                theme === "light"
+                  ? "bg-[#1D2770] text-white border border-[#1E2770] hover:bg-[#162060] shadow-md"
+                  : "shadow-md"
+              }`}
               onClick={() =>
                 document
                   .getElementById("projects")
@@ -104,9 +121,13 @@ const HeroSection = () => {
             </Button>
 
             <Button
-              variant="outline"
+              variant={theme === "light" ? "default" : "outline"}
               size="lg"
-              className="transition-fast px-8 py-6 text-lg"
+              className={`transition-fast px-8 py-6 text-lg ${
+                theme === "light"
+                  ? "bg-white text-[#1D2770] border-none shadow-[0_4px_20px_-4px_rgba(29,39,112,0.15)] hover:shadow-[0_6px_24px_-4px_rgba(29,39,112,0.25)] hover:bg-white"
+                  : ""
+              }`}
               onClick={() =>
                 document
                   .getElementById("connect")

@@ -9,6 +9,7 @@ import {
   ChevronRight,
   ChevronDown,
 } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 import skillsCategories from "@/data/skills";
 import articles from "@/data/articles";
 import socialPlatforms from "@/data/social-platforms";
@@ -32,6 +33,8 @@ interface FileNode {
 }
 
 const DevMode = () => {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
     new Set(["root", "projects"]),
   );
@@ -117,6 +120,45 @@ const DevMode = () => {
     },
   ];
 
+  // Theme-aware color tokens
+  const colors = isLight
+    ? {
+        bg: "bg-[#FCFCFC]",
+        text: "text-[#1D2770]",
+        sidebar: "bg-[#F4F4FF]",
+        sidebarBorder: "border-[#D2D8FE]",
+        sidebarTitle: "text-[#1D2770]",
+        sidebarLabel: "text-[#2837AA]",
+        hoverBg: "hover:bg-[#ECEEFF]",
+        selectedBg: "bg-[#CDD2FF]/20 text-[#1D2770]",
+        tabBar: "bg-[#ECEEFF]",
+        tabActive: "bg-[#FCFCFC]",
+        tabBorder: "border-[#D2D8FE]",
+        editorBg: "bg-[#FCFCFC]",
+        editorText: "text-[#2837AA]",
+        focusBorder: "focus-within:border-[#1D2770]",
+        statusBar: "bg-[#1D2770]",
+        folderColor: "text-[#2837AA]",
+      }
+    : {
+        bg: "bg-[#1e1e1e]",
+        text: "text-gray-300",
+        sidebar: "bg-[#252526]",
+        sidebarBorder: "border-[#3e3e42]",
+        sidebarTitle: "text-gray-200",
+        sidebarLabel: "text-gray-400",
+        hoverBg: "hover:bg-muted/50",
+        selectedBg: "bg-primary/20 text-primary",
+        tabBar: "bg-[#2d2d30]",
+        tabActive: "bg-[#1e1e1e]",
+        tabBorder: "border-[#3e3e42]",
+        editorBg: "bg-[#1e1e1e]",
+        editorText: "text-gray-300",
+        focusBorder: "focus-within:border-gray-300",
+        statusBar: "bg-[#007acc]",
+        folderColor: "text-blue-400",
+      };
+
   const toggleFolder = (path: string) => {
     const newExpanded = new Set(expandedFolders);
     if (newExpanded.has(path)) {
@@ -135,8 +177,8 @@ const DevMode = () => {
       return (
         <div key={currentPath} className="select-none">
           <div
-            className={`flex items-center py-1 px-2 hover:bg-muted/50 cursor-pointer transition-smooth ${
-              selectedFile === currentPath ? "bg-primary/20 text-primary" : ""
+            className={`flex items-center py-1 px-2 ${colors.hoverBg} cursor-pointer transition-smooth ${
+              selectedFile === currentPath ? colors.selectedBg : ""
             }`}
             onClick={() => {
               if (node.type === "folder") {
@@ -160,9 +202,9 @@ const DevMode = () => {
               <span>
                 {node.type === "folder" ? (
                   isExpanded ? (
-                    <FolderOpen className="h-4 w-4 text-blue-400" />
+                    <FolderOpen className={`h-4 w-4 ${colors.folderColor}`} />
                   ) : (
-                    <Folder className="h-4 w-4 text-blue-400" />
+                    <Folder className={`h-4 w-4 ${colors.folderColor}`} />
                   )
                 ) : (
                   node.icon || <File className="h-4 w-4" />
@@ -230,18 +272,18 @@ const DevMode = () => {
   };
 
   return (
-    <div className="h-screen pt-[90px] bg-[#1e1e1e] text-gray-300 font-mono">
+    <div className={`h-screen pt-[90px] ${colors.bg} ${colors.text} font-mono`}>
       <div className="flex h-full flex-col md:flex-row">
         {/* File Explorer Sidebar */}
-        <div className="w-full md:w-80 bg-[#252526] border-r border-[#3e3e42] flex flex-col relative z-10 md:z-auto">
-          <div className="p-4 border-b border-[#3e3e42]">
-            <h2 className="text-sm font-semibold text-gray-200 uppercase tracking-wide">
+        <div className={`w-full md:w-80 ${colors.sidebar} border-r ${colors.sidebarBorder} flex flex-col relative z-10 md:z-auto`}>
+          <div className={`p-4 border-b ${colors.sidebarBorder}`}>
+            <h2 className={`text-sm font-semibold ${colors.sidebarTitle} uppercase tracking-wide`}>
               Explorer
             </h2>
           </div>
 
           <ScrollArea className="flex-1 p-2">
-            <div className="text-xs text-gray-400 mb-2 px-2">
+            <div className={`text-xs ${colors.sidebarLabel} mb-2 px-2`}>
               AHMED SABER PORTFOLIO
             </div>
             {renderFileTree(fileStructure, "")}
@@ -251,8 +293,8 @@ const DevMode = () => {
         {/* Main Editor Area */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* Tabs */}
-          <div className="bg-[#2d2d30] border-b border-[#3e3e42] flex overflow-x-auto">
-            <div className="flex items-center px-2 md:px-4 py-2 bg-[#1e1e1e] border-r border-[#3e3e42] text-sm whitespace-nowrap">
+          <div className={`${colors.tabBar} border-b ${colors.tabBorder} flex overflow-x-auto`}>
+            <div className={`flex items-center px-2 md:px-4 py-2 ${colors.tabActive} border-r ${colors.tabBorder} text-sm whitespace-nowrap`}>
               <FileText className="h-4 w-4 mr-2" />
               <span className="truncate">{selectedFile}</span>
               {selectedFile !== "README.md" && (
@@ -270,13 +312,13 @@ const DevMode = () => {
           </div>
 
           {/* File Content */}
-          <div className="flex-1 bg-[#1e1e1e] overflow-hidden">
+          <div className={`flex-1 ${colors.editorBg} overflow-hidden`}>
             <ScrollArea
-              className="h-full border focus-within:border-gray-300"
+              className={`h-full border ${colors.focusBorder}`}
               tabIndexable={true}
             >
               <div className="p-3 md:p-6 min-w-max">
-                <pre className="text-xs md:text-sm leading-relaxed text-gray-300 whitespace-pre">
+                <pre className={`text-xs md:text-sm leading-relaxed ${colors.editorText} whitespace-pre`}>
                   {getFileContent(selectedFile)}
                 </pre>
               </div>
@@ -284,7 +326,7 @@ const DevMode = () => {
           </div>
 
           {/* Status Bar */}
-          <div className="bg-[#007acc] text-white px-2 md:px-4 py-1 text-xs flex items-center justify-between">
+          <div className={`${colors.statusBar} text-white px-2 md:px-4 py-1 text-xs flex items-center justify-between`}>
             <div className="flex items-center space-x-2 md:space-x-4">
               <span className="truncate">Ahmed Saber Portfolio</span>
               <span className="hidden md:inline">•</span>

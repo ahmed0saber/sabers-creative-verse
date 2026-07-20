@@ -58,6 +58,58 @@
     --transition-fast: all 0.15s ease;
     --transition-normal: all 0.25s ease;
   }
+
+  /* Light theme */
+  .light {
+    /* Core backgrounds */
+    --background: 0 0% 99%;          /* #FCFCFC */
+    --foreground: 233 58% 28%;        /* #1D2770 - headings */
+
+    --card: 0 0% 100%;                /* white cards */
+    --card-foreground: 233 58% 28%;   /* #1D2770 */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 233 58% 28%;
+
+    /* Primary = heading/primary btn color #1D2770 */
+    --primary: 233 58% 28%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - soft indigo surface */
+    --secondary: 234 100% 96%;        /* ~#ECEEFF */
+    --secondary-foreground: 233 58% 28%;
+
+    /* Muted */
+    --muted: 234 40% 95%;             /* soft lavender gray */
+    --muted-foreground: 232 57% 44%;  /* #2837AA descriptions */
+
+    /* Accent */
+    --accent: 234 100% 96%;
+    --accent-foreground: 233 58% 28%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border - outlined btn/icon stroke #D2D8FE */
+    --border: 232 97% 91%;            /* #D2D8FE */
+    --input: 232 97% 91%;
+    --ring: 233 58% 28%;
+
+    /* Accent colors - slightly more saturated for light */
+    --blue: 212 100% 47%;
+    --purple: 271 70% 55%;
+    --cyan: 176 70% 41%;
+    --orange: 20 90% 56%;
+
+    /* Subtle gradient for light mode */
+    --gradient-subtle: linear-gradient(135deg, hsl(0 0% 99%), hsl(240 50% 98%));
+    --gradient-border: linear-gradient(90deg, transparent, hsl(232 97% 91%), transparent);
+
+    /* Shadows for light mode */
+    --shadow-sm: 0 1px 3px 0 hsl(233 58% 28% / 0.04);
+    --shadow-md: 0 4px 12px -2px hsl(233 58% 28% / 0.06);
+    --shadow-lg: 0 12px 24px -4px hsl(233 58% 28% / 0.08);
+  }
 }
 
 @layer base {
@@ -234,4 +286,73 @@
     max-width: none;
     bottom: 6rem;
   }
+}
+
+/* Light mode LinkedIn banner overrides */
+.light .linkedin-banner {
+  background: linear-gradient(135deg, #1D2770, #2837AA);
+  border: 1px solid rgba(29, 39, 112, 0.3);
+  color: #ffffff;
+  animation:
+    linkedin-slide-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 2s both,
+    linkedin-glow-light 3s ease-in-out 3s infinite;
+}
+
+.light .linkedin-banner:hover {
+  box-shadow: 0 6px 24px -4px rgba(29, 39, 112, 0.4);
+}
+
+.light .linkedin-banner-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.light .linkedin-banner-text {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.light .linkedin-banner-close {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.light .linkedin-banner-close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+@keyframes linkedin-glow-light {
+  0%, 100% {
+    box-shadow: 0 4px 20px -4px rgba(29, 39, 112, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 28px -2px rgba(29, 39, 112, 0.5);
+  }
+}
+
+/* Light mode scrollbar overrides */
+.light ::-webkit-scrollbar-track {
+  background: hsl(234 40% 95%);
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: hsl(232 97% 91%);
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: hsl(232 57% 74%);
+}
+
+/* Light mode hero gradient */
+.light .hero-gradient-light {
+  background: linear-gradient(135deg, hsl(240 50% 98%) 0%, hsl(240 50% 97%) 100%);
+}
+
+/* Light mode theme toggle animation */
+@keyframes theme-toggle-spin {
+  0% { transform: rotate(0deg) scale(0.8); opacity: 0; }
+  100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+.theme-toggle-icon {
+  animation: theme-toggle-spin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }

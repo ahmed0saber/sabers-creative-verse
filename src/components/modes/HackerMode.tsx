@@ -10,8 +10,11 @@ import skillsCategories from "@/data/skills";
 import socialPlatforms from "@/data/social-platforms";
 import youtubeContent from "@/data/youtube-content";
 import { useState, useRef, useEffect } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const HackerMode = () => {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -291,8 +294,25 @@ const HackerMode = () => {
     }
   }, [output]);
 
+  // Theme-aware color tokens
+  const colors = isLight
+    ? {
+        bg: "bg-[#FCFCFC]",
+        text: "text-[#2837AA]",
+        prompt: "text-[#1D2770]",
+        inputText: "text-[#1D2770]",
+        placeholder: "placeholder-[#D2D8FE]",
+      }
+    : {
+        bg: "bg-black",
+        text: "text-green-400",
+        prompt: "text-green-400",
+        inputText: "text-green-400",
+        placeholder: "placeholder-green-700",
+      };
+
   return (
-    <div className="h-svh pt-[90px] bg-black text-green-400 font-mono overflow-hidden">
+    <div className={`h-svh pt-[90px] ${colors.bg} ${colors.text} font-mono overflow-hidden`}>
       <div className="h-full flex flex-col p-4">
         {/* Terminal Output */}
         <div
@@ -308,14 +328,14 @@ const HackerMode = () => {
 
         {/* Input Line */}
         <form onSubmit={handleSubmit} className="flex items-center">
-          <span className="text-green-400 mr-2">$</span>
+          <span className={`${colors.prompt} mr-2`}>$</span>
           <input
             ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent text-green-400 outline-none font-mono"
+            className={`flex-1 bg-transparent ${colors.inputText} outline-none font-mono ${colors.placeholder}`}
             placeholder="Type a command..."
             autoFocus
           />
