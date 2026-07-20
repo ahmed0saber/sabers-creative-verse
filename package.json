@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run generate-llms",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-llms": "npx tsx --tsconfig tsconfig.app.json scripts/generate-llms.ts"
   },
   "dependencies": {
     "@google/genai": "^1.43.0",
