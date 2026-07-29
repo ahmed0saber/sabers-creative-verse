@@ -12,6 +12,7 @@ import FloatingNavigation from "./normal/components/FloatingNavigation";
 import Footer from "../layout/Footer";
 import OpenSourceSection from "./normal/OpenSourceSection";
 import BuildYourOwnXSection from "./normal/BuildYourOwnX";
+import BooksSection from "./normal/BooksSection";
 
 const NormalMode = () => {
   return (
@@ -26,6 +27,7 @@ const NormalMode = () => {
         <ProjectsSection />
         <OpenSourceSection />
         <BuildYourOwnXSection />
+        <BooksSection />
         <YouTubeSection />
         <ArticlesSection />
         <ConnectSection />

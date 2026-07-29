@@ -11,7 +11,8 @@ import {
   AppWindow,
   Hammer,
   Rocket,
-  Award
+  Award,
+  BookOpen
 } from 'lucide-react';
 
 interface NavItem {
@@ -36,6 +37,7 @@ const FloatingNavigation = () => {
     { id: 'projects', icon: <AppWindow className="h-5 w-5" />, label: 'Projects' },
     { id: 'opensource', icon: <Github className="h-5 w-5" />, label: 'Open Source' },
     { id: 'buildyourownx', icon: <Hammer className="h-5 w-5" />, label: 'Build Your Own X' },
+    { id: 'books', icon: <BookOpen className="h-5 w-5" />, label: 'Books' },
     { id: 'youtube', icon: <Youtube className="h-5 w-5" />, label: 'YouTube' },
     { id: 'articles', icon: <FileText className="h-5 w-5" />, label: 'Articles' },
     { id: 'connect', icon: <MessageCircle className="h-5 w-5" />, label: 'Connect' },
