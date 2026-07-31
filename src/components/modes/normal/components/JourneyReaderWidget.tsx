@@ -80,6 +80,7 @@ const JourneyReaderWidget = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [audioSrc, setAudioSrc] = useState<string>("/audio/intro.mp3");
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
@@ -94,6 +95,23 @@ const JourneyReaderWidget = () => {
         setCues(parsed);
       })
       .catch((err) => console.error("Failed to load VTT:", err));
+
+    // Fetch audio as blob to ensure seeking works on static hosts (Cloudflare/Vercel)
+    // without relying on HTTP Range request support
+    let objectUrl = "";
+    fetch("/audio/intro.mp3")
+      .then((res) => res.blob())
+      .then((blob) => {
+        objectUrl = URL.createObjectURL(blob);
+        setAudioSrc(objectUrl);
+      })
+      .catch((err) => console.error("Failed to load audio blob:", err));
+
+    return () => {
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
   }, []);
 
   // Scroll the active cue into view
@@ -204,7 +222,7 @@ const JourneyReaderWidget = () => {
       {/* Hidden audio element */}
       <audio
         ref={audioRef}
-        src="/audio/intro.mp3"
+        src={audioSrc}
         preload="metadata"
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
