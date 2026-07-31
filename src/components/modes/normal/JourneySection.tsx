@@ -15,18 +15,7 @@ const JourneySection = () => {
 
         {/* Story */}
         <div className="bg-card rounded-lg border border-border p-6 sm:p-8 shadow-sm mb-12 sm:mb-16">
-          <JourneyReaderWidget text={journey.story} />
-          
-          <div className="prose prose-sm sm:prose-base max-w-none">
-            {journey.story.split('\n\n').map((paragraph, index) => (
-              <p
-                key={index}
-                className="text-muted-foreground leading-relaxed mb-4 last:mb-0 text-sm sm:text-base"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <JourneyReaderWidget />
         </div>
 
         {/* Timeline */}

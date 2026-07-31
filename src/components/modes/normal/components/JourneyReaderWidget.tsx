@@ -1,213 +1,293 @@
-import { useState, useEffect, useRef } from 'react';
-import { Play, Pause, Square } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Play, Pause, Square, Volume2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-interface JourneyReaderWidgetProps {
+interface VttCue {
+  index: number;
+  startTime: number;
+  endTime: number;
   text: string;
 }
 
-const JourneyReaderWidget = ({ text }: JourneyReaderWidgetProps) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [speechSynthesis, setSpeechSynthesis] = useState<SpeechSynthesis | null>(null);
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+/** Parse a WebVTT timestamp like "00:01:23,456" into seconds */
+function parseVttTimestamp(raw: string): number {
+  const cleaned = raw.trim().replace(",", ".");
+  const parts = cleaned.split(":");
+  if (parts.length === 3) {
+    return (
+      parseFloat(parts[0]) * 3600 +
+      parseFloat(parts[1]) * 60 +
+      parseFloat(parts[2])
+    );
+  }
+  if (parts.length === 2) {
+    return parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
+  }
+  return parseFloat(cleaned);
+}
 
-  // Refs to manage state within speech synthesis callbacks without stale closures
-  const chunksRef = useRef<string[]>([]);
-  const currentChunkIndexRef = useRef(0);
-  const isPlayingRef = useRef(false);
-  const isPausedRef = useRef(false);
+/** Parse a WebVTT file string into an array of cues */
+function parseVtt(vttText: string): VttCue[] {
+  const cues: VttCue[] = [];
+  // Normalize line endings
+  const lines = vttText.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n");
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      setSpeechSynthesis(window.speechSynthesis);
-      
-      const updateVoices = () => {
-        setVoices(window.speechSynthesis.getVoices());
-      };
-      
-      updateVoices();
-      
-      // Some browsers load voices asynchronously
-      if (window.speechSynthesis.onvoiceschanged !== undefined) {
-        window.speechSynthesis.onvoiceschanged = updateVoices;
+  let i = 0;
+  // Skip the WEBVTT header
+  while (i < lines.length && !lines[i].includes("-->")) {
+    i++;
+  }
+
+  while (i < lines.length) {
+    const line = lines[i];
+    if (line.includes("-->")) {
+      const [startStr, endStr] = line.split("-->");
+      const startTime = parseVttTimestamp(startStr);
+      const endTime = parseVttTimestamp(endStr);
+
+      // Gather cue text (all lines until blank)
+      i++;
+      const textLines: string[] = [];
+      while (i < lines.length && lines[i].trim() !== "") {
+        textLines.push(lines[i].trim());
+        i++;
       }
+
+      cues.push({
+        index: cues.length,
+        startTime,
+        endTime,
+        text: textLines.join(" "),
+      });
+    } else {
+      i++;
     }
-    
-    return () => {
-      // Clean up speech synthesis when component unmounts
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
-    };
+  }
+
+  return cues;
+}
+
+function formatTime(seconds: number): string {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
+}
+
+const JourneyReaderWidget = () => {
+  const [cues, setCues] = useState<VttCue[]>([]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [activeCueIndex, setActiveCueIndex] = useState<number>(-1);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [progress, setProgress] = useState(0);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const transcriptRef = useRef<HTMLDivElement>(null);
+  const activeCueRef = useRef<HTMLSpanElement>(null);
+
+  // Load and parse the VTT file
+  useEffect(() => {
+    fetch("/audio/intro.vvt")
+      .then((res) => res.text())
+      .then((text) => {
+        const parsed = parseVtt(text);
+        setCues(parsed);
+      })
+      .catch((err) => console.error("Failed to load VTT:", err));
   }, []);
 
-  const getPreferredVoice = () => {
-    if (!voices.length) return null;
-    
-    // 1. Try to find a male English voice (prioritizing Google UK/US Male)
-    let voice = voices.find(v => 
-      (v.name.includes('Male') || v.name.includes('male') || v.name.includes('Google UK English Male')) && 
-      v.lang.startsWith('en')
-    );
-    
-    // 2. Fallback to any UK English or US English voice
-    if (!voice) {
-      voice = voices.find(v => v.lang === 'en-GB' || v.lang === 'en-US');
+  // Scroll the active cue into view
+  useEffect(() => {
+    if (activeCueRef.current && transcriptRef.current) {
+      activeCueRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
-    
-    // 3. Fallback to any English voice
-    if (!voice) {
-      voice = voices.find(v => v.lang.startsWith('en'));
-    }
-    
-    // 4. Default to the first available voice
-    return voice || voices[0];
-  };
+  }, [activeCueIndex]);
 
-  const getChunks = (textToChunk: string) => {
-    // Split by common sentence boundaries to fix Android long-text bugs and get progress updates
-    const regex = /[^.!?]+[.!?]+/g;
-    let matches = textToChunk.match(regex);
-    
-    if (!matches) {
-      matches = [textToChunk];
-    } else {
-      const joined = matches.join('');
-      if (joined.length < textToChunk.length) {
-        matches.push(textToChunk.slice(joined.length));
+  const handleTimeUpdate = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || cues.length === 0) return;
+
+    const time = audio.currentTime;
+    setCurrentTime(time);
+
+    if (audio.duration && isFinite(audio.duration)) {
+      setProgress((time / audio.duration) * 100);
+    }
+
+    // Find the active cue
+    let foundIndex = -1;
+    for (let i = 0; i < cues.length; i++) {
+      if (time >= cues[i].startTime && time < cues[i].endTime) {
+        foundIndex = i;
+        break;
       }
     }
-    return matches.map(c => c.trim()).filter(Boolean);
-  };
-
-  const speakChunk = (chunkIndex: number) => {
-    if (!speechSynthesis || !isPlayingRef.current || isPausedRef.current) return;
-    
-    if (chunkIndex >= chunksRef.current.length) {
-      handleStop();
-      return;
-    }
-
-    const chunk = chunksRef.current[chunkIndex];
-    const utterance = new SpeechSynthesisUtterance(chunk);
-    
-    const preferredVoice = getPreferredVoice();
-    if (preferredVoice) {
-      utterance.voice = preferredVoice;
-    }
-    
-    utterance.rate = 1.15; // Increased reading speed
-
-    utterance.onend = () => {
-      if (!isPlayingRef.current) return; // Ignore if stopped manually
-      
-      currentChunkIndexRef.current += 1;
-      
-      // Update overall progress based on completed chunks
-      const overallProgress = (currentChunkIndexRef.current / chunksRef.current.length) * 100;
-      setProgress(Math.min(100, overallProgress));
-      
-      // Speak the next chunk
-      speakChunk(currentChunkIndexRef.current);
-    };
-
-    utterance.onerror = (e) => {
-      // Ignore errors caused by manual interruption or cancellation
-      if (e.error !== 'interrupted' && e.error !== 'canceled') {
-        handleStop();
+    // If between cues, keep the last one highlighted
+    if (foundIndex === -1 && time > 0) {
+      for (let i = cues.length - 1; i >= 0; i--) {
+        if (time >= cues[i].startTime) {
+          foundIndex = i;
+          break;
+        }
       }
-    };
-    
-    // onboundary may provide finer progress updates within the current chunk (varies by browser/OS)
-    utterance.onboundary = (event) => {
-      if (event.name === 'word' || event.name === 'sentence') {
-        const chunkProgress = event.charIndex / chunk.length;
-        const overallProgress = ((chunkIndex + chunkProgress) / chunksRef.current.length) * 100;
-        setProgress(Math.min(100, overallProgress));
-      }
-    };
+    }
+    setActiveCueIndex(foundIndex);
+  }, [cues]);
 
-    speechSynthesis.speak(utterance);
-  };
+  const handleLoadedMetadata = useCallback(() => {
+    const audio = audioRef.current;
+    if (audio && isFinite(audio.duration)) {
+      setDuration(audio.duration);
+    }
+  }, []);
+
+  const handleEnded = useCallback(() => {
+    setIsPlaying(false);
+    setActiveCueIndex(-1);
+    setProgress(0);
+    setCurrentTime(0);
+  }, []);
 
   const handlePlayPause = () => {
-    if (!speechSynthesis) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    if (isPlaying && !isPaused) {
-      speechSynthesis.pause();
-      setIsPaused(true);
-      isPausedRef.current = true;
-    } else if (isPlaying && isPaused) {
-      speechSynthesis.resume();
-      setIsPaused(false);
-      isPausedRef.current = false;
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
     } else {
-      // Start speaking
-      speechSynthesis.cancel(); // Clear any pending speech queue
-      
-      chunksRef.current = getChunks(text);
-      currentChunkIndexRef.current = 0;
-      
+      audio.play();
       setIsPlaying(true);
-      isPlayingRef.current = true;
-      setIsPaused(false);
-      isPausedRef.current = false;
-      setProgress(0);
-      
-      speakChunk(0);
     }
   };
 
   const handleStop = () => {
-    if (!speechSynthesis) return;
-    speechSynthesis.cancel();
-    
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.pause();
+    audio.currentTime = 0;
     setIsPlaying(false);
-    isPlayingRef.current = false;
-    setIsPaused(false);
-    isPausedRef.current = false;
-    
+    setActiveCueIndex(-1);
     setProgress(0);
-    currentChunkIndexRef.current = 0;
+    setCurrentTime(0);
   };
 
-  if (!speechSynthesis) return null;
+  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const audio = audioRef.current;
+    if (!audio || !isFinite(audio.duration)) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const ratio = clickX / rect.width;
+    audio.currentTime = ratio * audio.duration;
+  };
+
+  const handleCueClick = (cue: VttCue) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.currentTime = cue.startTime;
+    if (!isPlaying) {
+      audio.play();
+      setIsPlaying(true);
+    }
+  };
+
+  if (cues.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap items-center gap-2 mb-6 bg-secondary/30 p-2 rounded-lg border border-border/50 w-fit">
-      <span className="text-sm text-muted-foreground px-2 font-medium">Reader</span>
-      <Button
-        variant={isPlaying ? "default" : "outline"}
-        size="sm"
-        onClick={handlePlayPause}
-        className="flex items-center gap-2 transition-smooth h-8"
-      >
-        {isPlaying && !isPaused ? (
-          <><Pause className="w-3.5 h-3.5" /> Pause</>
-        ) : (
-          <><Play className="w-3.5 h-3.5" /> {isPlaying ? 'Resume' : 'Listen'}</>
-        )}
-      </Button>
-      {isPlaying && (
-        <>
-          <div className="w-24 sm:w-32 h-2.5 bg-background/50 rounded-full overflow-hidden border border-border/30 mx-2">
-            <div 
-              className="h-full bg-primary transition-all duration-200 ease-out" 
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+    <div className="journey-reader">
+      {/* Hidden audio element */}
+      <audio
+        ref={audioRef}
+        src="/audio/intro.mp3"
+        preload="metadata"
+        onTimeUpdate={handleTimeUpdate}
+        onLoadedMetadata={handleLoadedMetadata}
+        onEnded={handleEnded}
+      />
+
+      {/* Controls bar */}
+      <div className="flex flex-wrap items-center gap-2 bg-secondary/30 p-2 rounded-t-lg border border-border/50 border-b-0">
+        <span className="text-sm text-muted-foreground px-2 font-medium flex items-center gap-1.5">
+          <Volume2 className="w-3.5 h-3.5" />
+          Listen
+        </span>
+        <Button
+          variant={isPlaying ? "default" : "outline"}
+          size="sm"
+          onClick={handlePlayPause}
+          className="flex items-center gap-2 transition-smooth h-8"
+        >
+          {isPlaying ? (
+            <>
+              <Pause className="w-3.5 h-3.5" /> Pause
+            </>
+          ) : (
+            <>
+              <Play className="w-3.5 h-3.5" /> Play
+            </>
+          )}
+        </Button>
+
+        {/* Progress bar */}
+        <div
+          className="journey-progress-bar flex-1 min-w-[6rem] h-2.5 bg-background/50 rounded-full overflow-hidden border border-border/30 cursor-pointer mx-1"
+          onClick={handleProgressClick}
+          role="slider"
+          aria-label="Audio progress"
+          aria-valuenow={Math.round(progress)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          tabIndex={0}
+        >
+          <div
+            className="h-full bg-primary rounded-full transition-[width] duration-150 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        {/* Time display */}
+        <span className="text-xs text-muted-foreground font-mono tabular-nums whitespace-nowrap px-1">
+          {formatTime(currentTime)} / {formatTime(duration)}
+        </span>
+
+        {isPlaying && (
           <Button
             variant="outline"
             size="sm"
             onClick={handleStop}
-            className="text-red-500 hover:text-red-600 hover:bg-red-500/10 border-red-500/20 transition-smooth h-8 ml-1"
+            className="text-red-500 hover:text-red-600 hover:bg-red-500/10 border-red-500/20 transition-smooth h-8"
           >
             <Square className="w-3.5 h-3.5 mr-1.5" /> Stop
           </Button>
-        </>
-      )}
+        )}
+      </div>
+
+      {/* Synced transcript */}
+      <div
+        ref={transcriptRef}
+        className="journey-transcript bg-card/60 rounded-b-lg border border-border/50 p-4 sm:p-5 max-h-48 overflow-y-auto"
+      >
+        <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
+          {cues.map((cue) => (
+            <span
+              key={cue.index}
+              ref={cue.index === activeCueIndex ? activeCueRef : null}
+              className={`journey-cue cursor-pointer transition-all duration-300 ease-out rounded-sm px-0.5 -mx-0.5 ${
+                cue.index === activeCueIndex ? "journey-cue-active" : ""
+              }`}
+              onClick={() => handleCueClick(cue)}
+            >
+              {cue.text}{" "}
+            </span>
+          ))}
+        </p>
+      </div>
     </div>
   );
 };

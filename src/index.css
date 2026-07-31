@@ -332,3 +332,55 @@
 .theme-toggle-icon {
   animation: theme-toggle-spin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
+/* Journey audio reader transcript */
+.journey-transcript {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.journey-transcript::-webkit-scrollbar {
+  width: 5px;
+}
+
+.journey-transcript::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.journey-transcript::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 9999px;
+}
+
+.journey-cue {
+  display: inline;
+  transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.journey-cue:hover {
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--primary) / 0.08);
+}
+
+.journey-cue-active {
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--primary) / 0.25);
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.15);
+  border-radius: 3px;
+  padding: 1px 3px;
+  margin: -1px -3px;
+  font-weight: 500;
+}
+
+/* Light mode journey reader overrides */
+.light .journey-cue-active {
+  background-color: hsl(233 58% 28% / 0.15);
+  box-shadow: 0 0 0 4px hsl(233 58% 28% / 0.1);
+  color: hsl(233 58% 20%);
+  font-weight: 500;
+}
+
+.light .journey-cue:hover {
+  color: hsl(233 58% 20%);
+  background-color: hsl(233 58% 28% / 0.06);
+}
