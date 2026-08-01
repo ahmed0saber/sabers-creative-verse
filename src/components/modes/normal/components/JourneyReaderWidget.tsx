@@ -239,7 +239,7 @@ const JourneyReaderWidget = () => {
           variant={isPlaying ? "default" : "outline"}
           size="sm"
           onClick={handlePlayPause}
-          className="flex items-center gap-2 transition-smooth h-8"
+          className="flex items-center justify-center gap-2 transition-smooth h-8 w-[88px]"
         >
           {isPlaying ? (
             <>
@@ -274,16 +274,19 @@ const JourneyReaderWidget = () => {
           {formatTime(currentTime)} / {formatTime(duration)}
         </span>
 
-        {isPlaying && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleStop}
-            className="text-red-500 hover:text-red-600 hover:bg-red-500/10 border-red-500/20 transition-smooth h-8"
-          >
-            <Square className="w-3.5 h-3.5 mr-1.5" /> Stop
-          </Button>
-        )}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleStop}
+          disabled={!isPlaying && currentTime === 0}
+          className={`h-8 transition-smooth w-[80px] flex items-center justify-center ${
+            !isPlaying && currentTime === 0
+              ? "opacity-50 cursor-not-allowed"
+              : "text-red-500 hover:text-red-600 hover:bg-red-500/10 border-red-500/20"
+          }`}
+        >
+          <Square className="w-3.5 h-3.5 mr-1.5" /> Stop
+        </Button>
       </div>
 
       {/* Synced transcript */}
