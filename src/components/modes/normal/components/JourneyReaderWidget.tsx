@@ -115,14 +115,14 @@ const JourneyReaderWidget = () => {
   }, []);
 
   // Scroll the active cue into view
-  useEffect(() => {
-    if (activeCueRef.current && transcriptRef.current) {
-      activeCueRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
-  }, [activeCueIndex]);
+  // useEffect(() => {
+  //   if (activeCueRef.current && transcriptRef.current) {
+  //     activeCueRef.current.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "center",
+  //     });
+  //   }
+  // }, [activeCueIndex]);
 
   const handleTimeUpdate = useCallback(() => {
     const audio = audioRef.current;
@@ -230,16 +230,16 @@ const JourneyReaderWidget = () => {
       />
 
       {/* Controls bar */}
-      <div className="flex flex-wrap items-center gap-2 bg-secondary/30 p-2 rounded-t-lg border border-border/50 border-b-0">
-        <span className="text-sm text-muted-foreground px-2 font-medium flex items-center gap-1.5">
+      <div className="flex flex-wrap sm:flex-nowrap items-center gap-y-3 gap-x-2 bg-secondary/30 p-2 rounded-t-lg border border-border/50 border-b-0">
+        {/* <span className="order-1 text-sm text-muted-foreground px-1 sm:px-2 font-medium flex items-center gap-1.5">
           <Volume2 className="w-3.5 h-3.5" />
           Listen
-        </span>
+        </span> */}
         <Button
           variant={isPlaying ? "default" : "outline"}
           size="sm"
           onClick={handlePlayPause}
-          className="flex items-center justify-center gap-2 transition-smooth h-8 w-[88px]"
+          className="order-2 flex items-center justify-center gap-2 transition-smooth h-8 w-[88px]"
         >
           {isPlaying ? (
             <>
@@ -252,34 +252,12 @@ const JourneyReaderWidget = () => {
           )}
         </Button>
 
-        {/* Progress bar */}
-        <div
-          className="journey-progress-bar flex-1 min-w-[6rem] h-2.5 bg-background/50 rounded-full overflow-hidden border border-border/30 cursor-pointer mx-1"
-          onClick={handleProgressClick}
-          role="slider"
-          aria-label="Audio progress"
-          aria-valuenow={Math.round(progress)}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          tabIndex={0}
-        >
-          <div
-            className="h-full bg-primary rounded-full transition-[width] duration-150 ease-out"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-
-        {/* Time display */}
-        <span className="text-xs text-muted-foreground font-mono tabular-nums whitespace-nowrap px-1">
-          {formatTime(currentTime)} / {formatTime(duration)}
-        </span>
-
         <Button
           variant="outline"
           size="sm"
           onClick={handleStop}
           disabled={!isPlaying && currentTime === 0}
-          className={`h-8 transition-smooth w-[80px] flex items-center justify-center ${
+          className={`order-3 sm:order-4 h-8 transition-smooth w-[80px] flex items-center justify-center ${
             !isPlaying && currentTime === 0
               ? "opacity-50 cursor-not-allowed"
               : "text-red-500 hover:text-red-600 hover:bg-red-500/10 border-red-500/20"
@@ -287,6 +265,31 @@ const JourneyReaderWidget = () => {
         >
           <Square className="w-3.5 h-3.5 mr-1.5" /> Stop
         </Button>
+
+        {/* Progress and Time Wrapper */}
+        <div className="order-4 sm:order-3 flex items-center gap-3 flex-1 w-full sm:w-auto mt-1 sm:mt-0 px-1 sm:px-0">
+          {/* Progress bar */}
+          <div
+            className="journey-progress-bar flex-1 min-w-[6rem] h-2.5 bg-background/50 rounded-full overflow-hidden border border-border/30 cursor-pointer"
+            onClick={handleProgressClick}
+            role="slider"
+            aria-label="Audio progress"
+            aria-valuenow={Math.round(progress)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            tabIndex={0}
+          >
+            <div
+              className="h-full bg-primary rounded-full transition-[width] duration-150 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+
+          {/* Time display */}
+          <span className="text-xs text-muted-foreground font-mono tabular-nums whitespace-nowrap">
+            {formatTime(currentTime)} / {formatTime(duration)}
+          </span>
+        </div>
       </div>
 
       {/* Synced transcript */}
